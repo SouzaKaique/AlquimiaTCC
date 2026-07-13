@@ -287,6 +287,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   reiniciarSimulacao(): void {
+    // limpa efeitos e posições locais antes de pedir um novo estado ao backend
     this.fogoAtivo.set(false);
     this.hoverChama.set(false);
     this.tuboX.set(null);
@@ -298,6 +299,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   onTubePointerDown(event: MouseEvent): void {
+    // inicia o arraste manual do tubo pela bancada
     if ((event.target as HTMLElement)?.closest('.tube-drop-zone')) {
       return;
     }
@@ -356,6 +358,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   onTubeDrop(event: DragEvent): void {
+    // quando um reagente cai no tubo, apenas o nome é enviado para o backend
     event.preventDefault();
     this.hoverTubo.set(false);
 
@@ -377,6 +380,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   executarAcao(acao: string): void {
+    // agitação e centrifugação passam pelo mini-simulador antes de chamar a API
     if (!acao || this.acaoEmAndamento()) {
       return;
     }
@@ -448,6 +452,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   iniciarProcessoEquipamento(): void {
+    // simula o tempo do equipamento e só depois confirma a ação no backend
     const equipamento = this.simuladorEquipamento();
     if (!equipamento || !this.tuboNoEquipamento() || this.processamentoEquipamento()) {
       return;
@@ -476,6 +481,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   private carregarEstadoOuIniciar(): void {
+    // tenta restaurar a simulação ativa; se não existir, inicia uma nova
     this.carregando.set(true);
     this.erroCarregamento.set('');
 
@@ -504,6 +510,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   private iniciarSimulacao(): void {
+    // cria uma marcha limpa no backend e sincroniza a tela
     this.carregando.set(true);
     this.erroCarregamento.set('');
 
@@ -528,6 +535,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   private adicionarReagente(reagente: string): void {
+    // aplica o reagente e ativa um feedback visual curto no tubo
     this.simulacaoApi.aplicarReagente(reagente).subscribe({
       next: (resposta) => {
         this.erroCarregamento.set('');

@@ -11,6 +11,7 @@ from visual.estado_visual import atualizar_cena
 def aplicar_reagente_marcha(estado: dict[str, Any], reagente: str) -> dict[str, Any]:
     etapa = estado["etapa_corrente"]
 
+    # cada grupo tem suas próprias regras, mas todos compartilham o mesmo estado da marcha
     if etapa == 1:
         teste_chama.aplicar_reagente(estado, reagente)
     elif etapa == 2:
@@ -27,6 +28,7 @@ def aplicar_reagente_marcha(estado: dict[str, Any], reagente: str) -> dict[str, 
 def executar_acao(estado: dict[str, Any], acao: str) -> dict[str, Any]:
     etapa = estado["etapa_corrente"]
 
+    # as ações avançam fases internas sem expor essa complexidade para o frontend
     if acao == "iniciar_roteiro" and etapa == 0:
         registrar_evento(estado, "Roteiro iniciado. A bancada foi preparada com o grupo 1.")
         estado["etapa_corrente"] = 1
@@ -55,6 +57,7 @@ def executar_acao(estado: dict[str, Any], acao: str) -> dict[str, Any]:
 
 class MarchaAnalitica:
     def __init__(self, estado: dict[str, Any] | None = None):
+        # reutiliza o estado salvo quando existe; caso contrário inicia uma marcha limpa
         self.estado = estado if estado and "etapa_corrente" in estado else criar_estado_inicial()
 
     def aplicar_reagente(self, reagente: str) -> dict[str, Any]:

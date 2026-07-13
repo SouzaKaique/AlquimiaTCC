@@ -8,6 +8,7 @@ from simulacao.motor import MotorSimulacao
 
 class ServicoSimulacao:
     def iniciar(self, usuario_id: int) -> dict:
+        # cada usuário mantém apenas uma simulação ativa por vez
         Simulacao.query.filter_by(usuario_id=usuario_id, ativa=True).update({"ativa": False})
 
         motor = MotorSimulacao()
@@ -31,6 +32,7 @@ class ServicoSimulacao:
         if not simulacao:
             return None
 
+        # o motor recebe o estado salvo, aplica a regra química e devolve o novo estado serializado
         motor = MotorSimulacao(estado_json=simulacao.estado_json)
         return {"estado": motor.obter_estado_publico()}
 
@@ -39,6 +41,7 @@ class ServicoSimulacao:
         if not simulacao:
             return None
 
+        # ações como agitar, centrifugar e aquecer passam pelo mesmo motor da marcha
         motor = MotorSimulacao(estado_json=simulacao.estado_json)
         simulacao.estado_json = motor.aplicar_reagente(reagente)
         self.registrar_historico(

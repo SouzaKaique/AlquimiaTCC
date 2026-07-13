@@ -1,4 +1,4 @@
-import copy
+﻿import copy
 from typing import Any
 
 from dados.catalogos_marcha import ACTION_CATALOG, DEFAULT_VISUAL, REAGENT_CATALOG, STAGE_DEFINITIONS
@@ -20,6 +20,7 @@ def criar_estado_inicial() -> dict[str, Any]:
             }
         )
 
+    # este dicionÃ¡rio Ã© o contrato central entre backend, frontend e relatÃ³rio
     estado = {
         "schema_version": 1,
         "simulacao_tipo": "marcha-por-grupos",
@@ -78,6 +79,7 @@ def obter_catalogo_reagentes(estado: dict[str, Any]) -> list[dict[str, Any]]:
     reagentes = []
 
     for item in REAGENT_CATALOG:
+        # libera apenas os reagentes compatÃ­veis com a etapa e a fase interna atual
         if etapa not in item["etapas"]:
             continue
 
@@ -114,6 +116,7 @@ def obter_acoes_disponiveis(estado: dict[str, Any]) -> list[dict[str, Any]]:
     acoes = []
 
     if etapa == 0:
+        # a introduÃ§Ã£o sÃ³ permite iniciar o roteiro
         acoes.append(criar_acao("iniciar_roteiro"))
 
     if etapa == 1 and estado["grupo1"]["pendencia"] == "aquecer":

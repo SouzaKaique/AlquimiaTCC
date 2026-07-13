@@ -35,6 +35,7 @@ def aplicar_reagente():
     if not reagente:
         return jsonify({"error": "Reagente nao informado."}), 400
 
+    # a rota valida a entrada e delega a regra da marcha para o serviço
     resposta = servico_simulacao.aplicar_reagente(int(get_jwt_identity()), reagente)
 
     if not resposta:
@@ -62,6 +63,7 @@ def executar_acao():
 
 
 def _executar_acao(acao: str, descricao_historico: str):
+    # centraliza ações vindas de botões diferentes, mantendo o contrato HTTP simples
     resposta = servico_simulacao.executar_acao(
         usuario_id=int(get_jwt_identity()),
         acao=acao,
