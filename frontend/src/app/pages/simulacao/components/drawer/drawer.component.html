@@ -1,0 +1,50 @@
+<div class="drawer-backdrop" [class.open]="aberto" (click)="fechar.emit()"></div>
+
+<aside class="profile-drawer" [class.open]="aberto">
+  <div class="profile-menu-header">
+    <div class="profile-avatar">
+      <img src="/assets/img/user.png" alt="Usuário" />
+    </div>
+    <div class="profile-name">{{ usuarioNome }}</div>
+  </div>
+
+  <div class="profile-menu-body">
+    <a
+      class="menu-item"
+      routerLink="/simulacao"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="fechar.emit()"
+    >
+      <span class="menu-icon">
+        <span class="menu-pixel-icon">L</span>
+      </span>
+      <span class="menu-label">Laboratório</span>
+      <span class="menu-arrow">></span>
+    </a>
+
+    <a class="menu-item" routerLink="/quiz" routerLinkActive="active" (click)="fechar.emit()">
+      <span class="menu-icon">
+        <span class="menu-pixel-icon">Q</span>
+      </span>
+      <span class="menu-label">Quiz</span>
+      <span class="menu-arrow">></span>
+    </a>
+
+    <a class="menu-item" routerLink="/relatorio" routerLinkActive="active" (click)="fechar.emit()">
+      <span class="menu-icon">
+        <span class="menu-pixel-icon">R</span>
+      </span>
+      <span class="menu-label">Relatório</span>
+      <span class="menu-arrow">></span>
+    </a>
+
+    <button type="button" class="menu-item menu-item-danger" (click)="sair.emit()">
+      <span class="menu-icon">
+        <img src="/assets/img/icon-sair.png" alt="Sair" />
+      </span>
+      <span class="menu-label">Sair</span>
+      <span class="menu-arrow">></span>
+    </button>
+  </div>
+</aside>

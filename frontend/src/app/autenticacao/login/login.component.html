@@ -1,0 +1,50 @@
+<app-auth-layout>
+  <h1 class="titulo">ENTRAR</h1>
+
+  <img src="assets/img/user.png" class="icone-usuario" alt="Usuário" />
+
+  <form (ngSubmit)="login()" #formEl>
+    <div class="mb-2">
+      <input
+        type="text"
+        class="form-control input-pixel"
+        placeholder="Usuário"
+        name="usuario"
+        [(ngModel)]="usuario"
+        autocomplete="username"
+        required
+      />
+    </div>
+
+    <div class="mb-2 position-relative">
+      <input
+        [type]="mostrarSenha ? 'text' : 'password'"
+        class="form-control input-pixel"
+        placeholder="Senha"
+        name="senha"
+        [(ngModel)]="senha"
+        autocomplete="current-password"
+        required
+      />
+
+      <i
+        class="bi icone-olho"
+        [class.bi-eye]="mostrarSenha"
+        [class.bi-eye-slash]="!mostrarSenha"
+        (click)="toggleSenha()"
+      ></i>
+    </div>
+
+    <p class="mensagem-erro" *ngIf="mensagemErro">
+      {{ mensagemErro }}
+    </p>
+
+    <button type="submit" class="botao w-100" [disabled]="carregando">
+      {{ carregando ? 'Entrando...' : 'Logar' }}
+    </button>
+  </form>
+
+  <a routerLink="/registro" class="link-auth">
+    Não possui conta? Registrar
+  </a>
+</app-auth-layout>

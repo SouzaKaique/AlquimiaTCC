@@ -1,0 +1,136 @@
+/* Barra superior, marca e navegacao das etapas. */
+
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  min-height: 80px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: linear-gradient(180deg, rgba(28, 42, 50, 0.96) 0%, rgba(24, 36, 44, 0.92) 100%);
+  border-bottom: 4px solid var(--pixel-border-dark);
+  z-index: 30;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand {
+  color: #f4f1df;
+  font-size: 2rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stage-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.product-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.product-nav-link {
+  min-height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 8px 11px;
+  border: 3px solid rgba(6, 16, 22, 0.82);
+  background: linear-gradient(180deg, rgba(62, 86, 104, 0.82), rgba(38, 58, 72, 0.82));
+  color: #f4f1df;
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1;
+  box-shadow: 0 5px 0 rgba(4, 10, 14, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.13);
+  transition: transform var(--transition-fast), filter var(--transition-fast), background var(--transition-fast);
+}
+
+.product-nav-link:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.product-nav-link.active {
+  background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
+  color: #2f2418;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.stage-btn {
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 3px solid var(--pixel-border-dark);
+  background: linear-gradient(180deg, #52779c 0%, #355272 100%);
+  color: #f4f1df;
+  font-family: inherit;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.stage-btn.active {
+  background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
+  color: #2f2418;
+}
+
+.stage-btn.completed {
+  background: linear-gradient(180deg, #769d71 0%, #4d7048 100%);
+}
+
+.stage-btn.locked,
+.stage-btn:disabled {
+  background: linear-gradient(180deg, #707d84 0%, #4c565c 100%);
+  opacity: 0.8;
+}
+
+.topbar {
+  min-height: 92px;
+  padding: 16px 26px;
+  background:
+    linear-gradient(180deg, rgba(16, 29, 36, 0.98), rgba(11, 21, 28, 0.96)),
+    linear-gradient(90deg, rgba(127, 211, 185, 0.12), rgba(255, 207, 126, 0.08));
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34), inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  max-width: min(48vw, 740px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f5ffe8;
+  text-shadow: 0 0 12px rgba(154, 255, 218, 0.42), 0 2px 0 rgba(0, 0, 0, 0.4);
+  font-size: 1.72rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.stage-nav {
+  max-width: 42vw;
+}
+
+.stage-btn {
+  min-width: 116px;
+  max-width: 154px;
+  padding: 9px 12px;
+  overflow-wrap: anywhere;
+  text-align: center;
+  box-shadow: 0 6px 0 rgba(4, 10, 14, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  border-color: rgba(6, 16, 22, 0.92);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.28);
+}
+
+.stage-btn.active {
+  box-shadow: 0 0 22px rgba(255, 207, 112, 0.38), 0 6px 0 rgba(70, 46, 16, 0.42);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}

@@ -1,0 +1,65 @@
+<app-auth-layout>
+  <h1 class="titulo">REGISTRAR</h1>
+
+  <img src="assets/img/user.png" class="icone-usuario" alt="Usuário" />
+
+  <form (ngSubmit)="registrar()" #formEl>
+    <div class="mb-2">
+      <input
+        type="text"
+        class="form-control input-pixel"
+        placeholder="Usuário"
+        name="usuario"
+        [(ngModel)]="usuario"
+        autocomplete="username"
+        required
+      />
+    </div>
+
+    <div class="mb-2 position-relative">
+      <input
+        [type]="mostrarSenha ? 'text' : 'password'"
+        class="form-control input-pixel"
+        placeholder="Senha"
+        name="senha"
+        [(ngModel)]="senha"
+        autocomplete="new-password"
+        required
+      />
+
+      <i
+        class="bi icone-olho"
+        [ngClass]="mostrarSenha ? 'bi-eye' : 'bi-eye-slash'"
+        (click)="toggleSenha()"
+      ></i>
+    </div>
+
+    <div class="mb-2 position-relative">
+      <input
+        [type]="mostrarConfirmar ? 'text' : 'password'"
+        class="form-control input-pixel"
+        placeholder="Confirmar senha"
+        name="confirmarSenha"
+        [(ngModel)]="confirmarSenha"
+        autocomplete="new-password"
+        required
+      />
+
+      <i
+        class="bi icone-olho"
+        [ngClass]="mostrarConfirmar ? 'bi-eye' : 'bi-eye-slash'"
+        (click)="toggleConfirmar()"
+      ></i>
+    </div>
+
+    <button type="submit" class="botao w-100">Registrar</button>
+
+    <p class="mt-3 text-danger" *ngIf="mensagemErro">
+      {{ mensagemErro }}
+    </p>
+  </form>
+
+  <a routerLink="/" class="link-auth">
+    Ja possui conta? Entrar
+  </a>
+</app-auth-layout>

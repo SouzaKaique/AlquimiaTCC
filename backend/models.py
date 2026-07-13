@@ -1,6 +1,7 @@
 from extensions import db
-from datetime import datetime
 import json
+
+from nucleo.tempo import agora_utc
 
 
 class User(db.Model):
@@ -9,7 +10,10 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     senha_hash = db.Column(db.String(255), nullable=False)
-    data_criacao = db.Column(db.DateTime, default=datetime.utcnow)
+    data_criacao = db.Column(db.DateTime, default=agora_utc)
+
+    simulacoes = db.relationship("Simulacao", backref="usuario", lazy=True)
+
 
 class Reagente(db.Model):
     __tablename__ = "reagentes"
@@ -41,12 +45,33 @@ class Reacao(db.Model):
     reagente2_id = db.Column(db.Integer, db.ForeignKey('reagentes.id'), nullable=False)
 
     tipo = db.Column(db.String(50), nullable=False)
-
-    # Aqui ficam os efeitos estruturados da reação
     efeitos_json = db.Column(db.Text, nullable=False)
 
     def get_efeitos(self):
         return json.loads(self.efeitos_json)
+
+
+class Simulacao(db.Model):
+    __tablename__ = "simulacao"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
+
+    cation_secreto = db.Column(db.String(50), nullable=False)
+
+    estado_json = db.Column(db.Text, nullable=False)
+
+    ativa = db.Column(db.Boolean, default=True)
+
+    data_inicio = db.Column(db.DateTime, default=agora_utc)
+    data_fim = db.Column(db.DateTime)
+
+    def get_estado(self):
+        return json.loads(self.estado_json)
+
+    def set_estado(self, estado_dict):
+        self.estado_json = json.dumps(estado_dict)
 
 
 class Historico(db.Model):
@@ -54,42 +79,17 @@ class Historico(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    usuario_id = db.Column(db.Integer, nullable=False)
-
-    reagente1_id = db.Column(db.Integer, db.ForeignKey("reagentes.id"), nullable=False)
-    reagente2_id = db.Column(db.Integer, db.ForeignKey("reagentes.id"), nullable=False)
-
+    usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
+    reagente1_id = db.Column(db.Integer, db.ForeignKey("reagentes.id"))
+    reagente2_id = db.Column(db.Integer, db.ForeignKey("reagentes.id"))
     resultado = db.Column(db.String(255))
     explicacao = db.Column(db.Text)
 
-    data = db.Column(db.DateTime, default=datetime.utcnow)
+    simulacao_id = db.Column(db.Integer, db.ForeignKey("simulacao.id"), nullable=False)
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "usuario_id": self.usuario_id,
-            "reagente1_id": self.reagente1_id,
-            "reagente2_id": self.reagente2_id,
-            "resultado": self.resultado,
-            "explicacao": self.explicacao,
-            "data": self.data.isoformat()
-        }
+    acao = db.Column(db.String(100))
+    descricao = db.Column(db.Text)
 
+    data = db.Column(db.DateTime, default=agora_utc)
 
-class Simulacao(db.Model):
-    __tablename__ = "simulacao"
-
-    id = db.Column(db.Integer, primary_key=True)
-    usuario_id = db.Column(db.Integer, nullable=False)
-
-    cation_secreto = db.Column(db.String(10), nullable=False)
-
-    estado_json = db.Column(db.Text, nullable=False)
-
-    ativa = db.Column(db.Boolean, default=True)
-
-    def get_estado(self):
-        return json.loads(self.estado_json)
-
-    def set_estado(self, estado_dict):
-        self.estado_json = json.dumps(estado_dict)
+    simulacao = db.relationship("Simulacao", backref="historicos")

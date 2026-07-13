@@ -1,0 +1,152 @@
+<div class="lab-page report-page">
+  <app-simulacao-drawer
+    [aberto]="profileMenuOpen()"
+    [usuarioNome]="usuarioNome()"
+    (fechar)="closeProfileMenu()"
+    (sair)="logout()"
+  ></app-simulacao-drawer>
+
+  <app-simulacao-topbar
+    [etapas]="estado()?.etapas ?? []"
+    [etapaCorrente]="estado()?.etapa_corrente ?? null"
+    (abrirPerfil)="toggleProfileMenu($event)"
+  ></app-simulacao-topbar>
+
+  <main class="report-shell">
+    <section class="report-loading" *ngIf="carregando()">
+      Carregando relatório...
+    </section>
+
+    <section class="report-loading" *ngIf="!carregando() && erro()">
+      <span>{{ erro() }}</span>
+      <button type="button" class="action-btn" (click)="voltarLaboratorio()">Voltar ao laboratório</button>
+    </section>
+
+    <ng-container *ngIf="!carregando() && estado() as relatorio">
+      <section class="report-hero">
+        <div>
+          <span class="report-kicker">Relatório completo</span>
+          <h1>{{ relatorio.roteiro.titulo | textoVisivel }}</h1>
+          <p>{{ relatorio.roteiro.descricao | textoVisivel }}</p>
+        </div>
+
+        <div class="report-actions">
+          <button type="button" class="action-btn" (click)="exportarPdf()">Exportar PDF</button>
+          <button type="button" class="action-btn secondary" (click)="voltarLaboratorio()">
+            Voltar ao laboratório
+          </button>
+        </div>
+      </section>
+
+      <section class="report-metrics">
+        <div>
+          <strong>{{ gruposConcluidos() }}</strong>
+          <span>grupos concluídos</span>
+        </div>
+        <div>
+          <strong>{{ relatorio.progresso }}%</strong>
+          <span>progresso</span>
+        </div>
+        <div>
+          <strong>{{ relatorio.historico.length }}</strong>
+          <span>registros</span>
+        </div>
+        <div>
+          <strong>{{ relatorio.reagentes_disponiveis.length }}</strong>
+          <span>reagentes da etapa</span>
+        </div>
+      </section>
+
+      <section class="report-grid">
+        <article class="report-section">
+          <h2>Resumo</h2>
+          <div class="report-list" *ngIf="resumo().length; else vazioTpl">
+            <div class="report-item" *ngFor="let item of resumo(); trackBy: trackByIndex">
+              {{ item | textoVisivel }}
+            </div>
+          </div>
+        </article>
+
+        <article class="report-section">
+          <h2>Grupos analisados</h2>
+          <div class="stage-timeline">
+            <div
+              class="timeline-step"
+              *ngFor="let etapa of relatorio.etapas; trackBy: trackByEtapa"
+              [class.done]="etapa.concluida"
+              [class.active]="etapa.id === relatorio.etapa_corrente"
+            >
+              <span>{{ etapa.id }}</span>
+              <div>
+                <strong>{{ etapa.label | textoVisivel }}</strong>
+                <small>{{ etapa.observacao | textoVisivel }}</small>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="report-section">
+          <h2>Reagentes</h2>
+          <div class="reagent-mini-grid">
+            <div class="reagent-mini" *ngFor="let reagente of relatorio.reagentes_disponiveis; trackBy: trackByIndex">
+              <span [style.background]="reagente.corCard">{{ reagente.sigla }}</span>
+              <div class="reagent-mini-copy">
+                <strong>{{ reagente.nome | textoVisivel }}</strong>
+                <small>{{ reagente.descricao | textoVisivel }}</small>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="report-section">
+          <h2>Reações e observações</h2>
+          <div class="report-badges">
+            <span *ngIf="relatorio.cena.precipitado">Precipitado identificado</span>
+            <span *ngIf="relatorio.cena.sobrenadante">Sobrenadante separado</span>
+            <span *ngIf="relatorio.teste_chama.ativa">Teste de chama ativo</span>
+            <span>Progresso {{ relatorio.progresso }}%</span>
+          </div>
+          <p class="report-observation">{{ relatorio.observacao_atual | textoVisivel }}</p>
+        </article>
+
+        <article class="report-section wide" *ngIf="precipitacoes().length">
+          <h2>Reagentes precipitantes</h2>
+          <div class="precipitation-grid">
+            <div class="precipitation-card" *ngFor="let item of precipitacoes(); trackBy: trackByIndex">
+              <span class="precipitation-badge">{{ item.grupo | textoVisivel }}</span>
+              <strong>
+                {{ item.reagente_precipitante.nome | textoVisivel }}
+                ({{ item.reagente_precipitante.formula }})
+              </strong>
+              <small>Precipitado: {{ item.precipitado | textoVisivel }}</small>
+              <small>Íons: {{ item.ions.join(', ') }}</small>
+              <p>{{ item.observacao | textoVisivel }}</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="report-section wide">
+          <h2>Linha do tempo</h2>
+          <div class="report-history">
+            <div class="history-row" *ngFor="let item of historicoRecente(); let i = index; trackBy: trackByIndex">
+              <span>{{ i + 1 }}</span>
+              <p>{{ item | textoVisivel }}</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="report-section wide">
+          <h2>Resultado final e conclusão</h2>
+          <p>
+            A conclusão deve relacionar as evidências observadas, os precipitados formados, os testes de chama
+            e a separação dos grupos ao longo da marcha. Use este relatório como registro visual da prática.
+          </p>
+        </article>
+      </section>
+    </ng-container>
+  </main>
+</div>
+
+<ng-template #vazioTpl>
+  <div class="report-item">Sem conclusões registradas até o momento.</div>
+</ng-template>

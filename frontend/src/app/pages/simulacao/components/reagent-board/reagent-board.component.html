@@ -1,0 +1,62 @@
+<div class="reagent-board">
+  <div class="reagent-board-header">
+    <div>
+      <div class="reagent-board-title">Bandeja de reagentes</div>
+      <div class="reagent-board-copy">{{ destaque | textoVisivel }}</div>
+    </div>
+    <div class="reagent-counter">{{ totalReagentes }} ativos</div>
+  </div>
+
+  <div class="selected-reagent">
+    <div class="selected-reagent-chip" [style.background]="reagenteSelecionado?.corCard || '#748792'">
+      {{ reagenteSelecionado?.sigla || '...' }}
+    </div>
+
+    <div class="selected-reagent-copy">
+      <strong>{{ reagenteAtivoTexto | textoVisivel }}</strong>
+      <span>
+        {{ (reagenteSelecionado?.descricao || 'Selecione um reagente e arraste para o tubo.') | textoVisivel }}
+      </span>
+    </div>
+  </div>
+
+  <div class="reagent-list" *ngIf="reagentes.length; else semReagentesTpl">
+    <button
+      type="button"
+      class="reagent-card"
+      *ngFor="let reagente of reagentes; trackBy: trackByReagente"
+      [class.active]="reagenteSelecionado?.nome === reagente.nome"
+      [attr.draggable]="true"
+      (click)="selecionarReagente.emit(reagente)"
+      (dragstart)="iniciarArrasteReagente.emit({ event: $event, reagente })"
+    >
+      <div class="reagent-card-top">
+        <div class="reagent-tag" [style.background]="reagente.corCard">
+          {{ reagente.sigla }}
+        </div>
+      </div>
+
+      <div class="reagent-info">
+        <strong>{{ reagente.nome | textoVisivel }}</strong>
+      </div>
+    </button>
+  </div>
+
+  <ng-template #semReagentesTpl>
+    <div class="reagent-empty">
+      Nenhum reagente disponível nesta etapa. Use os equipamentos ou avance pelo roteiro.
+    </div>
+  </ng-template>
+
+  <div class="board-actions" *ngIf="acoes.length">
+    <button
+      *ngFor="let acao of acoes; trackBy: trackByAcao"
+      type="button"
+      class="action-btn"
+      [class.secondary]="acao.nome === 'centrifugar' || acao.nome === 'desligar_chama'"
+      (click)="executarAcao.emit(acao.nome)"
+    >
+      {{ acao.label | textoVisivel }}
+    </button>
+  </div>
+</div>

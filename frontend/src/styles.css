@@ -1,0 +1,19 @@
+@import 'notyf/notyf.min.css';
+@import './app/shared/styles/index.css';
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-image: url('assets/img/telaFundo.png');
+  background-size: cover;
+  background-position: center;
+  font-family: 'Pixelify Sans', 'Lucida Console', 'Courier New', monospace;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}

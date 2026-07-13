@@ -1,0 +1,316 @@
+<div class="lab-page">
+  <app-simulacao-drawer
+    [aberto]="profileMenuOpen()"
+    [usuarioNome]="usuarioNome()"
+    (fechar)="closeProfileMenu()"
+    (sair)="logout()"
+  ></app-simulacao-drawer>
+
+  <app-simulacao-topbar
+    [etapas]="etapas()"
+    [etapaCorrente]="estado()?.etapa_corrente ?? null"
+    (abrirPerfil)="toggleProfileMenu($event)"
+  ></app-simulacao-topbar>
+
+  <section class="workspace" *ngIf="!carregando() && estado() && cena(); else carregandoTpl">
+    <aside class="sidebar">
+      <div class="panel intro-panel" *ngIf="estado()!.etapa_corrente === 0">
+        <h2>{{ estado()!.roteiro.titulo | textoVisivel }}</h2>
+        <p>{{ estado()!.roteiro.descricao | textoVisivel }}</p>
+        <div class="sample-card">
+          <div class="sample-code">2.0</div>
+          <div class="sample-copy">
+            <strong>Fluxo reorganizado</strong>
+            <span>{{ cena()!.solucao_mae.conteudo | textoVisivel }}</span>
+          </div>
+        </div>
+
+        <div class="intro-guide">
+          <div class="intro-guide-title">Como a prática funciona</div>
+          <div class="intro-guide-step">1. Leia a descrição do grupo e da solução-mãe.</div>
+          <div class="intro-guide-step">2. Selecione ou arraste o reagente até o tubo.</div>
+          <div class="intro-guide-step">3. Use os equipamentos da bancada no momento indicado.</div>
+          <div class="intro-guide-step">4. Observe o histórico, o tubo e o progresso da marcha.</div>
+        </div>
+
+        <div class="intro-actions">
+          <button
+            *ngFor="let acao of acoes(); trackBy: trackByAcao"
+            type="button"
+            class="action-btn intro-action-btn"
+            (click)="executarAcao(acao.nome)"
+          >
+            {{ acao.label | textoVisivel }}
+          </button>
+        </div>
+      </div>
+
+      <div class="panel stage-panel" *ngIf="estado()!.etapa_corrente !== 0 && estado()!.etapa_corrente !== 4">
+        <div class="stage-scroll">
+          <div class="stage-copy">
+            <h2>{{ etapaAtual()?.label | textoVisivel }}</h2>
+            <p class="stage-description">{{ etapaAtual()?.descricao | textoVisivel }}</p>
+          </div>
+
+          <div class="stage-summary">
+            <div class="sample-card compact">
+              <div class="sample-code">{{ etapaAtual()?.id }}</div>
+              <div class="sample-copy">
+                <strong>{{ cena()!.solucao_mae.titulo | textoVisivel }}</strong>
+                <span>{{ cena()!.solucao_mae.subtitulo | textoVisivel }}</span>
+              </div>
+            </div>
+
+            <div class="phase-card">
+              <div class="phase-title">Solução-mãe</div>
+              <div class="phase-copy">{{ cena()!.solucao_mae.conteudo | textoVisivel }}</div>
+            </div>
+
+            <div class="phase-stack" *ngIf="cena()!.precipitado || cena()!.sobrenadante">
+              <div class="phase-card compact-phase" *ngIf="cena()!.precipitado">
+                <div class="phase-title">Precipitado</div>
+                <div class="phase-copy">{{ cena()!.precipitado!.conteudo | textoVisivel }}</div>
+              </div>
+
+              <div class="phase-card compact-phase" *ngIf="cena()!.sobrenadante">
+                <div class="phase-title">Sobrenadante</div>
+                <div class="phase-copy">{{ cena()!.sobrenadante!.conteudo | textoVisivel }}</div>
+              </div>
+            </div>
+          </div>
+
+          <app-reagent-board
+            [destaque]="destaqueReagentes()"
+            [totalReagentes]="totalReagentes()"
+            [reagenteSelecionado]="reagenteSelecionado()"
+            [reagenteAtivoTexto]="reagenteAtivoTexto()"
+            [reagentes]="reagentes()"
+            [acoes]="acoesPainel()"
+            (selecionarReagente)="selecionarReagente($event)"
+            (iniciarArrasteReagente)="onReagentBoardDragStart($event)"
+            (executarAcao)="executarAcao($event)"
+          ></app-reagent-board>
+        </div>
+
+        <div class="stage-footer">
+          <div class="progress-box">
+            <div class="progress-title">Progresso da marcha</div>
+            <div class="progress-track">
+              <div class="progress-fill" [style.width.%]="progresso()"></div>
+            </div>
+            <div class="progress-label">{{ progresso() }}%</div>
+          </div>
+
+          <button class="action-btn secondary reset-btn" type="button" (click)="reiniciarSimulacao()">
+            Reiniciar roteiro
+          </button>
+        </div>
+      </div>
+
+      <div class="panel report-panel report-panel-compact" *ngIf="estado()!.etapa_corrente === 4">
+        <h2>Relatório final</h2>
+
+        <p class="report-lead">
+          A marcha foi concluída. Abra o relatório completo para revisar grupos, observações e histórico.
+        </p>
+
+        <div class="summary-list compact-report-summary" *ngIf="resumoPreview().length; else resumoVazioTpl">
+          <div class="summary-item" *ngFor="let item of resumoPreview(); trackBy: trackByHistorico">
+            {{ item | textoVisivel }}
+          </div>
+        </div>
+
+        <ng-template #resumoVazioTpl>
+          <div class="empty-state">O resumo final será preenchido ao concluir os grupos.</div>
+        </ng-template>
+
+        <button class="action-btn" type="button" (click)="navegarRelatorioCompleto()">
+          Ver relatório completo
+        </button>
+        <button class="action-btn secondary" type="button" (click)="reiniciarSimulacao()">
+          Reiniciar roteiro
+        </button>
+      </div>
+    </aside>
+
+    <main class="scene">
+      <div class="scene-overlay"></div>
+
+      <app-status-box
+        [mensagem]="mensagemReacao()"
+        [etapaLabel]="etapaAtual()?.label || 'Introdução'"
+        [testeChama]="estado()!.teste_chama"
+      ></app-status-box>
+
+      <app-bench-card [card]="cena()!.solucao_mae"></app-bench-card>
+
+      <app-test-tube
+        [visual]="visual()"
+        [hoverTubo]="hoverTubo()"
+        [hoverChama]="hoverChama()"
+        [reagenteSelecionado]="reagenteSelecionado()"
+        [tuboEstilo]="tuboEstilo()"
+        [mostrarBolhas]="mostrarBolhas()"
+        [mostrarFumaca]="mostrarFumaca()"
+        [mostrarAura]="mostrarAura()"
+        [bolhasDecorativas]="bolhasDecorativas"
+        [fumacaDecorativa]="fumacaDecorativa"
+        [dicaTubo]="dicaTubo()"
+        (tuboDragOver)="onTubeDragOver($event)"
+        (tuboDragLeave)="onTubeDragLeave()"
+        (tuboDrop)="onTubeDrop($event)"
+        (tuboPointerDown)="onTubePointerDown($event)"
+      ></app-test-tube>
+
+      <app-bench-card
+        *ngIf="cena()!.precipitado"
+        [card]="cena()!.precipitado!"
+        variante="side"
+      ></app-bench-card>
+
+      <app-bench-card
+        *ngIf="cena()!.sobrenadante"
+        [card]="cena()!.sobrenadante!"
+        variante="side-bottom"
+      ></app-bench-card>
+
+      <div class="equipment-panel">
+        <button
+          type="button"
+          class="equipment-chip"
+          [class.active]="cena()!.equipamentos.agitador"
+          [disabled]="!acaoDisponivel('agitar')"
+          (click)="executarAcao('agitar')"
+        >
+          Agitador
+        </button>
+        <button
+          type="button"
+          class="equipment-chip"
+          [class.active]="cena()!.equipamentos.centrifuga"
+          [disabled]="!acaoDisponivel('centrifugar')"
+          (click)="executarAcao('centrifugar')"
+        >
+          Centrífuga
+        </button>
+        <div class="equipment-chip" [class.active]="cena()!.equipamentos.bico">Bico</div>
+      </div>
+
+      <app-burner
+        *ngIf="cena()!.equipamentos.bico"
+        [hoverChama]="hoverChama()"
+        [testeChama]="estado()!.teste_chama"
+        [fogoAtivo]="fogoAtivo()"
+        [mensagem]="burnerMensagem()"
+        (alternarChama)="ligarOuDesligarChama()"
+      ></app-burner>
+    </main>
+  </section>
+
+  <app-centrifuge
+    [equipamento]="simuladorEquipamento()"
+    [titulo]="equipamentoTitulo()"
+    [instrucao]="equipamentoInstrucao()"
+    [tuboNoEquipamento]="tuboNoEquipamento()"
+    [processamento]="processamentoEquipamento()"
+    [status]="equipamentoStatus()"
+    [botao]="equipamentoBotao()"
+    (fechar)="fecharSimuladorEquipamento()"
+    (iniciarArrasteTubo)="onEquipmentTubeDragStart($event)"
+    (permitirSoltar)="allowEquipmentDrop($event)"
+    (soltarTubo)="onEquipmentDrop($event)"
+    (iniciarProcesso)="iniciarProcessoEquipamento()"
+  ></app-centrifuge>
+
+  <div class="report-modal-overlay" *ngIf="estado()?.etapa_corrente === 4">
+    <section class="report-modal">
+      <div class="report-modal-header">
+        <div>
+          <div class="report-eyebrow">Conclusão da marcha</div>
+          <h2>Relatório final</h2>
+        </div>
+      </div>
+
+      <div class="report-modal-body">
+        <p>
+          Experimento concluído com {{ progresso() }}% de progresso. Confira o resumo principal ou abra o
+          relatório completo para revisar cada evidência registrada.
+        </p>
+
+        <div class="report-kpis">
+          <div>
+            <strong>{{ gruposConcluidos() }}</strong>
+            <span>grupos concluídos</span>
+          </div>
+          <div>
+            <strong>{{ precipitadosEncontrados().length }}</strong>
+            <span>precipitados</span>
+          </div>
+          <div>
+            <strong>{{ tempoGastoTexto() }}</strong>
+            <span>tempo gasto</span>
+          </div>
+        </div>
+
+        <div class="report-modal-highlights">
+          <div>
+            <strong>Observações</strong>
+            <span>{{ mensagemReacao() | textoVisivel }}</span>
+          </div>
+          <div>
+            <strong>Identificação final</strong>
+            <span>{{ identificacaoFinal() | textoVisivel }}</span>
+          </div>
+          <div>
+            <strong>Progresso</strong>
+            <span>{{ progresso() }}%</span>
+          </div>
+        </div>
+
+        <div class="report-modal-precipitant" *ngIf="ultimaPrecipitacao() as precipitacao">
+          <strong>Último reagente precipitante</strong>
+          <span>
+            {{ precipitacao.reagente_precipitante.nome | textoVisivel }}
+            ({{ precipitacao.reagente_precipitante.formula }}) ·
+            {{ precipitacao.precipitado | textoVisivel }}
+          </span>
+        </div>
+
+        <div class="summary-list" *ngIf="resumoModal().length">
+          <div class="summary-item" *ngFor="let item of resumoModal(); trackBy: trackByHistorico">
+            {{ item | textoVisivel }}
+          </div>
+        </div>
+
+        <div class="report-modal-actions">
+          <button class="action-btn" type="button" (click)="navegarRelatorioCompleto()">
+            Ver relatório completo
+          </button>
+          <button class="action-btn" type="button" (click)="exportarRelatorioPdf()">
+            Exportar PDF
+          </button>
+          <button class="action-btn secondary" type="button" (click)="reiniciarSimulacao()">
+            Reiniciar roteiro
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <ng-template #carregandoTpl>
+    <section class="workspace">
+      <aside class="sidebar">
+        <div class="panel loading-panel">
+          <h2>Preparando simulação</h2>
+          <p>Sincronizando a bancada virtual com o backend.</p>
+          <p class="loading-error" *ngIf="erroCarregamento()">
+            {{ erroCarregamento() }}
+          </p>
+        </div>
+      </aside>
+      <main class="scene">
+        <div class="loading-state">Carregando laboratório...</div>
+      </main>
+    </section>
+  </ng-template>
+</div>

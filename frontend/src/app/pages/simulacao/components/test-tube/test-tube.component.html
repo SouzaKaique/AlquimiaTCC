@@ -1,0 +1,45 @@
+<div
+  class="test-tube"
+  [class.tube-hover]="hoverTubo"
+  [class.tube-ready]="!!reagenteSelecionado"
+  [class.tube-heating]="hoverChama"
+  [ngStyle]="tuboEstilo"
+  (dragover)="tuboDragOver.emit($event)"
+  (dragleave)="tuboDragLeave.emit()"
+  (drop)="tuboDrop.emit($event)"
+  (mousedown)="tuboPointerDown.emit($event)"
+>
+  <div class="tube-liquid-viewport">
+    <div
+      class="tube-liquid"
+      [style.height.%]="visual.nivel"
+      [style.background]="visual.gradiente"
+      [class.turbid]="visual.turva"
+    >
+      <div class="tube-bubbles" *ngIf="mostrarBolhas">
+        <span
+          *ngFor="let bubble of bolhasDecorativas; trackBy: trackByDecorativo"
+          class="bubble bubble-{{ bubble }}"
+        ></span>
+      </div>
+      <div
+        class="precipitate"
+        *ngIf="visual.precipitado_ativo"
+        [style.background]="visual.precipitado_cor"
+      ></div>
+    </div>
+    <div class="liquid-surface" [style.bottom.%]="visual.nivel"></div>
+  </div>
+
+  <div class="tube-smoke" *ngIf="mostrarFumaca">
+    <span
+      *ngFor="let smoke of fumacaDecorativa; trackBy: trackByDecorativo"
+      class="smoke smoke-{{ smoke }}"
+    ></span>
+  </div>
+  <div class="tube-aura" *ngIf="mostrarAura"></div>
+  <img class="tube-shell" src="/assets/img/tubo.png" alt="Tubo de ensaio" />
+  <div class="tube-drop-zone">
+    {{ dicaTubo }}
+  </div>
+</div>

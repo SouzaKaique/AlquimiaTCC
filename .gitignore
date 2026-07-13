@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+backend/venv/
+
+# Bancos e configuracoes locais
+backend/instance/
+.env
+.env.*
+!.env.example
+
+# Angular / Node
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+frontend/npm-debug.log*
+
+# IDE e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

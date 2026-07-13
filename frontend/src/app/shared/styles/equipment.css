@@ -1,0 +1,370 @@
+/* Modal e simuladores de agitacao/centrifugacao. */
+
+.equipment-panel {
+  position: absolute;
+  top: 42px;
+  left: 360px;
+  display: flex;
+  gap: 10px;
+}
+
+.equipment-chip {
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 3px solid #314653;
+  background: rgba(42, 58, 69, 0.52);
+  color: #d9e0d4;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.equipment-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.equipment-chip.active {
+  background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
+  color: #2f2418;
+}
+
+.equipment-chip.active::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  background: #fff2bd;
+  box-shadow: 0 0 9px rgba(255, 229, 148, 0.8);
+}
+
+.equipment-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 18, 24, 0.62);
+  display: grid;
+  place-items: center;
+  z-index: 60;
+  padding: 24px;
+  animation: overlayEnter 180ms ease both;
+}
+
+.equipment-dialog {
+  width: min(920px, 100%);
+  min-height: 560px;
+  padding: 22px;
+  border: 4px solid #1d2b35;
+  background: linear-gradient(180deg, rgba(230, 236, 230, 0.98), rgba(206, 217, 214, 0.97));
+  color: #1f2d36;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: dialogEnter 260ms var(--ease-pixel) both;
+}
+
+.equipment-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.equipment-dialog-title {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.equipment-dialog-copy {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  max-width: 560px;
+}
+
+.equipment-dialog-close {
+  width: 42px;
+  height: 42px;
+  border: 3px solid #1d2b35;
+  background: rgba(255, 255, 255, 0.52);
+  color: #1f2d36;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.equipment-workspace {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+}
+
+.equipment-source {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  border: 3px dashed rgba(29, 43, 53, 0.28);
+  background: rgba(255, 255, 255, 0.36);
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.equipment-source-tube {
+  width: 88px;
+  cursor: grab;
+}
+
+.equipment-source-tube img,
+.equipment-drop-tube {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.equipment-dropzone {
+  border: 4px solid #314653;
+  background:
+    linear-gradient(180deg, rgba(68, 96, 118, 0.28), rgba(38, 56, 69, 0.28)),
+    rgba(255, 255, 255, 0.24);
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+}
+
+.equipment-dropzone.has-tube {
+  border-color: #b28a49;
+}
+
+.equipment-dropzone.processing .machine-core {
+  animation: machineSpin 1s linear infinite;
+}
+
+.equipment-machine {
+  width: min(420px, 100%);
+  height: 320px;
+  padding: 24px;
+  border: 4px solid #20303a;
+  background: linear-gradient(180deg, #607786 0%, #354753 100%);
+  display: grid;
+  grid-template-rows: 68px 1fr;
+  gap: 22px;
+}
+
+.centrifuga-machine {
+  border-color: #7d5e35;
+}
+
+.machine-core {
+  width: 120px;
+  height: 18px;
+  margin: 0 auto;
+  border: 3px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.machine-slot {
+  border: 3px dashed rgba(255, 248, 220, 0.42);
+  background: rgba(255, 255, 255, 0.08);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  color: #f4eed7;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.equipment-drop-tube {
+  max-width: 110px;
+}
+
+.equipment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.equipment-status {
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.scene-overlay,
+.status-box,
+.bench-card,
+.equipment-panel,
+.test-tube,
+.burner-area {
+  z-index: 3;
+}
+
+.equipment-overlay {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(137, 255, 216, 0.11), transparent 30%),
+    rgba(8, 15, 20, 0.76);
+  padding: 20px;
+  backdrop-filter: blur(3px);
+}
+
+.equipment-dialog {
+  width: min(760px, calc(100vw - 44px));
+  min-height: 0;
+  max-height: calc(100vh - 48px);
+  padding: 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(238, 247, 239, 0.99), rgba(203, 218, 214, 0.98)),
+    radial-gradient(circle at 18% 20%, rgba(118, 255, 218, 0.18), transparent 24%);
+  box-shadow: 0 0 34px rgba(125, 255, 218, 0.13), 0 24px 58px rgba(0, 0, 0, 0.44);
+}
+
+.equipment-dialog-header {
+  align-items: flex-start;
+}
+
+.equipment-dialog-title {
+  font-size: 1.35rem;
+}
+
+.equipment-dialog-copy {
+  max-width: 640px;
+  font-size: 0.9rem;
+}
+
+.equipment-dialog-close {
+  flex: 0 0 auto;
+}
+
+.equipment-workspace {
+  flex: 0 1 auto;
+  grid-template-columns: minmax(150px, 190px) minmax(300px, 1fr);
+  align-items: stretch;
+  min-height: 270px;
+  max-height: min(360px, calc(100vh - 250px));
+  gap: 16px;
+}
+
+.equipment-workspace.tube-loaded {
+  grid-template-columns: minmax(320px, 1fr);
+}
+
+.equipment-workspace.tube-loaded .equipment-dropzone {
+  max-width: 520px;
+  width: 100%;
+  justify-self: center;
+}
+
+.equipment-source {
+  min-height: 250px;
+  justify-content: center;
+}
+
+.equipment-source-tube {
+  width: 72px;
+  max-height: 190px;
+}
+
+.equipment-source-tube img {
+  max-height: 190px;
+  object-fit: contain;
+}
+
+.equipment-dropzone {
+  min-height: 270px;
+  overflow: hidden;
+  position: relative;
+  transition: border-color var(--transition-med), background var(--transition-med), box-shadow var(--transition-med);
+}
+
+.equipment-dropzone::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.equipment-machine {
+  width: min(360px, 100%);
+  height: min(270px, 100%);
+  max-height: 270px;
+  grid-template-rows: 74px 1fr;
+  background:
+    linear-gradient(180deg, #718a99 0%, #374d5a 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 2px, transparent 2px 18px);
+  box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.2), 0 14px 20px rgba(0, 0, 0, 0.17);
+  transition: transform var(--transition-med), filter var(--transition-med);
+}
+
+.centrifuga-machine .machine-core {
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  border: 8px solid rgba(255, 241, 190, 0.42);
+  background:
+    conic-gradient(from 0deg, #d7f7ff, #5f7f91, #d9c17c, #5f7f91, #d7f7ff);
+  box-shadow: inset 0 0 0 12px rgba(28, 45, 55, 0.72), 0 0 18px rgba(255, 211, 108, 0.24);
+}
+
+.equipment-dropzone.processing .centrifuga-machine .machine-core {
+  animation: centrifugeSpin 0.34s linear infinite;
+}
+
+.machine-slot {
+  min-height: 132px;
+  max-height: 160px;
+  overflow: hidden;
+  position: relative;
+}
+
+.equipment-drop-tube {
+  width: auto;
+  max-width: 70px;
+  max-height: 150px;
+  object-fit: contain;
+  transform-origin: 50% 55%;
+}
+
+.equipment-dropzone.processing .equipment-drop-tube {
+  animation: tubeInMachine 0.36s linear infinite;
+}
+
+.equipment-dropzone.has-tube {
+  box-shadow: inset 0 0 28px rgba(255, 216, 126, 0.16);
+}
+
+.equipment-dropzone.processing {
+  box-shadow: 0 0 28px rgba(127, 255, 218, 0.18), inset 0 0 34px rgba(255, 216, 126, 0.18);
+}
+
+.equipment-dropzone.processing .equipment-machine {
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+}
+
+.equipment-actions {
+  flex: 0 0 auto;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.equipment-actions .action-btn {
+  min-width: 220px;
+  white-space: normal;
+}
+
+.equipment-status {
+  max-width: 430px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 2px solid rgba(49, 70, 83, 0.28);
+  background: rgba(255, 255, 255, 0.32);
+}

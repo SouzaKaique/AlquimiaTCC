@@ -1,0 +1,25 @@
+<div
+  class="burner-area"
+  [class.flame-active]="chamaAtiva"
+  [style.--flame-color]="corChama"
+>
+  <div class="burner-drop-target" [class.active]="hoverChama || testeChama?.ativa"></div>
+  <button class="burner" type="button" (click)="alternarChama.emit()">
+    <div class="burner-visual" [class.test-flame]="testeChama?.ativa">
+      <img
+        class="burner-image"
+        src="/assets/img/bico-off.png"
+        alt="Bico de Bunsen"
+      />
+      <div class="burner-flame" *ngIf="chamaAtiva" aria-hidden="true">
+        <span class="flame-glow"></span>
+        <span class="flame-outer"></span>
+        <span class="flame-inner"></span>
+        <span class="flame-core"></span>
+      </div>
+    </div>
+  </button>
+  <span class="burner-label">
+    {{ mensagem | textoVisivel }}
+  </span>
+</div>

@@ -1,40 +1,33 @@
-from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import get_jwt_identity, jwt_required
+
 from extensions import db
-from models import Simulacao
-from simulacao.engine import verificar_e_aplicar_reacao
+from models import Reagente
+from servicos.servico_simulacao import ServicoSimulacao
 
 reacoes_bp = Blueprint("reacoes", __name__)
+servico_simulacao = ServicoSimulacao()
 
 
 @reacoes_bp.route("/adicionar", methods=["POST"])
 @jwt_required()
 def adicionar_reagente():
-
-    data = request.get_json()
-    user_id = int(get_jwt_identity())
-
+    data = request.get_json(silent=True) or {}
     reagente_id = data.get("reagente_id")
 
     if not reagente_id:
         return jsonify({"error": "Selecione um reagente"}), 400
 
-    simulacao = Simulacao.query.filter_by(
-        usuario_id=user_id,
-        ativa=True
-    ).first()
+    reagente = db.session.get(Reagente, reagente_id)
+    if not reagente:
+        return jsonify({"error": "Reagente nao encontrado"}), 404
 
-    if not simulacao:
-        return jsonify({"error": "Nenhuma simulação ativa"}), 400
-
-    estado = simulacao.get_estado()
-
-    estado_atualizado = verificar_e_aplicar_reacao(
-        estado,
-        reagente_id
+    resposta = servico_simulacao.aplicar_reagente(
+        usuario_id=int(get_jwt_identity()),
+        reagente=reagente.nome,
     )
 
-    simulacao.set_estado(estado_atualizado)
-    db.session.commit()
+    if not resposta:
+        return jsonify({"error": "Nenhuma simulacao ativa"}), 400
 
-    return jsonify(estado_atualizado), 200
+    return jsonify(resposta["estado"]), 200

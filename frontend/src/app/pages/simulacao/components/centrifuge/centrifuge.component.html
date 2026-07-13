@@ -1,0 +1,60 @@
+<div class="equipment-overlay" *ngIf="equipamento">
+  <div class="equipment-dialog">
+    <div class="equipment-dialog-header">
+      <div>
+        <div class="equipment-dialog-title">{{ titulo | textoVisivel }}</div>
+        <div class="equipment-dialog-copy">{{ instrucao | textoVisivel }}</div>
+      </div>
+
+      <button type="button" class="equipment-dialog-close" aria-label="Fechar simulador" (click)="fechar.emit()">
+        ×
+      </button>
+    </div>
+
+    <div class="equipment-workspace" [class.tube-loaded]="tuboNoEquipamento">
+      <div class="equipment-source" *ngIf="!tuboNoEquipamento">
+        <div
+          class="equipment-source-tube"
+          draggable="true"
+          (dragstart)="iniciarArrasteTubo.emit($event)"
+        >
+          <img src="/assets/img/tubo.png" alt="Tubo para equipamento" />
+        </div>
+        <span>Arraste o tubo para dentro do equipamento.</span>
+      </div>
+
+      <div
+        class="equipment-dropzone"
+        [class.has-tube]="tuboNoEquipamento"
+        [class.processing]="processamento"
+        (dragover)="permitirSoltar.emit($event)"
+        (drop)="soltarTubo.emit($event)"
+      >
+        <div class="equipment-machine" [class.centrifuga-machine]="equipamento === equipamentoSimulacao.Centrifuga">
+          <div class="machine-core"></div>
+          <div class="machine-slot">
+            <img
+              *ngIf="tuboNoEquipamento"
+              class="equipment-drop-tube"
+              src="/assets/img/tubo.png"
+              alt="Tubo dentro do equipamento"
+            />
+            <span *ngIf="!tuboNoEquipamento">Solte o tubo aqui</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="equipment-actions">
+      <div class="equipment-status">{{ status | textoVisivel }}</div>
+      <button
+        type="button"
+        class="action-btn"
+        [disabled]="!tuboNoEquipamento || processamento"
+        (click)="iniciarProcesso.emit()"
+      >
+        {{ botao | textoVisivel }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<nav class="topbar">
+  <div class="topbar-left">
+    <button
+      type="button"
+      class="profile-button"
+      (click)="abrirPerfil.emit($event)"
+      aria-label="Abrir menu do perfil"
+    >
+      <img src="/assets/img/user.png" alt="Perfil" />
+    </button>
+
+    <div class="brand">Alquimia | Marcha Analítica 2.0</div>
+  </div>
+
+  <div class="stage-nav" *ngIf="etapas.length">
+    <button
+      type="button"
+      class="stage-btn"
+      *ngFor="let etapa of etapas; trackBy: trackByEtapa"
+      [class.active]="etapaCorrente === etapa.id"
+      [class.completed]="etapa.concluida"
+      [class.locked]="etapa.bloqueada"
+      [disabled]="etapa.bloqueada"
+    >
+      {{ etapa.label | textoVisivel }}
+    </button>
+  </div>
+</nav>

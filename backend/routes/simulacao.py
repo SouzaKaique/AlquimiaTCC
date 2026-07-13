@@ -1,82 +1,85 @@
-from flask import Blueprint, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from extensions import db
-from models import Simulacao
-from simulacao.engine import estado_inicial
-from simulacao.base_quimica import sortear_cation
-import json
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import get_jwt_identity, jwt_required
+
+from servicos.servico_simulacao import ServicoSimulacao
 
 bp = Blueprint("simulacao", __name__)
+servico_simulacao = ServicoSimulacao()
 
-
-# Rota para iniciar simulação
 
 @bp.route("/iniciar", methods=["POST"])
 @jwt_required()
 def iniciar_simulacao():
-
     user_id = int(get_jwt_identity())
 
-    # Encerrar simulações antigas
-    Simulacao.query.filter_by(usuario_id=user_id, ativa=True)\
-        .update({"ativa": False})
+    return jsonify(servico_simulacao.iniciar(user_id)), 201
 
-    cation = sortear_cation()
-
-    nova = Simulacao(
-        usuario_id=user_id,
-        cation_secreto=cation,
-        estado_json=json.dumps(estado_inicial()),
-        ativa=True
-    )
-
-    db.session.add(nova)
-    db.session.commit()
-
-    return jsonify({
-        "mensagem": "Simulação iniciada",
-        "estado": nova.get_estado()
-    }), 201
-
-
-# Rota de estado atual
 
 @bp.route("/estado", methods=["GET"])
 @jwt_required()
 def ver_estado():
+    resposta = servico_simulacao.obter_estado(int(get_jwt_identity()))
 
-    user_id = int(get_jwt_identity())
+    if not resposta:
+        return jsonify({"error": "Nenhuma simulacao ativa."}), 404
 
-    simulacao = Simulacao.query.filter_by(
-        usuario_id=user_id,
-        ativa=True
-    ).first()
+    return jsonify(resposta), 200
 
-    if not simulacao:
-        return jsonify({"error": "Nenhuma simulação ativa"}), 404
 
-    return jsonify(simulacao.get_estado()), 200
+@bp.route("/reagente", methods=["POST"])
+@jwt_required()
+def aplicar_reagente():
+    data = request.get_json(silent=True) or {}
+    reagente = (data.get("reagente") or "").strip()
 
-# Rota para finalizar simulação
+    if not reagente:
+        return jsonify({"error": "Reagente nao informado."}), 400
+
+    resposta = servico_simulacao.aplicar_reagente(int(get_jwt_identity()), reagente)
+
+    if not resposta:
+        return jsonify({"error": "Nenhuma simulacao ativa."}), 404
+
+    return jsonify(resposta), 200
+
+
+@bp.route("/aquecer", methods=["POST"])
+@jwt_required()
+def aquecer():
+    return _executar_acao("aquecer", "Aquecimento executado na etapa atual.")
+
+
+@bp.route("/acao", methods=["POST"])
+@jwt_required()
+def executar_acao():
+    data = request.get_json(silent=True) or {}
+    acao = (data.get("acao") or "").strip()
+
+    if not acao:
+        return jsonify({"error": "Acao nao informada."}), 400
+
+    return _executar_acao(acao, f"Acao executada: {acao}.")
+
+
+def _executar_acao(acao: str, descricao_historico: str):
+    resposta = servico_simulacao.executar_acao(
+        usuario_id=int(get_jwt_identity()),
+        acao=acao,
+        descricao_historico=descricao_historico,
+    )
+
+    if not resposta:
+        return jsonify({"error": "Nenhuma simulacao ativa."}), 404
+
+    return jsonify(resposta), 200
+
 
 @bp.route("/finalizar", methods=["POST"])
 @jwt_required()
 def finalizar_simulacao():
+    finalizada = servico_simulacao.finalizar(int(get_jwt_identity()))
 
-    user_id = int(get_jwt_identity())
+    if not finalizada:
+        return jsonify({"error": "Nenhuma simulacao ativa."}), 404
 
-    simulacao = Simulacao.query.filter_by(
-        usuario_id=user_id,
-        ativa=True
-    ).first()
-
-    if not simulacao:
-        return jsonify({"error": "Nenhuma simulação ativa"}), 404
-
-    simulacao.ativa = False
-    db.session.commit()
-
-    return jsonify({
-        "mensagem": "Simulação finalizada",
-        "cation_secreto": simulacao.cation_secreto
-    }), 200
+    return jsonify({"mensagem": "Simulacao finalizada."}), 200

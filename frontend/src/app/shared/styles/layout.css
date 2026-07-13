@@ -1,0 +1,117 @@
+/* Estrutura principal da pagina, workspace, sidebar e containers base. */
+
+app-simulacao {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.lab-page {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-pixel);
+  background: url("/assets/img/fundoPrincipal.png") center center / cover no-repeat;
+}
+
+.lab-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(15, 24, 31, 0.3) 0%, rgba(15, 24, 31, 0.14) 32%, rgba(15, 24, 31, 0.28) 100%);
+  pointer-events: none;
+}
+
+.workspace {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  width: 100%;
+  height: 100vh;
+  padding-top: 80px;
+}
+
+.sidebar {
+  height: 100%;
+  padding: 18px;
+  min-height: 0;
+}
+
+.stage-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+}
+
+.stage-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.action-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stage-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 0 0 auto;
+  padding-top: 2px;
+  border-top: 2px solid rgba(49, 70, 83, 0.18);
+}
+
+/* Visual refresh: laboratory depth, safer text layout, stronger reaction effects. */
+.lab-page {
+  background:
+    linear-gradient(180deg, rgba(6, 14, 18, 0.18), rgba(6, 14, 18, 0.34)),
+    url("/assets/img/fundoPrincipal.png") center center / cover no-repeat;
+}
+
+.lab-page::before {
+  background:
+    linear-gradient(90deg, rgba(92, 128, 130, 0.08) 0 1px, transparent 1px 82px),
+    linear-gradient(180deg, rgba(92, 128, 130, 0.07) 0 1px, transparent 1px 76px),
+    radial-gradient(circle at 68% 20%, rgba(126, 238, 205, 0.14), transparent 24%),
+    radial-gradient(circle at 30% 86%, rgba(255, 204, 112, 0.13), transparent 26%),
+    linear-gradient(180deg, rgba(8, 18, 24, 0.2) 0%, rgba(8, 18, 24, 0.08) 42%, rgba(8, 18, 24, 0.35) 100%);
+  animation: labAmbientPulse 8s ease-in-out infinite;
+}
+
+.workspace {
+  grid-template-columns: minmax(370px, 22vw) 1fr;
+  padding-top: 92px;
+  gap: 0;
+}
+
+.sidebar {
+  padding: 18px 16px 20px 20px;
+  position: relative;
+  z-index: 9;
+}
+
+.stage-scroll {
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #7d986f rgba(24, 39, 48, 0.14);
+}
+
+.stage-copy {
+  padding-bottom: 2px;
+}

@@ -1,0 +1,9 @@
+<div
+  class="bench-card"
+  [class.bench-card-main]="variante === 'main'"
+  [class.bench-card-side]="variante === 'side' || variante === 'side-bottom'"
+  [class.bottom]="variante === 'side-bottom'"
+>
+  <div class="bench-title">{{ card.titulo | textoVisivel }}</div>
+  <div class="bench-copy">{{ card.conteudo | textoVisivel }}</div>
+</div>

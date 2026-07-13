@@ -1,0 +1,60 @@
+.titulo {
+  font-size: 60px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.icone-usuario {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.input-pixel {
+  border: 2px solid #000 !important;
+  background: #d1d5d8 !important;
+  font-family: inherit;
+}
+
+.botao {
+  margin-top: 15px;
+  padding: 10px;
+  background: #cbd5e1;
+  border: 2px solid #000;
+  font-weight: bold;
+  box-shadow: 3px 3px #2e2e2e;
+}
+
+.botao:hover {
+  background: #aebbc8;
+}
+
+.botao:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.botao:not(:disabled) {
+  cursor: pointer;
+}
+
+.link-auth {
+  font-size: 18px;
+  margin-top: 10px;
+  display: block;
+  color: #000;
+}
+
+.mensagem-erro {
+  margin: 10px 0 0;
+  color: #7b2c22;
+  font-size: 16px;
+}
+
+.icone-olho {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+}

@@ -1,7 +1,23 @@
 import os
 
+
+def carregar_origens_cors() -> list[str]:
+    origens_configuradas = os.getenv("CORS_ORIGINS", "").strip()
+    if origens_configuradas:
+        return [origem.strip() for origem in origens_configuradas.split(",") if origem.strip()]
+
+    return [
+        r"^https?://localhost(?::\d+)?$",
+        r"^https?://127\.0\.0\.1(?::\d+)?$",
+        r"^https?://\[::1\](?::\d+)?$",
+    ]
+
+
 class Config:
-    SECRET_KEY = "TCCAlquimia2026"
-    SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+    SECRET_KEY = os.getenv("SECRET_KEY", "TCCAlquimia2026")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///database.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    JWT_SECRET_KEY = "jwt-secret-key"
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "TCCAlquimia2026_jwt_secret_key_segura")
+    CORS_ORIGINS = carregar_origens_cors()
+    PORT = int(os.getenv("PORT", "5000"))
+    DEBUG = os.getenv("FLASK_DEBUG", "0") == "1"

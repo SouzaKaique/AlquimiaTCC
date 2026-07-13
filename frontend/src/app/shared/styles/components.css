@@ -1,0 +1,15 @@
+/* Comportamentos compartilhados pelos componentes interativos da simulacao. */
+
+.lab-page button,
+.lab-page [draggable="true"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.lab-page button {
+  user-select: none;
+}
+
+.lab-page img {
+  -webkit-user-drag: none;
+}
