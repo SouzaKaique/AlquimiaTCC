@@ -84,6 +84,43 @@ class ContratosApiTestCase(unittest.TestCase):
         self.assertEqual(historico.reagente1_id, 0)
         self.assertEqual(historico.reagente2_id, 0)
 
+    def test_teste_de_chama_aguarda_confirmacao_antes_do_grupo_2(self) -> None:
+        headers = self.autenticar()
+
+        self.cliente.post("/simulacao/iniciar", headers=headers)
+        self.cliente.post(
+            "/simulacao/acao",
+            headers=headers,
+            json={"acao": "iniciar_roteiro"},
+        )
+
+        for sal in ("Sal de potassio", "Sal de sodio", "Sal de estroncio"):
+            self.cliente.post(
+                "/simulacao/reagente",
+                headers=headers,
+                json={"reagente": sal},
+            )
+            resposta = self.cliente.post(
+                "/simulacao/acao",
+                headers=headers,
+                json={"acao": "aquecer"},
+            )
+
+        estado = resposta.get_json()["estado"]
+        self.assertEqual(estado["etapa_corrente"], 1)
+        self.assertTrue(estado["teste_chama"]["ativa"])
+        self.assertTrue(estado["teste_chama"]["aguardando_confirmacao"])
+        self.assertIn("vermelha", estado["teste_chama"]["mensagem"])
+
+        confirmacao = self.cliente.post(
+            "/simulacao/acao",
+            headers=headers,
+            json={"acao": "confirmar_teste_chama"},
+        )
+        estado_confirmado = confirmacao.get_json()["estado"]
+        self.assertEqual(estado_confirmado["etapa_corrente"], 2)
+        self.assertFalse(estado_confirmado["teste_chama"]["ativa"])
+
     def test_rotas_protegidas_rejeitam_requisicao_sem_token(self) -> None:
         resposta = self.cliente.get("/simulacao/estado")
 

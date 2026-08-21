@@ -67,6 +67,7 @@ def criar_estado_inicial() -> dict[str, Any]:
             "ativa": False,
             "cor": None,
             "mensagem": "Escolha um sal para iniciar o teste de chama.",
+            "aguardando_confirmacao": False,
         },
     }
 
@@ -121,7 +122,9 @@ def obter_acoes_disponiveis(estado: dict[str, Any]) -> list[dict[str, Any]]:
 
     if etapa == 1 and estado["grupo1"]["pendencia"] == "aquecer":
         acoes.append(criar_acao("aquecer"))
-    if etapa == 1 and estado["teste_chama"]["ativa"]:
+    if etapa == 1 and estado["teste_chama"].get("aguardando_confirmacao"):
+        acoes.append(criar_acao("confirmar_teste_chama"))
+    elif etapa == 1 and estado["teste_chama"]["ativa"]:
         acoes.append(criar_acao("desligar_chama"))
 
     if etapa == 2:
@@ -151,6 +154,11 @@ def garantir_campos_atuais(estado: dict[str, Any]) -> None:
     # mantém compatibilidade com simulações antigas salvas no banco local
     estado.setdefault("precipitacoes", [])
     estado.setdefault("ultima_precipitacao", None)
+    estado.setdefault("teste_chama", {})
+    estado["teste_chama"].setdefault("ativa", False)
+    estado["teste_chama"].setdefault("cor", None)
+    estado["teste_chama"].setdefault("mensagem", "Escolha um sal para iniciar o teste de chama.")
+    estado["teste_chama"].setdefault("aguardando_confirmacao", False)
 
 
 def criar_acao(nome: str) -> dict[str, Any]:

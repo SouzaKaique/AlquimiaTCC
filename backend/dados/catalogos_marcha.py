@@ -7,7 +7,7 @@ STAGE_DEFINITIONS = [
     },
     {
         "id": 1,
-        "label": "Grupo 1",
+        "label": "Grupo 1 - Teste de chama",
         "descricao": "Teste de chama com sais conhecidos do grupo dos alcalinos e alcalino-terrosos.",
     },
     {
@@ -130,6 +130,10 @@ ACTION_CATALOG = {
     "desligar_chama": {
         "label": "Desligar chama",
         "descricao": "Apaga a chama e limpa a visualizacao do teste atual.",
+    },
+    "confirmar_teste_chama": {
+        "label": "Seguir para proxima analise",
+        "descricao": "Confirma a conclusao do teste de chama e libera o grupo 2.",
     },
     "agitar": {
         "label": "Agitar",

@@ -14,6 +14,7 @@
 
   <section class="workspace" *ngIf="!carregando() && estado() && cena(); else carregandoTpl">
     <aside class="sidebar">
+      <!-- Painel inicial com explicação do roteiro antes de começar a marcha -->
       <div class="panel intro-panel" *ngIf="estado()!.etapa_corrente === 0">
         <h2>{{ estado()!.roteiro.titulo | textoVisivel }}</h2>
         <p>{{ estado()!.roteiro.descricao | textoVisivel }}</p>
@@ -30,7 +31,9 @@
           <div class="intro-guide-step">1. Leia a descrição do grupo e da solução-mãe.</div>
           <div class="intro-guide-step">2. Selecione ou arraste o reagente até o tubo.</div>
           <div class="intro-guide-step">3. Use os equipamentos da bancada no momento indicado.</div>
-          <div class="intro-guide-step">4. Observe o histórico, o tubo e o progresso da marcha.</div>
+          <div class="intro-guide-step">
+            4. Observe o histórico, o tubo e o progresso da marcha.
+          </div>
         </div>
 
         <div class="intro-actions">
@@ -45,7 +48,10 @@
         </div>
       </div>
 
-      <div class="panel stage-panel" *ngIf="estado()!.etapa_corrente !== 0 && estado()!.etapa_corrente !== 4">
+      <div
+        class="panel stage-panel"
+        *ngIf="estado()!.etapa_corrente !== 0 && estado()!.etapa_corrente !== 4"
+      >
         <div class="stage-scroll">
           <div class="stage-copy">
             <h2>{{ etapaAtual()?.label | textoVisivel }}</h2>
@@ -61,11 +67,13 @@
               </div>
             </div>
 
+            <!-- Detalhes químicos da solução-mãe exibidos ao aluno -->
             <div class="phase-card">
               <div class="phase-title">Solução-mãe</div>
               <div class="phase-copy">{{ cena()!.solucao_mae.conteudo | textoVisivel }}</div>
             </div>
 
+            <!-- Precipitado e sobrenadante aparecem somente quando existem na cena -->
             <div class="phase-stack" *ngIf="cena()!.precipitado || cena()!.sobrenadante">
               <div class="phase-card compact-phase" *ngIf="cena()!.precipitado">
                 <div class="phase-title">Precipitado</div>
@@ -79,6 +87,7 @@
             </div>
           </div>
 
+          <!-- Painel de reagentes e ações disponíveis para a etapa atual -->
           <app-reagent-board
             [destaque]="destaqueReagentes()"
             [totalReagentes]="totalReagentes()"
@@ -92,6 +101,7 @@
           ></app-reagent-board>
         </div>
 
+        <!-- Rodapé lateral com progresso geral e botão de reiniciar -->
         <div class="stage-footer">
           <div class="progress-box">
             <div class="progress-title">Progresso da marcha</div>
@@ -101,20 +111,29 @@
             <div class="progress-label">{{ progresso() }}%</div>
           </div>
 
-          <button class="action-btn secondary reset-btn" type="button" (click)="reiniciarSimulacao()">
+          <button
+            class="action-btn secondary reset-btn"
+            type="button"
+            (click)="reiniciarSimulacao()"
+          >
             Reiniciar roteiro
           </button>
         </div>
       </div>
 
+      <!-- Painel compacto exibido quando a marcha chega ao relatório final -->
       <div class="panel report-panel report-panel-compact" *ngIf="estado()!.etapa_corrente === 4">
         <h2>Relatório final</h2>
 
         <p class="report-lead">
-          A marcha foi concluída. Abra o relatório completo para revisar grupos, observações e histórico.
+          A marcha foi concluída. Abra o relatório completo para revisar grupos, observações e
+          histórico.
         </p>
 
-        <div class="summary-list compact-report-summary" *ngIf="resumoPreview().length; else resumoVazioTpl">
+        <div
+          class="summary-list compact-report-summary"
+          *ngIf="resumoPreview().length; else resumoVazioTpl"
+        >
           <div class="summary-item" *ngFor="let item of resumoPreview(); trackBy: trackByHistorico">
             {{ item | textoVisivel }}
           </div>
@@ -133,6 +152,7 @@
       </div>
     </aside>
 
+    <!-- Cena principal do laboratório: bancada, tubo, chama e equipamentos -->
     <main class="scene">
       <div class="scene-overlay"></div>
 
@@ -144,6 +164,7 @@
 
       <app-bench-card [card]="cena()!.solucao_mae"></app-bench-card>
 
+      <!-- Tubo de ensaio com drag-and-drop, líquido, bolhas, fumaça e aura -->
       <app-test-tube
         [visual]="visual()"
         [hoverTubo]="hoverTubo()"
@@ -207,6 +228,7 @@
     </main>
   </section>
 
+  <!-- Mini-simulador usado para agitação e centrifugação antes de confirmar a ação no backend -->
   <app-centrifuge
     [equipamento]="simuladorEquipamento()"
     [titulo]="equipamentoTitulo()"
@@ -222,6 +244,29 @@
     (iniciarProcesso)="iniciarProcessoEquipamento()"
   ></app-centrifuge>
 
+  <!-- Confirmação exibida após a última cor do teste de chama ficar visível -->
+  <div class="flame-confirm-overlay" *ngIf="testeChamaAguardandoConfirmacao()">
+    <section class="flame-confirm-dialog">
+      <div class="report-eyebrow">Grupo 1 finalizado</div>
+      <h2>Você concluiu o teste de chama</h2>
+      <p>
+        {{ estado()!.teste_chama.mensagem | textoVisivel }}
+      </p>
+      <p>
+        Observe a coloração final da chama antes de seguir para a próxima análise da marcha.
+      </p>
+      <button
+        class="action-btn"
+        type="button"
+        [disabled]="acaoEmAndamento() === 'confirmar_teste_chama'"
+        (click)="confirmarTesteChama()"
+      >
+        Seguir para próxima análise
+      </button>
+    </section>
+  </div>
+
+  <!-- Modal final da marcha, com resumo e atalhos para relatório completo/PDF -->
   <div class="report-modal-overlay" *ngIf="estado()?.etapa_corrente === 4">
     <section class="report-modal">
       <div class="report-modal-header">
@@ -233,10 +278,11 @@
 
       <div class="report-modal-body">
         <p>
-          Experimento concluído com {{ progresso() }}% de progresso. Confira o resumo principal ou abra o
-          relatório completo para revisar cada evidência registrada.
+          Experimento concluído com {{ progresso() }}% de progresso. Confira o resumo principal ou
+          abra o relatório completo para revisar cada evidência registrada.
         </p>
 
+        <!-- Indicadores rápidos do experimento concluído -->
         <div class="report-kpis">
           <div>
             <strong>{{ gruposConcluidos() }}</strong>
@@ -252,6 +298,7 @@
           </div>
         </div>
 
+        <!-- Destaques principais usados para apresentar o resultado da marcha -->
         <div class="report-modal-highlights">
           <div>
             <strong>Observações</strong>
@@ -267,6 +314,7 @@
           </div>
         </div>
 
+        <!-- Última precipitação registrada pelo backend -->
         <div class="report-modal-precipitant" *ngIf="ultimaPrecipitacao() as precipitacao">
           <strong>Último reagente precipitante</strong>
           <span>
@@ -276,12 +324,14 @@
           </span>
         </div>
 
+        <!-- Resumo textual das etapas concluídas -->
         <div class="summary-list" *ngIf="resumoModal().length">
           <div class="summary-item" *ngFor="let item of resumoModal(); trackBy: trackByHistorico">
             {{ item | textoVisivel }}
           </div>
         </div>
 
+        <!-- Ações finais do relatório -->
         <div class="report-modal-actions">
           <button class="action-btn" type="button" (click)="navegarRelatorioCompleto()">
             Ver relatório completo
@@ -297,6 +347,7 @@
     </section>
   </div>
 
+  <!-- Template exibido enquanto o estado da simulação ainda está carregando -->
   <ng-template #carregandoTpl>
     <section class="workspace">
       <aside class="sidebar">

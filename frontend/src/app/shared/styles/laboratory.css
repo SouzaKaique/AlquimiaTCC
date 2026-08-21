@@ -541,8 +541,8 @@
 }
 
 .burner-area {
-  right: clamp(54px, 8vw, 132px);
-  top: clamp(382px, 48vh, 440px);
+  right: clamp(64px, 8.5vw, 138px);
+  top: clamp(366px, 46vh, 424px);
   width: 270px;
   transition: right var(--transition-med), transform var(--transition-med), filter var(--transition-med);
 }
@@ -590,18 +590,19 @@
 }
 
 .burner-flame {
-  bottom: 112px;
-  width: 112px;
-  height: 150px;
+  left: 49%;
+  bottom: 156px;
+  width: 96px;
+  height: 126px;
   z-index: 2;
   --flame-soft: color-mix(in srgb, var(--flame-color) 34%, transparent);
   --flame-mid: color-mix(in srgb, var(--flame-color) 78%, #ffffff);
 }
 
 .flame-glow {
-  bottom: 4px;
-  width: 132px;
-  height: 132px;
+  bottom: -16px;
+  width: 114px;
+  height: 114px;
   border-radius: 50%;
   background: radial-gradient(circle, var(--flame-soft) 0%, transparent 70%);
   filter: blur(14px);
@@ -618,9 +619,9 @@
 }
 
 .flame-outer {
-  bottom: 8px;
-  width: 58px;
-  height: 124px;
+  bottom: 0;
+  width: 48px;
+  height: 104px;
   border-radius: 58% 42% 54% 46% / 72% 72% 30% 30%;
   background:
     radial-gradient(circle at 50% 82%, rgba(255, 255, 255, 0.94) 0 9%, var(--flame-mid) 18%, var(--flame-color) 52%, transparent 76%);
@@ -630,9 +631,9 @@
 }
 
 .flame-inner {
-  bottom: 12px;
-  width: 34px;
-  height: 94px;
+  bottom: 4px;
+  width: 30px;
+  height: 78px;
   border-radius: 48% 52% 46% 54% / 72% 72% 32% 32%;
   background:
     radial-gradient(circle at 50% 86%, #ffffff 0 14%, color-mix(in srgb, var(--flame-color) 44%, white) 32%, transparent 72%);
@@ -641,9 +642,9 @@
 }
 
 .flame-core {
-  bottom: 12px;
-  width: 16px;
-  height: 58px;
+  bottom: 4px;
+  width: 14px;
+  height: 48px;
   border-radius: 50% 50% 45% 45%;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), #ffffff 72%, rgba(255, 255, 255, 0.7));
   opacity: 0.92;
@@ -663,4 +664,46 @@
   background:
     linear-gradient(180deg, rgba(24, 42, 50, 0.95), rgba(10, 20, 27, 0.94));
   box-shadow: 0 0 22px rgba(127, 255, 218, 0.16);
+}
+
+.flame-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 42;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 211, 108, 0.16), transparent 28%),
+    rgba(5, 12, 17, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.flame-confirm-dialog {
+  width: min(620px, calc(100vw - 40px));
+  padding: 26px;
+  border: 4px solid rgba(10, 25, 32, 0.92);
+  background:
+    linear-gradient(180deg, rgba(242, 248, 235, 0.98), rgba(207, 221, 214, 0.98)),
+    radial-gradient(circle at 50% 0%, rgba(255, 216, 124, 0.26), transparent 38%);
+  color: #1a2c36;
+  box-shadow: 0 0 34px rgba(255, 213, 110, 0.28), 0 24px 60px rgba(0, 0, 0, 0.46);
+  text-align: left;
+  animation: dialogEnter 180ms ease-out both;
+}
+
+.flame-confirm-dialog h2 {
+  margin: 8px 0 14px;
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  line-height: 1.1;
+}
+
+.flame-confirm-dialog p {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.flame-confirm-dialog .action-btn {
+  margin-top: 10px;
 }

@@ -40,6 +40,8 @@ def executar_acao(estado: dict[str, Any], acao: str) -> dict[str, Any]:
         teste_chama.aquecer(estado)
     elif acao == "desligar_chama" and etapa == 1:
         teste_chama.desligar_chama(estado)
+    elif acao == "confirmar_teste_chama" and etapa == 1:
+        teste_chama.confirmar_conclusao(estado)
     elif acao == "agitar" and etapa == 2:
         precipitacao.agitar(estado)
     elif acao == "centrifugar" and etapa == 2:
