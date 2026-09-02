@@ -42,7 +42,7 @@ def create_app(configuracao: dict | None = None) -> Flask:
 
 def registrar_rotas_sistema(app: Flask) -> None:
     @app.route("/")
-    def home():
+    def pagina_inicial():
         return {"message": "Backend Alquimia rodando"}
 
     @app.route("/saude")
@@ -52,19 +52,19 @@ def registrar_rotas_sistema(app: Flask) -> None:
 
 def registrar_callbacks(app: Flask) -> None:
     @jwt.invalid_token_loader
-    def invalid_token_callback(error):
-        return jsonify({"error": "Token invalido.", "detalhe": error}), 401
+    def retorno_token_invalido(erro):
+        return jsonify({"error": "Token invalido.", "detalhe": erro}), 401
 
     @jwt.unauthorized_loader
-    def missing_token_callback(error):
-        return jsonify({"error": "Token ausente.", "detalhe": error}), 401
+    def retorno_token_ausente(erro):
+        return jsonify({"error": "Token ausente.", "detalhe": erro}), 401
 
     @jwt.expired_token_loader
-    def expired_token_callback(jwt_header, jwt_payload):
+    def retorno_token_expirado(cabecalho_jwt, carga_jwt):
         return jsonify({"error": "Token expirado."}), 401
 
 
-def ensure_legacy_schema() -> None:
+def garantir_esquema_legado() -> None:
     inspector = inspect(db.engine)
 
     if "simulacao" in inspector.get_table_names():
@@ -103,6 +103,6 @@ app = create_app()
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        ensure_legacy_schema()
+        garantir_esquema_legado()
 
     app.run(debug=app.config["DEBUG"], port=app.config["PORT"])

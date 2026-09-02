@@ -1,5 +1,4 @@
 from extensions import db
-import json
 
 from nucleo.tempo import agora_utc
 
@@ -47,9 +46,6 @@ class Reacao(db.Model):
     tipo = db.Column(db.String(50), nullable=False)
     efeitos_json = db.Column(db.Text, nullable=False)
 
-    def get_efeitos(self):
-        return json.loads(self.efeitos_json)
-
 
 class Simulacao(db.Model):
     __tablename__ = "simulacao"
@@ -66,12 +62,6 @@ class Simulacao(db.Model):
 
     data_inicio = db.Column(db.DateTime, default=agora_utc)
     data_fim = db.Column(db.DateTime)
-
-    def get_estado(self):
-        return json.loads(self.estado_json)
-
-    def set_estado(self, estado_dict):
-        self.estado_json = json.dumps(estado_dict)
 
 
 class Historico(db.Model):

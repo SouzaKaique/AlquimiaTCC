@@ -1,5 +1,23 @@
+import copy
+
+from dados.catalogos_marcha import REAGENT_CATALOG
+
+
 def registrar_evento(estado: dict, mensagem: str) -> None:
     estado["historico"].insert(0, mensagem)
+
+
+def registrar_reagente_utilizado(estado: dict, nome: str) -> None:
+    # mantém a lista de reagentes realmente usados na marcha, para o relatorio final
+    usados = estado.setdefault("reagentes_utilizados", [])
+    if any(item["nome"] == nome for item in usados):
+        return
+
+    catalogo = next((item for item in REAGENT_CATALOG if item["nome"] == nome), None)
+    if not catalogo:
+        return
+
+    usados.append(copy.deepcopy(catalogo))
 
 
 def registrar_precipitacao(

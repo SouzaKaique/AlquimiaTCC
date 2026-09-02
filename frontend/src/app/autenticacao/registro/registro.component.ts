@@ -44,11 +44,11 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  toggleSenha(): void {
+  alternarSenha(): void {
     this.mostrarSenha = !this.mostrarSenha;
   }
 
-  toggleConfirmar(): void {
+  alternarConfirmarSenha(): void {
     this.mostrarConfirmar = !this.mostrarConfirmar;
   }
 

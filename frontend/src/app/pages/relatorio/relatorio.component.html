@@ -1,15 +1,15 @@
 <div class="lab-page report-page">
   <app-simulacao-drawer
-    [aberto]="profileMenuOpen()"
+    [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
-    (fechar)="closeProfileMenu()"
+    (fechar)="fecharMenuPerfil()"
     (sair)="logout()"
   ></app-simulacao-drawer>
 
   <app-simulacao-topbar
     [etapas]="estado()?.etapas ?? []"
     [etapaCorrente]="estado()?.etapa_corrente ?? null"
-    (abrirPerfil)="toggleProfileMenu($event)"
+    (abrirPerfil)="alternarMenuPerfil($event)"
   ></app-simulacao-topbar>
 
   <main class="report-shell">
@@ -52,8 +52,8 @@
           <span>registros</span>
         </div>
         <div>
-          <strong>{{ relatorio.reagentes_disponiveis.length }}</strong>
-          <span>reagentes da etapa</span>
+          <strong>{{ relatorio.reagentes_utilizados.length }}</strong>
+          <span>reagentes utilizados</span>
         </div>
       </section>
 
@@ -86,9 +86,9 @@
         </article>
 
         <article class="report-section">
-          <h2>Reagentes</h2>
-          <div class="reagent-mini-grid">
-            <div class="reagent-mini" *ngFor="let reagente of relatorio.reagentes_disponiveis; trackBy: trackByIndex">
+          <h2>Reagentes utilizados</h2>
+          <div class="reagent-mini-grid" *ngIf="relatorio.reagentes_utilizados.length; else semReagentesTpl">
+            <div class="reagent-mini" *ngFor="let reagente of relatorio.reagentes_utilizados; trackBy: trackByIndex">
               <span [style.background]="reagente.corCard">{{ reagente.sigla }}</span>
               <div class="reagent-mini-copy">
                 <strong>{{ reagente.nome | textoVisivel }}</strong>
@@ -96,6 +96,9 @@
               </div>
             </div>
           </div>
+          <ng-template #semReagentesTpl>
+            <div class="report-item">Nenhum reagente utilizado até o momento.</div>
+          </ng-template>
         </article>
 
         <article class="report-section">

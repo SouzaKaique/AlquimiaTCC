@@ -1,5 +1,10 @@
 ﻿from dados.catalogos_marcha import FLAME_SAMPLES
-from nucleo.operacoes_estado import concluir_etapa, desbloquear_etapa, registrar_evento
+from nucleo.operacoes_estado import (
+    concluir_etapa,
+    desbloquear_etapa,
+    registrar_evento,
+    registrar_reagente_utilizado,
+)
 from visual.estado_visual import aplicar_visual
 
 
@@ -11,6 +16,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
         estado["observacao_atual"] = "Use um sal conhecido no teste de chama do grupo 1."
         return
 
+    registrar_reagente_utilizado(estado, reagente)
     estado["grupo1"]["amostra_atual"] = reagente
     estado["grupo1"]["pendencia"] = "aquecer"
     estado["teste_chama"]["ativa"] = False

@@ -9,7 +9,7 @@ auth_bp = Blueprint("auth", __name__)
 
 
 @auth_bp.route("/register", methods=["POST"])
-def register():
+def registrar():
     data = request.get_json(silent=True) or {}
 
     nome = (data.get("nome") or data.get("usuario") or "").strip()
@@ -37,7 +37,7 @@ def register():
 
 
 @auth_bp.route("/login", methods=["POST"])
-def login():
+def entrar():
     data = request.get_json(silent=True) or {}
 
     nome = (data.get("nome") or data.get("usuario") or "").strip()
@@ -46,19 +46,19 @@ def login():
     if not nome or not senha:
         return jsonify({"error": "Nome e senha sao obrigatorios."}), 400
 
-    user = User.query.filter_by(nome=nome).first()
+    usuario = User.query.filter_by(nome=nome).first()
 
-    if not user or not bcrypt.check_password_hash(user.senha_hash, senha):
+    if not usuario or not bcrypt.check_password_hash(usuario.senha_hash, senha):
         return jsonify({"error": "Credenciais invalidas."}), 401
 
-    access_token = create_access_token(identity=str(user.id))
+    access_token = create_access_token(identity=str(usuario.id))
 
     return (
         jsonify(
             {
                 "message": "Login realizado com sucesso.",
                 "access_token": access_token,
-                "usuario": {"id": user.id, "nome": user.nome},
+                "usuario": {"id": usuario.id, "nome": usuario.nome},
             }
         ),
         200,

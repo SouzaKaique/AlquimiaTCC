@@ -61,7 +61,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   readonly estado = signal<EstadoSimulacao | null>(null);
   readonly carregando = signal(true);
   readonly erroCarregamento = signal('');
-  readonly profileMenuOpen = signal(false);
+  readonly menuPerfilAberto = signal(false);
   readonly hoverTubo = signal(false);
   readonly hoverChama = signal(false);
   readonly fogoAtivo = signal(false);
@@ -126,7 +126,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   );
   // indicadores usados no modal de relatorio final
   readonly gruposConcluidos = computed(
-    () => this.etapas().filter((etapa) => etapa.concluida).length,
+    () => this.etapas().filter((etapa) => [1, 2, 3].includes(etapa.id) && etapa.concluida).length,
   );
   readonly precipitadosEncontrados = computed(() => {
     const registros = this.precipitacoes().map((item) => item.precipitado);
@@ -309,19 +309,19 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   // abre ou fecha o menu lateral do perfil
-  toggleProfileMenu(event?: MouseEvent): void {
+  alternarMenuPerfil(event?: MouseEvent): void {
     event?.stopPropagation();
-    this.profileMenuOpen.update((valor) => !valor);
+    this.menuPerfilAberto.update((valor) => !valor);
   }
 
   // fecha o menu lateral do perfil
-  closeProfileMenu(): void {
-    this.profileMenuOpen.set(false);
+  fecharMenuPerfil(): void {
+    this.menuPerfilAberto.set(false);
   }
 
   // encerra a sessao local e volta para o login
   logout(): void {
-    this.closeProfileMenu();
+    this.fecharMenuPerfil();
     this.authService.encerrarSessao();
     window.location.assign('/');
   }

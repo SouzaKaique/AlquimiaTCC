@@ -1,1 +1,0 @@
-from dominio.estado_solucao import EstadoSolucao

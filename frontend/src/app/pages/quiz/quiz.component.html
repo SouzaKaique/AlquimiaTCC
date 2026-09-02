@@ -1,15 +1,15 @@
 <div class="lab-page quiz-page">
   <app-simulacao-drawer
-    [aberto]="profileMenuOpen()"
+    [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
-    (fechar)="closeProfileMenu()"
+    (fechar)="fecharMenuPerfil()"
     (sair)="logout()"
   ></app-simulacao-drawer>
 
   <app-simulacao-topbar
     [etapas]="[]"
     [etapaCorrente]="null"
-    (abrirPerfil)="toggleProfileMenu($event)"
+    (abrirPerfil)="alternarMenuPerfil($event)"
   ></app-simulacao-topbar>
 
   <main class="quiz-shell">

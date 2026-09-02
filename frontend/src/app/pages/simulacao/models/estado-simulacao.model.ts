@@ -19,6 +19,7 @@ export interface EstadoSimulacao {
   precipitacoes: RegistroPrecipitacao[];
   ultima_precipitacao: RegistroPrecipitacao | null;
   reagentes_disponiveis: Reagente[];
+  reagentes_utilizados: Reagente[];
   acoes_disponiveis: Acao[];
   visual: VisualEstado;
   cena: Cena;

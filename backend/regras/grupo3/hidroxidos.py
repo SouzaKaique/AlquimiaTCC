@@ -1,4 +1,10 @@
-from nucleo.operacoes_estado import concluir_etapa, desbloquear_etapa, registrar_evento, registrar_precipitacao
+from nucleo.operacoes_estado import (
+    concluir_etapa,
+    desbloquear_etapa,
+    registrar_evento,
+    registrar_precipitacao,
+    registrar_reagente_utilizado,
+)
 from visual.estado_visual import aplicar_visual
 
 
@@ -6,6 +12,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
     grupo3 = estado["grupo3"]
 
     if reagente == "NH4Cl" and grupo3["fase"] == "pronto_para_nh4cl":
+        registrar_reagente_utilizado(estado, reagente)
         grupo3["nh4cl_adicionado"] = True
         grupo3["fase"] = "pronto_para_nh4oh"
         estado["observacao_atual"] = "NH4Cl adicionado. Agora use NH4OH para iniciar a precipitacao dos hidroxidos."
@@ -13,6 +20,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
         return
 
     if reagente == "NH4OH" and grupo3["fase"] == "pronto_para_nh4oh":
+        registrar_reagente_utilizado(estado, reagente)
         grupo3["nh4oh_adicionado"] = True
         grupo3["fase"] = "mistura_hidroxidos"
         grupo3["pendencia"] = "agitar"
@@ -21,6 +29,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
         return
 
     if reagente == "Dimetilglioxima" and grupo3["fase"] == "sobrenadante_ni":
+        registrar_reagente_utilizado(estado, reagente)
         grupo3["fase"] = "confirmacao_ni"
         grupo3["pendencia"] = "agitar"
         estado["observacao_atual"] = (

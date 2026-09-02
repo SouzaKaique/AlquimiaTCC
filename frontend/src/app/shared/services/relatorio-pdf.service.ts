@@ -47,6 +47,11 @@ export class RelatorioPdfService {
     );
     y = this.escreverSecao(documento, 'Observações', estado.resumo_final, y + 4, margem, larguraTexto);
 
+    const reagentesUtilizados = (estado.reagentes_utilizados ?? []).map(
+      (reagente) => `${reagente.nome} (${reagente.sigla})`,
+    );
+    y = this.escreverSecao(documento, 'Reagentes utilizados', reagentesUtilizados, y + 4, margem, larguraTexto);
+
     const precipitacoes = (estado.precipitacoes ?? []).map((item) => {
       const reagente = item.reagente_precipitante;
       return `${item.grupo}: ${reagente.nome} (${reagente.formula}) formou ${item.precipitado}. Íons: ${item.ions.join(', ')}.`;

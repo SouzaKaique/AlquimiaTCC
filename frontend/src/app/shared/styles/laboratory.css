@@ -550,8 +550,8 @@
 .burner-area.flame-active::before {
   content: "";
   position: absolute;
-  left: 50%;
-  bottom: 122px;
+  left: 44%;
+  bottom: 170px;
   width: 88px;
   height: 126px;
   transform: translateX(-50%);
@@ -590,8 +590,8 @@
 }
 
 .burner-flame {
-  left: 49%;
-  bottom: 156px;
+  left: 40%;
+  bottom: 172px;
   width: 96px;
   height: 126px;
   z-index: 2;
@@ -673,15 +673,14 @@
   display: grid;
   place-items: center;
   padding: 24px;
-  background:
-    radial-gradient(circle at 50% 48%, rgba(255, 211, 108, 0.16), transparent 28%),
-    rgba(5, 12, 17, 0.72);
-  backdrop-filter: blur(4px);
+  background: transparent;
+  pointer-events: none;
 }
 
 .flame-confirm-dialog {
-  width: min(620px, calc(100vw - 40px));
-  padding: 26px;
+  width: min(420px, calc(100vw - 40px));
+  padding: 22px;
+  pointer-events: auto;
   border: 4px solid rgba(10, 25, 32, 0.92);
   background:
     linear-gradient(180deg, rgba(242, 248, 235, 0.98), rgba(207, 221, 214, 0.98)),

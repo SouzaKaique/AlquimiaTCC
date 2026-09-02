@@ -41,6 +41,7 @@ def criar_estado_inicial() -> dict[str, Any]:
         "resumo_final": [],
         "precipitacoes": [],
         "ultima_precipitacao": None,
+        "reagentes_utilizados": [],
         "grupo1": {
             "amostra_atual": None,
             "testadas": [],
@@ -154,6 +155,7 @@ def garantir_campos_atuais(estado: dict[str, Any]) -> None:
     # mantém compatibilidade com simulações antigas salvas no banco local
     estado.setdefault("precipitacoes", [])
     estado.setdefault("ultima_precipitacao", None)
+    estado.setdefault("reagentes_utilizados", [])
     estado.setdefault("teste_chama", {})
     estado["teste_chama"].setdefault("ativa", False)
     estado["teste_chama"].setdefault("cor", None)

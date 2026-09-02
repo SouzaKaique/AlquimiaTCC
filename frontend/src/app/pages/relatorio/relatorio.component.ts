@@ -27,11 +27,13 @@ export class RelatorioComponent implements OnInit {
   readonly estado = signal<EstadoSimulacao | null>(null);
   readonly carregando = signal(true);
   readonly erro = signal('');
-  readonly profileMenuOpen = signal(false);
+  readonly menuPerfilAberto = signal(false);
   readonly usuarioNome = signal(localStorage.getItem('usuario_nome') || 'Usuário');
 
   readonly gruposConcluidos = computed(
-    () => this.estado()?.etapas.filter((etapa) => etapa.concluida).length ?? 0,
+    () =>
+      this.estado()?.etapas.filter((etapa) => [1, 2, 3].includes(etapa.id) && etapa.concluida)
+        .length ?? 0,
   );
   readonly historicoRecente = computed(() => this.estado()?.historico.slice(-10) ?? []);
   readonly resumo = computed(() => this.estado()?.resumo_final ?? []);
@@ -59,17 +61,17 @@ export class RelatorioComponent implements OnInit {
     void this.pdfService.exportar(estado);
   }
 
-  toggleProfileMenu(event?: MouseEvent): void {
+  alternarMenuPerfil(event?: MouseEvent): void {
     event?.stopPropagation();
-    this.profileMenuOpen.update((valor) => !valor);
+    this.menuPerfilAberto.update((valor) => !valor);
   }
 
-  closeProfileMenu(): void {
-    this.profileMenuOpen.set(false);
+  fecharMenuPerfil(): void {
+    this.menuPerfilAberto.set(false);
   }
 
   logout(): void {
-    this.closeProfileMenu();
+    this.fecharMenuPerfil();
     this.authService.encerrarSessao();
     window.location.assign('/');
   }

@@ -1,4 +1,10 @@
-from nucleo.operacoes_estado import concluir_etapa, desbloquear_etapa, registrar_evento, registrar_precipitacao
+from nucleo.operacoes_estado import (
+    concluir_etapa,
+    desbloquear_etapa,
+    registrar_evento,
+    registrar_precipitacao,
+    registrar_reagente_utilizado,
+)
 from visual.estado_visual import aplicar_visual
 
 
@@ -6,6 +12,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
     grupo2 = estado["grupo2"]
 
     if grupo2["fase"] == "pronto_para_mg" and reagente == "Reagente precipitante do Mg2+":
+        registrar_reagente_utilizado(estado, reagente)
         grupo2["reagente_atual"] = reagente
         grupo2["pendencia"] = "agitar"
         estado["observacao_atual"] = "Reagente adicionado. Agite para revelar o precipitado branco de Mg2+."
@@ -13,6 +20,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
         return
 
     if grupo2["fase"] == "sobrenadante_mg" and reagente == "Carbonato de amonio":
+        registrar_reagente_utilizado(estado, reagente)
         grupo2["reagente_atual"] = reagente
         grupo2["pendencia"] = "agitar"
         estado["observacao_atual"] = (

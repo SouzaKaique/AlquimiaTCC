@@ -198,7 +198,7 @@ export class QuizComponent {
   private readonly authService = inject(AuthService);
 
   readonly perguntas = PERGUNTAS_QUIZ;
-  readonly profileMenuOpen = signal(false);
+  readonly menuPerfilAberto = signal(false);
   readonly usuarioNome = signal(localStorage.getItem('usuario_nome') || 'Usuário');
   readonly iniciado = signal(false);
   readonly finalizado = signal(false);
@@ -217,17 +217,17 @@ export class QuizComponent {
 
   constructor(private readonly router: Router) {}
 
-  toggleProfileMenu(event?: MouseEvent): void {
+  alternarMenuPerfil(event?: MouseEvent): void {
     event?.stopPropagation();
-    this.profileMenuOpen.update((valor) => !valor);
+    this.menuPerfilAberto.update((valor) => !valor);
   }
 
-  closeProfileMenu(): void {
-    this.profileMenuOpen.set(false);
+  fecharMenuPerfil(): void {
+    this.menuPerfilAberto.set(false);
   }
 
   logout(): void {
-    this.closeProfileMenu();
+    this.fecharMenuPerfil();
     this.authService.encerrarSessao();
     window.location.assign('/');
   }

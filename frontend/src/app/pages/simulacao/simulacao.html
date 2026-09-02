@@ -1,15 +1,15 @@
 <div class="lab-page">
   <app-simulacao-drawer
-    [aberto]="profileMenuOpen()"
+    [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
-    (fechar)="closeProfileMenu()"
+    (fechar)="fecharMenuPerfil()"
     (sair)="logout()"
   ></app-simulacao-drawer>
 
   <app-simulacao-topbar
     [etapas]="etapas()"
     [etapaCorrente]="estado()?.etapa_corrente ?? null"
-    (abrirPerfil)="toggleProfileMenu($event)"
+    (abrirPerfil)="alternarMenuPerfil($event)"
   ></app-simulacao-topbar>
 
   <section class="workspace" *ngIf="!carregando() && estado() && cena(); else carregandoTpl">

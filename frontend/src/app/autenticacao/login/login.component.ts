@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  toggleSenha(): void {
+  alternarSenha(): void {
     this.mostrarSenha = !this.mostrarSenha;
   }
 

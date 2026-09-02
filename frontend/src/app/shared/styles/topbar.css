@@ -104,7 +104,7 @@
 }
 
 .brand {
-  max-width: min(48vw, 740px);
+  max-width: min(30vw, 460px);
   overflow: hidden;
   text-overflow: ellipsis;
   color: #f5ffe8;
@@ -115,13 +115,15 @@
 }
 
 .stage-nav {
-  max-width: 42vw;
+  max-width: 62vw;
+  gap: 8px;
 }
 
 .stage-btn {
-  min-width: 116px;
-  max-width: 154px;
-  padding: 9px 12px;
+  min-width: 92px;
+  max-width: 132px;
+  padding: 7px 10px;
+  font-size: 0.92rem;
   overflow-wrap: anywhere;
   text-align: center;
   box-shadow: 0 6px 0 rgba(4, 10, 14, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.18);
