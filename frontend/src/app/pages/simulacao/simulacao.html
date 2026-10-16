@@ -16,7 +16,7 @@
 
   <section class="workspace" *ngIf="!carregando() && estado() && cena(); else carregandoTpl">
     <aside class="sidebar">
-      <!-- ===== ETAPA 0: introducao ===== -->
+      <!-- bloco da introducao -->
       <div class="panel intro-panel" *ngIf="estado()!.etapa_corrente === 0">
         <h2>{{ estado()!.roteiro.titulo | textoVisivel }}</h2>
         <p>{{ estado()!.roteiro.descricao | textoVisivel }}</p>
@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <!-- ===== ETAPAS 1 A 3: painel do grupo atual ===== -->
+      <!-- bloco do grupo atual -->
       <div
         class="panel stage-panel"
         *ngIf="estado()!.etapa_corrente !== 0 && estado()!.etapa_corrente !== 4"
@@ -75,7 +75,6 @@
               <div class="phase-copy">{{ cena()!.solucao_mae.conteudo | textoVisivel }}</div>
             </div>
 
-            <!-- precipitado/sobrenadante so aparecem depois da centrifugacao -->
             <div class="phase-stack" *ngIf="cena()!.precipitado || cena()!.sobrenadante">
               <div class="phase-card compact-phase" *ngIf="cena()!.precipitado">
                 <div class="phase-title">Precipitado</div>
@@ -89,7 +88,6 @@
             </div>
           </div>
 
-          <!-- reagentes liberados pelo backend + botoes de acao -->
           <app-reagent-board
             [destaque]="destaqueReagentes()"
             [totalReagentes]="totalReagentes()"
@@ -103,7 +101,6 @@
           ></app-reagent-board>
         </div>
 
-        <!-- progresso e reiniciar -->
         <div class="stage-footer">
           <div class="progress-box">
             <div class="progress-title">Progresso da marcha</div>
@@ -123,7 +120,7 @@
         </div>
       </div>
 
-      <!-- ===== ETAPA 4: relatorio ===== -->
+      <!-- bloco do relatorio -->
       <div class="panel report-panel report-panel-compact" *ngIf="estado()!.etapa_corrente === 4">
         <h2>Relatório final</h2>
 
@@ -154,7 +151,7 @@
       </div>
     </aside>
 
-    <!-- ===== BANCADA: status, tubo, cards, equipamentos e bico ===== -->
+    <!-- bloco da bancada -->
     <main class="scene">
       <div class="scene-overlay"></div>
 
@@ -166,7 +163,7 @@
 
       <app-bench-card [card]="cena()!.solucao_mae"></app-bench-card>
 
-      <!-- tubo: recebe reagentes (drop) e pode ser arrastado ate a chama -->
+      <!-- bloco do tubo -->
       <app-test-tube
         [visual]="visual()"
         [hoverTubo]="hoverTubo()"
@@ -219,6 +216,7 @@
         <div class="equipment-chip" [class.active]="cena()!.equipamentos.bico">Bico</div>
       </div>
 
+      <!-- bloco do bico -->
       <app-burner
         *ngIf="cena()!.equipamentos.bico"
         [hoverChama]="hoverChama()"
@@ -230,7 +228,7 @@
     </main>
   </section>
 
-  <!-- ===== MODAL agitador / centrifuga ===== -->
+  <!-- bloco do agitador e centrifuga -->
   <app-centrifuge
     [equipamento]="simuladorEquipamento()"
     [titulo]="equipamentoTitulo()"
@@ -246,7 +244,7 @@
     (iniciarProcesso)="iniciarProcessoEquipamento()"
   ></app-centrifuge>
 
-  <!-- ===== DIALOGO fim do teste de chama ===== -->
+  <!-- bloco do fim do teste de chama -->
   <div class="flame-confirm-overlay" *ngIf="testeChamaAguardandoConfirmacao()">
     <section class="flame-confirm-dialog">
       <div class="report-eyebrow">Grupo 1 finalizado</div>
@@ -268,7 +266,7 @@
     </section>
   </div>
 
-  <!-- ===== MODAL relatorio final (etapa 4) ===== -->
+  <!-- bloco do modal do relatorio -->
   <div class="report-modal-overlay" *ngIf="estado()?.etapa_corrente === 4">
     <section class="report-modal">
       <div class="report-modal-header">
@@ -344,7 +342,7 @@
     </section>
   </div>
 
-  <!-- tela de carregamento -->
+  <!-- bloco de carregamento -->
   <ng-template #carregandoTpl>
     <section class="workspace">
       <aside class="sidebar">

@@ -10,7 +10,7 @@ import { SimulacaoApiService } from '../simulacao/services/simulacao-api.service
 import { TextoVisivelPipe } from '../../shared/pipes/texto-visivel.pipe';
 import { RelatorioPdfService } from '../../shared/services/relatorio-pdf.service';
 
-// pagina do relatorio completo: le o estado da marcha ativa e permite exportar pdf
+// bloco da pagina de relatorio
 @Component({
   selector: 'app-relatorio',
   standalone: true,

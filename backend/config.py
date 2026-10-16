@@ -1,7 +1,7 @@
 import os
 
 
-# origens liberadas no cors; por padrao aceita localhost em qualquer porta
+# bloco do cors
 def carregar_origens_cors() -> list[str]:
     origens_configuradas = os.getenv("CORS_ORIGINS", "").strip()
     if origens_configuradas:
@@ -14,12 +14,13 @@ def carregar_origens_cors() -> list[str]:
     ]
 
 
-# usuarios com acesso de apresentacao (navegam livre entre os grupos da marcha)
+# bloco do modo apresentacao
 def carregar_usuarios_apresentacao() -> set[str]:
     nomes = os.getenv("USUARIOS_APRESENTACAO", "apresentacao")
     return {nome.strip() for nome in nomes.split(",") if nome.strip()}
 
 
+# bloco de configuracao
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "TCCAlquimia2026")
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///database.db")

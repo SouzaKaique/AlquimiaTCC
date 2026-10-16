@@ -8,7 +8,7 @@ from nucleo.tempo import agora_utc
 auth_bp = Blueprint("auth", __name__)
 
 
-# cadastro: valida nome/senha, impede nome repetido e salva a senha com hash
+# bloco do cadastro
 @auth_bp.route("/register", methods=["POST"])
 def registrar():
     data = request.get_json(silent=True) or {}
@@ -37,7 +37,7 @@ def registrar():
     return jsonify({"message": "Usuario criado com sucesso."}), 201
 
 
-# login: confere a senha e devolve o token jwt usado nas rotas da simulacao
+# bloco do login
 @auth_bp.route("/login", methods=["POST"])
 def entrar():
     data = request.get_json(silent=True) or {}
@@ -71,6 +71,6 @@ def entrar():
     )
 
 
-# acesso de apresentacao: definido pelo nome do usuario em Config.USUARIOS_APRESENTACAO
+# bloco do modo apresentacao
 def eh_apresentador(usuario: User | None) -> bool:
     return bool(usuario) and usuario.nome in current_app.config["USUARIOS_APRESENTACAO"]

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { Reagente } from '../../interfaces/reagente.interface';
 import { VisualEstado } from '../../interfaces/visual-estado.interface';
 
-// tubo de ensaio da bancada: liquido, precipitado, bolhas, fumaca e area para soltar reagentes
+// bloco do tubo de ensaio
 @Component({
   selector: 'app-test-tube',
   standalone: true,

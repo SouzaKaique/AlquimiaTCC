@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { EquipamentoSimulacao } from '../../enums/equipamento-simulacao.enum';
 import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
-// modal do agitador/centrifuga: arrastar o tubo para dentro e iniciar o processo
+// bloco do agitador e centrifuga
 @Component({
   selector: 'app-centrifuge',
   standalone: true,

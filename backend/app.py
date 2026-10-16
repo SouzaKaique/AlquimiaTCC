@@ -8,7 +8,7 @@ from routes.auth import auth_bp
 from routes.simulacao import bp as simulacao_bp
 
 
-# monta a aplicacao flask: config, cors, extensoes e rotas
+# bloco de criacao da aplicacao
 def create_app(configuracao: dict | None = None) -> Flask:
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -35,7 +35,7 @@ def create_app(configuracao: dict | None = None) -> Flask:
     return app
 
 
-# rotas simples usadas para conferir se o backend esta no ar
+# bloco das rotas de sistema
 def registrar_rotas_sistema(app: Flask) -> None:
     @app.route("/")
     def pagina_inicial():
@@ -46,7 +46,7 @@ def registrar_rotas_sistema(app: Flask) -> None:
         return {"status": "ok", "servico": "alquimia-api"}
 
 
-# respostas padrao quando o token jwt esta ausente, invalido ou expirado
+# bloco de erros do token
 def registrar_callbacks(app: Flask) -> None:
     @jwt.invalid_token_loader
     def retorno_token_invalido(erro):
@@ -61,7 +61,7 @@ def registrar_callbacks(app: Flask) -> None:
         return jsonify({"error": "Token expirado."}), 401
 
 
-# adiciona colunas novas em bancos sqlite criados antes delas existirem
+# bloco de ajuste do banco
 def garantir_esquema_legado() -> None:
     inspector = inspect(db.engine)
 

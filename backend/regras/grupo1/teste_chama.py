@@ -8,13 +8,11 @@ from nucleo.operacoes_estado import (
 from visual.estado_visual import aplicar_visual
 
 
-# grupo 1 - teste de chama
-# fluxo: sal no tubo -> aquecer (cor da chama) -> repetir com os 3 sais -> confirmar e ir ao grupo 2
-
+# bloco do teste de chama (grupo 1)
 RESUMO_GRUPO_1 = "Grupo 1: K, Na e Sr foram diferenciados com clareza pelo teste de chama."
 
 
-# sal colocado no tubo: fica aguardando o aquecimento
+# bloco do sal no tubo
 def aplicar_reagente(estado: dict, reagente: str) -> None:
     if reagente not in FLAME_SAMPLES:
         estado["observacao_atual"] = "Use um sal conhecido no teste de chama do grupo 1."
@@ -39,7 +37,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
     )
 
 
-# tubo levado ate a chama: mostra a cor do sal. depois do 3o sal pede confirmacao
+# bloco do aquecimento
 def aquecer(estado: dict) -> None:
     amostra = estado["grupo1"]["amostra_atual"]
     if not amostra:
@@ -66,7 +64,7 @@ def aquecer(estado: dict) -> None:
         )
 
 
-# aluno confirmou o fim do teste de chama: conclui a etapa 1 e libera o grupo 2
+# bloco da confirmacao do teste
 def confirmar_conclusao(estado: dict) -> None:
     if not estado["teste_chama"].get("aguardando_confirmacao"):
         estado["observacao_atual"] = "Conclua os tres sais do teste de chama antes de seguir."
@@ -88,7 +86,7 @@ def confirmar_conclusao(estado: dict) -> None:
     registrar_evento(estado, "Teste de chama do grupo 1 confirmado. Grupo 2 liberado.")
 
 
-# clique no bico com a chama acesa
+# bloco de desligar a chama
 def desligar_chama(estado: dict) -> None:
     estado["teste_chama"]["ativa"] = False
     estado["teste_chama"]["cor"] = None

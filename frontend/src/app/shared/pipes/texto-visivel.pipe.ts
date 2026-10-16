@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+// bloco de acentuacao dos textos
 const SUBSTITUICOES: ReadonlyArray<readonly [RegExp, string]> = [
   [/\bsolucoes-mae\b/gi, 'soluções-mãe'],
   [/\bsolucao-mae\b/gi, 'solução-mãe'],
@@ -63,7 +64,6 @@ const SUBSTITUICOES: ReadonlyArray<readonly [RegExp, string]> = [
   [/\bconclusao\b/gi, 'conclusão'],
 ];
 
-// o backend manda textos sem acento; este pipe troca as palavras para a forma acentuada na tela
 @Pipe({
   name: 'textoVisivel',
   standalone: true,

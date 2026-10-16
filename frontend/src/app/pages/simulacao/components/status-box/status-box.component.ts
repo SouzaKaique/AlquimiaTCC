@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TesteChama } from '../../interfaces/teste-chama.interface';
 import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
-// caixa de status no topo da bancada (mensagem atual da marcha)
+// bloco da caixa de status
 @Component({
   selector: 'app-status-box',
   standalone: true,

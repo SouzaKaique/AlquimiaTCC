@@ -38,7 +38,7 @@ export class SimulacaoApiService {
     return this.http.post<RespostaEstadoSimulacao>(`${this.api}/acao`, { acao });
   }
 
-  // modo apresentação: pula direto para a etapa (backend recusa usuário comum)
+  // bloco do modo apresentação
   irParaEtapa(etapa: number): Observable<RespostaEstadoSimulacao> {
     return this.http.post<RespostaEstadoSimulacao>(`${this.api}/etapa`, { etapa });
   }

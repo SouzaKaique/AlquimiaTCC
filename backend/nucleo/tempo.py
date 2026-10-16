@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
 
-# data/hora utc sem fuso, no formato que as colunas DateTime do sqlite esperam
+# bloco de data e hora
 def agora_utc() -> datetime:
     return datetime.now(UTC).replace(tzinfo=None)

@@ -137,7 +137,7 @@
   transform: translateY(-1px);
 }
 
-/* modo apresentacao: topbar fica acima dos modais para permitir trocar de etapa */
+/* bloco do modo apresentacao */
 .topbar.modo-apresentacao {
   z-index: 59;
 }
@@ -155,7 +155,6 @@
   white-space: nowrap;
 }
 
-/* com a topbar por cima, o modal do relatorio desce para nao ficar escondido */
 .lab-page.modo-apresentacao .report-modal-overlay {
   padding-top: 104px;
 }

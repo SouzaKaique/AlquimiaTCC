@@ -7,10 +7,8 @@ from regras.grupo2 import precipitacao
 from regras.grupo3 import hidroxidos
 from visual.estado_visual import atualizar_cena
 
-# etapas da marcha: 0 introducao | 1 teste de chama | 2 grupo 2 | 3 grupo 3 | 4 relatorio
 
-# passos de cada grupo, na ordem que o aluno faria. usado pelo modo apresentacao
-# para "pular" grupos executando as mesmas regras (assim o relatorio fica completo)
+# bloco do roteiro usado no modo apresentacao
 ROTEIRO_COMPLETO = {
     1: [
         ("reagente", "Sal de potassio"),
@@ -41,8 +39,7 @@ ROTEIRO_COMPLETO = {
 }
 
 
-# ---------- reagente colocado no tubo ----------
-# escolhe a regra pelo grupo da etapa atual
+# bloco dos reagentes
 def aplicar_reagente_marcha(estado: dict[str, Any], reagente: str) -> dict[str, Any]:
     etapa = estado["etapa_corrente"]
 
@@ -59,8 +56,7 @@ def aplicar_reagente_marcha(estado: dict[str, Any], reagente: str) -> dict[str, 
     return estado
 
 
-# ---------- acoes da bancada ----------
-# cada acao so vale na etapa certa (ex.: aquecer so no grupo 1)
+# bloco das acoes
 def executar_acao(estado: dict[str, Any], acao: str) -> dict[str, Any]:
     etapa = estado["etapa_corrente"]
 
@@ -92,9 +88,7 @@ def executar_acao(estado: dict[str, Any], acao: str) -> dict[str, Any]:
     return estado
 
 
-# ---------- modo apresentacao ----------
-# monta uma marcha nova ja parada na etapa escolhida.
-# os grupos anteriores sao executados automaticamente pelo ROTEIRO_COMPLETO
+# bloco do modo apresentacao
 def ir_para_etapa(etapa_destino: int) -> dict[str, Any]:
     estado = criar_estado_inicial()
     if etapa_destino == 0:
@@ -114,10 +108,9 @@ def ir_para_etapa(etapa_destino: int) -> dict[str, Any]:
     return estado
 
 
-# classe usada pelo motor; guarda o estado e chama as funcoes acima
+# bloco da classe da marcha
 class MarchaAnalitica:
     def __init__(self, estado: dict[str, Any] | None = None):
-        # sem estado salvo (ou estado antigo invalido) comeca uma marcha limpa
         self.estado = estado if estado and "etapa_corrente" in estado else criar_estado_inicial()
 
     def aplicar_reagente(self, reagente: str) -> dict[str, Any]:

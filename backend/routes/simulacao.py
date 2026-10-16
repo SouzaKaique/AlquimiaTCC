@@ -10,7 +10,7 @@ bp = Blueprint("simulacao", __name__)
 servico_simulacao = ServicoSimulacao()
 
 
-# cria uma marcha nova para o usuario logado
+# bloco iniciar simulacao
 @bp.route("/iniciar", methods=["POST"])
 @jwt_required()
 def iniciar_simulacao():
@@ -19,7 +19,7 @@ def iniciar_simulacao():
     return jsonify(servico_simulacao.iniciar(user_id)), 201
 
 
-# devolve o estado da marcha ativa (usado ao abrir a tela e no relatorio)
+# bloco estado da simulacao
 @bp.route("/estado", methods=["GET"])
 @jwt_required()
 def ver_estado():
@@ -31,7 +31,7 @@ def ver_estado():
     return jsonify(resposta), 200
 
 
-# reagente arrastado para o tubo
+# bloco reagente
 @bp.route("/reagente", methods=["POST"])
 @jwt_required()
 def aplicar_reagente():
@@ -49,13 +49,13 @@ def aplicar_reagente():
     return jsonify(resposta), 200
 
 
+# bloco acoes
 @bp.route("/aquecer", methods=["POST"])
 @jwt_required()
 def aquecer():
     return _executar_acao("aquecer", "Aquecimento executado na etapa atual.")
 
 
-# acoes da bancada: iniciar_roteiro, aquecer, agitar, centrifugar, etc.
 @bp.route("/acao", methods=["POST"])
 @jwt_required()
 def executar_acao():
@@ -81,7 +81,7 @@ def _executar_acao(acao: str, descricao_historico: str):
     return jsonify(resposta), 200
 
 
-# modo apresentacao: pula direto para uma etapa (so para usuarios apresentadores)
+# bloco modo apresentacao
 @bp.route("/etapa", methods=["POST"])
 @jwt_required()
 def ir_para_etapa():
@@ -98,7 +98,7 @@ def ir_para_etapa():
     return jsonify(servico_simulacao.ir_para_etapa(usuario.id, etapa)), 200
 
 
-# encerra a marcha ativa
+# bloco finalizar
 @bp.route("/finalizar", methods=["POST"])
 @jwt_required()
 def finalizar_simulacao():

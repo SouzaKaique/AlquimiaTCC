@@ -26,7 +26,7 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) {}
 
-  // ---------- chamadas da api ----------
+  // bloco da api de login
   login(nome: string, senha: string): Observable<RespostaLogin> {
     return this.http.post<RespostaLogin>(`${this.api}/login`, { nome, senha });
   }
@@ -35,7 +35,7 @@ export class AuthService {
     return this.http.post<RespostaRegistro>(`${this.api}/register`, { nome, senha });
   }
 
-  // ---------- sessao no localStorage ----------
+  // bloco da sessao
   salvarSessao(token: string, nome: string, apresentador = false): void {
     localStorage.setItem('token', token);
     localStorage.setItem('usuario_nome', nome);
@@ -50,7 +50,7 @@ export class AuthService {
     return !!this.obterToken();
   }
 
-  // so libera o visual da navegacao livre; quem valida de verdade e o backend
+  // bloco do modo apresentacao
   ehApresentador(): boolean {
     return localStorage.getItem('usuario_apresentador') === '1';
   }

@@ -3,7 +3,7 @@ import json
 from simulacoes.marcha_analitica import MarchaAnalitica
 
 
-# converte o estado salvo (texto json no banco) para dict e repassa para a marcha
+# bloco do motor
 class MotorSimulacao:
     def __init__(self, estado_json=None):
         estado = json.loads(estado_json) if estado_json else None

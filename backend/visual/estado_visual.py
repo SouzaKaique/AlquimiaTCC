@@ -1,4 +1,4 @@
-# textos e equipamentos da bancada para cada etapa (cards, tubo, bico, centrifuga)
+# bloco da cena da bancada
 def atualizar_cena(estado: dict) -> None:
     etapa = estado["etapa_corrente"]
 
@@ -140,7 +140,7 @@ def atualizar_cena(estado: dict) -> None:
     }
 
 
-# cor, nivel e turvacao do liquido do tubo
+# bloco do visual do tubo
 def aplicar_visual(
     estado: dict,
     *,
@@ -160,7 +160,6 @@ def aplicar_visual(
     }
 
 
-# gradiente do liquido a partir de uma cor base (mais clara em cima, mais escura embaixo)
 def criar_gradiente(cor_base: str) -> str:
     clara = ajustar_cor(cor_base, 24)
     escura = ajustar_cor(cor_base, -24)

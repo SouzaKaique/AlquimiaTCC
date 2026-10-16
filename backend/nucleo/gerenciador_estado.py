@@ -5,9 +5,7 @@ from dados.catalogos_marcha import ACTION_CATALOG, DEFAULT_VISUAL, REAGENT_CATAL
 from visual.estado_visual import atualizar_cena
 
 
-# ---------- estado inicial ----------
-# monta o dicionario da marcha. ele e salvo como json na tabela simulacao
-# e enviado inteiro para o frontend a cada requisicao
+# bloco do estado inicial
 def criar_estado_inicial() -> dict[str, Any]:
     etapas = []
     for definition in STAGE_DEFINITIONS:
@@ -44,7 +42,6 @@ def criar_estado_inicial() -> dict[str, Any]:
         "precipitacoes": [],
         "ultima_precipitacao": None,
         "reagentes_utilizados": [],
-        # controle interno de cada grupo (fase atual e o que falta fazer)
         "grupo1": {
             "amostra_atual": None,
             "testadas": [],
@@ -79,8 +76,7 @@ def criar_estado_inicial() -> dict[str, Any]:
     return estado
 
 
-# ---------- reagentes liberados ----------
-# filtra o catalogo pela etapa e pela fase do grupo, para o aluno so ver o reagente do passo atual
+# bloco dos reagentes liberados
 def obter_catalogo_reagentes(estado: dict[str, Any]) -> list[dict[str, Any]]:
     etapa = estado["etapa_corrente"]
     reagentes = []
@@ -117,8 +113,7 @@ def obter_catalogo_reagentes(estado: dict[str, Any]) -> list[dict[str, Any]]:
     return reagentes
 
 
-# ---------- acoes liberadas ----------
-# botoes que o frontend pode mostrar agora (iniciar, aquecer, agitar, centrifugar...)
+# bloco das acoes liberadas
 def obter_acoes_disponiveis(estado: dict[str, Any]) -> list[dict[str, Any]]:
     etapa = estado["etapa_corrente"]
     acoes = []
@@ -148,7 +143,7 @@ def obter_acoes_disponiveis(estado: dict[str, Any]) -> list[dict[str, Any]]:
     return acoes
 
 
-# estado enviado ao frontend = estado salvo + reagentes e acoes liberados
+# bloco do estado enviado ao frontend
 def obter_estado_publico(estado: dict[str, Any]) -> dict[str, Any]:
     garantir_campos_atuais(estado)
     publico = copy.deepcopy(estado)
@@ -157,7 +152,7 @@ def obter_estado_publico(estado: dict[str, Any]) -> dict[str, Any]:
     return publico
 
 
-# completa campos que nao existiam em simulacoes antigas salvas no banco
+# bloco de compatibilidade
 def garantir_campos_atuais(estado: dict[str, Any]) -> None:
     estado.setdefault("precipitacoes", [])
     estado.setdefault("ultima_precipitacao", None)

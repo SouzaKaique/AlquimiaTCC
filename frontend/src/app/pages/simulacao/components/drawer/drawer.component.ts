@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-// menu lateral do perfil: laboratorio, quiz, relatorio e sair
+// bloco do menu lateral
 @Component({
   selector: 'app-simulacao-drawer',
   standalone: true,

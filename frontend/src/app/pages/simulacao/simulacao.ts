@@ -30,9 +30,6 @@ import { VisualEstado } from './interfaces/visual-estado.interface';
 import { EstadoSimulacao } from './models/estado-simulacao.model';
 import { SimulacaoApiService } from './services/simulacao-api.service';
 
-// tela principal da marcha analitica.
-// o backend decide a quimica (reagentes, fases, etapas); aqui ficam so a bancada,
-// o arraste do tubo, os efeitos visuais e os modais.
 @Component({
   selector: 'app-simulacao',
   standalone: true,
@@ -59,20 +56,17 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly relatorioPdf = inject(RelatorioPdfService);
 
-  // ===================== ESTADO DA TELA =====================
 
-  // estado que vem do backend (fonte da verdade da marcha)
+  // bloco do estado da tela
   readonly estado = signal<EstadoSimulacao | null>(null);
   readonly carregando = signal(true);
   readonly erroCarregamento = signal('');
   readonly acaoEmAndamento = signal('');
 
-  // usuario / menu
   readonly usuarioNome = signal('Usuário');
   readonly menuPerfilAberto = signal(false);
   readonly modoApresentacao = signal(false);
 
-  // bancada: reagente selecionado, posicao do tubo e chama
   readonly reagenteSelecionado = signal<Reagente | null>(null);
   readonly tuboX = signal<number | null>(null);
   readonly tuboY = signal<number | null>(null);
@@ -80,13 +74,11 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   readonly hoverChama = signal(false);
   readonly fogoAtivo = signal(false);
 
-  // modal do agitador / centrifuga
   readonly simuladorEquipamento = signal<EquipamentoSimulacao | null>(null);
   readonly tuboNoEquipamento = signal(false);
   readonly processamentoEquipamento = signal(false);
   readonly contagemEquipamento = signal(0);
 
-  // efeitos temporarios do tubo
   readonly bolhasAtivas = signal(false);
   readonly fumacaAtiva = signal(false);
   readonly auraAtiva = signal(false);
@@ -95,7 +87,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
 
   readonly inicioSessao = Date.now();
 
-  // controle interno do arraste e dos timers
   private draggingTube = false;
   private dragOffsetX = 0;
   private dragOffsetY = 0;
@@ -103,8 +94,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   private equipamentoInterval: number | null = null;
   private efeitoTimers: number[] = [];
 
-  // ===================== DADOS DERIVADOS DO ESTADO =====================
 
+  // bloco dos dados calculados
   readonly etapas = computed(() => this.estado()?.etapas ?? []);
   readonly reagentes = computed(() => this.estado()?.reagentes_disponiveis ?? []);
   readonly acoes = computed(() => this.estado()?.acoes_disponiveis ?? []);
@@ -116,7 +107,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     const etapaId = this.estado()?.etapa_corrente;
     return this.etapas().find((etapa) => etapa.id === etapaId) ?? null;
   });
-  // visual padrao do tubo enquanto o backend ainda nao respondeu
   readonly visual = computed<VisualEstado>(() => {
     return (
       this.estado()?.visual ?? {
@@ -129,7 +119,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
       }
     );
   });
-  // texto da caixa de status no topo da bancada
   readonly mensagemReacao = computed(() => {
     if (this.estado()?.etapa_corrente === 0) {
       return 'Cada grupo começa com uma solução-mãe conhecida. Acompanhe os reagentes, as separações e o progresso da marcha.';
@@ -138,9 +127,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     return this.estado()?.observacao_atual || 'Preparando bancada virtual.';
   });
 
-  // --- painel lateral (reagentes e acoes) ---
 
-  // aquecer e confirmar nao aparecem como botao: aquecer e feito arrastando o tubo ate a chama
   readonly acoesPainel = computed(() =>
     this.acoes().filter(
       (acao) =>
@@ -164,7 +151,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     return reagente ? `${reagente.nome} pronto para uso.` : 'Nenhum reagente selecionado.';
   });
 
-  // --- teste de chama (grupo 1) ---
 
   readonly testeChamaAguardandoConfirmacao = computed(
     () => this.estado()?.teste_chama.aguardando_confirmacao ?? false,
@@ -189,7 +175,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     return 'Clique no bico para acender.';
   });
 
-  // --- tubo de ensaio ---
 
   readonly dicaTubo = computed(() => (this.hoverTubo() ? 'Solte aqui' : ''));
   readonly mostrarBolhas = computed(
@@ -201,7 +186,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   readonly mostrarAura = computed(
     () => this.auraAtiva() || this.estado()?.teste_chama.ativa || this.visual().precipitado_ativo,
   );
-  // posicao livre do tubo depois que o usuario arrasta (null = posicao padrao do css)
   readonly tuboEstilo = computed(() => {
     const x = this.tuboX();
     const y = this.tuboY();
@@ -217,7 +201,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     };
   });
 
-  // --- modal do agitador / centrifuga ---
 
   readonly equipamentoTitulo = computed(() => {
     return this.simuladorEquipamento() === EquipamentoSimulacao.Centrifuga
@@ -254,7 +237,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
       : 'Posicione o tubo dentro do equipamento para continuar.';
   });
 
-  // --- relatorio final (modal da etapa 4) ---
 
   readonly resumoFinal = computed(() => this.estado()?.resumo_final ?? []);
   readonly resumoPreview = computed(() => this.resumoFinal().slice(0, 3));
@@ -285,8 +267,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     return `${minutos} min`;
   });
 
-  // ===================== CICLO DE VIDA =====================
 
+  // bloco do ciclo de vida
   ngOnInit(): void {
     this.usuarioNome.set(localStorage.getItem('usuario_nome') || 'Usuário');
     this.modoApresentacao.set(this.authService.ehApresentador());
@@ -304,8 +286,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.limparTimersEfeito();
   }
 
-  // ===================== MENU DO PERFIL =====================
 
+  // bloco do menu do perfil
   alternarMenuPerfil(event?: MouseEvent): void {
     event?.stopPropagation();
     this.menuPerfilAberto.update((valor) => !valor);
@@ -321,9 +303,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     window.location.assign('/');
   }
 
-  // ===================== CARREGAR / REINICIAR / MODO APRESENTACAO =====================
 
-  // abre a simulacao ativa; se o backend responder 404 (nenhuma ativa) cria uma nova
+  // bloco de carregar e reiniciar
   private carregarEstadoOuIniciar(): void {
     this.carregando.set(true);
     this.erroCarregamento.set('');
@@ -376,13 +357,12 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     });
   }
 
-  // botao "Reiniciar roteiro"
   reiniciarSimulacao(): void {
     this.limparBancada();
     this.iniciarSimulacao();
   }
 
-  // modo apresentacao: clique nos botoes da topbar leva direto para a etapa
+  // bloco do modo apresentacao
   irParaEtapa(etapa: number): void {
     if (!this.modoApresentacao() || this.acaoEmAndamento()) {
       return;
@@ -404,7 +384,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     });
   }
 
-  // volta tubo, chama, modal e efeitos ao estado inicial
   private limparBancada(): void {
     this.fogoAtivo.set(false);
     this.hoverChama.set(false);
@@ -415,11 +394,9 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.encerrarEfeitos();
   }
 
-  // todo retorno do backend passa aqui
   private aplicarEstado(estado: EstadoSimulacao): void {
     this.estado.set(estado);
 
-    // mantem o reagente selecionado so se ele ainda estiver liberado
     const reagenteAnterior = this.reagenteSelecionado();
     if (reagenteAnterior) {
       const reagenteDisponivel = estado.reagentes_disponiveis.find(
@@ -437,8 +414,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     }
   }
 
-  // ===================== REAGENTES (arrastar para o tubo) =====================
 
+  // bloco dos reagentes
   selecionarReagente(reagente: Reagente): void {
     this.reagenteSelecionado.set(reagente);
   }
@@ -464,7 +441,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.hoverTubo.set(false);
   }
 
-  // reagente solto no tubo -> manda so o nome para o backend
   onTubeDrop(event: DragEvent): void {
     event.preventDefault();
     this.hoverTubo.set(false);
@@ -494,13 +470,12 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     });
   }
 
-  // ===================== ACOES DA MARCHA =====================
 
+  // bloco das acoes
   acaoDisponivel(nome: string): boolean {
     return this.acoes().some((acao) => acao.nome === nome);
   }
 
-  // agitar e centrifugar abrem o modal do equipamento; as outras vao direto para a api
   executarAcao(acao: string): void {
     if (!acao || this.acaoEmAndamento()) {
       return;
@@ -555,9 +530,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     });
   }
 
-  // ===================== TESTE DE CHAMA (grupo 1) =====================
 
-  // clique no bico: acende, apaga ou desliga a chama colorida do teste
+  // bloco do teste de chama
   ligarOuDesligarChama(): void {
     if (this.testeChamaAguardandoConfirmacao()) {
       return;
@@ -577,12 +551,10 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.ativarEfeito('fumaca', 1200);
   }
 
-  // botao "Seguir para proxima analise" do dialogo final do teste de chama
   confirmarTesteChama(): void {
     this.executarAcao(AcaoSimulacao.ConfirmarTesteChama);
   }
 
-  // inicio do arraste do tubo pela bancada (mouse down)
   onTubePointerDown(event: MouseEvent): void {
     if ((event.target as HTMLElement)?.closest('.tube-drop-zone')) {
       return;
@@ -609,7 +581,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     window.addEventListener('mouseup', this.onWindowMouseUp);
   }
 
-  // move o tubo junto com o mouse, sem sair dos limites da cena
   private readonly onWindowMouseMove = (event: MouseEvent): void => {
     if (!this.draggingTube) {
       return;
@@ -637,7 +608,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.atualizarHoverChama();
   };
 
-  // soltou o tubo: se estiver sobre a chama acesa, aquece
   private readonly onWindowMouseUp = (): void => {
     this.draggingTube = false;
     window.removeEventListener('mousemove', this.onWindowMouseMove);
@@ -646,7 +616,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.hoverChama.set(false);
   };
 
-  // colisao entre o retangulo do tubo e a area da chama
   private atualizarHoverChama(): void {
     const tubo = document.querySelector('.test-tube') as HTMLElement | null;
     const chama = document.querySelector('.burner-drop-target') as HTMLElement | null;
@@ -681,8 +650,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.executarAcaoNoServidor(AcaoSimulacao.Aquecer);
   }
 
-  // ===================== AGITADOR E CENTRIFUGA (grupos 2 e 3) =====================
 
+  // bloco do agitador e centrifuga
   abrirSimuladorEquipamento(equipamento: EquipamentoSimulacao): void {
     this.simuladorEquipamento.set(equipamento);
     this.tuboNoEquipamento.set(false);
@@ -717,7 +686,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     }
   }
 
-  // contagem regressiva (3s agitador / 5s centrifuga) e so depois chama o backend
   iniciarProcessoEquipamento(): void {
     const equipamento = this.simuladorEquipamento();
     if (!equipamento || !this.tuboNoEquipamento() || this.processamentoEquipamento()) {
@@ -758,8 +726,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     }
   }
 
-  // ===================== RELATORIO =====================
 
+  // bloco do relatorio
   navegarRelatorioCompleto(): void {
     this.router.navigate(['/relatorio']);
   }
@@ -773,9 +741,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     void this.relatorioPdf.exportar(estado);
   }
 
-  // ===================== EFEITOS VISUAIS DO TUBO =====================
 
-  // liga bolhas, fumaca ou aura por alguns milissegundos
+  // bloco dos efeitos visuais
   private ativarEfeito(tipo: 'bolhas' | 'fumaca' | 'aura', duracaoMs: number): void {
     if (tipo === 'bolhas') {
       this.bolhasAtivas.set(true);
@@ -811,7 +778,6 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.efeitoTimers = [];
   }
 
-  // ===================== trackBy das listas do template =====================
 
   trackByAcao(index: number, acao: { nome: string }): string {
     return acao.nome;

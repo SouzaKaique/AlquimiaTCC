@@ -8,12 +8,7 @@ from nucleo.operacoes_estado import (
 from visual.estado_visual import aplicar_visual
 
 
-# grupo 3 - Fe3+, Al3+ e Ni2+
-# fases: pronto_para_nh4cl -> pronto_para_nh4oh -> mistura_hidroxidos -> hidroxidos_formados
-#        -> sobrenadante_ni -> confirmacao_ni -> ni_precipitado -> concluido
-
-
-# NH4Cl -> NH4OH -> (depois da centrifugacao) dimetilglioxima
+# bloco do grupo 3 - reagentes
 def aplicar_reagente(estado: dict, reagente: str) -> None:
     grupo3 = estado["grupo3"]
 
@@ -47,7 +42,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
     estado["observacao_atual"] = "Esse reagente nao corresponde ao passo atual do grupo 3."
 
 
-# agitacao forma os hidroxidos de Fe/Al ou o precipitado vermelho de Ni com DMG
+# bloco do grupo 3 - agitar
 def agitar(estado: dict) -> None:
     grupo3 = estado["grupo3"]
 
@@ -109,7 +104,7 @@ def agitar(estado: dict) -> None:
         )
 
 
-# primeira centrifugacao isola Fe/Al; a segunda conclui o grupo 3 e abre o relatorio
+# bloco do grupo 3 - centrifugar
 def centrifugar(estado: dict) -> None:
     grupo3 = estado["grupo3"]
 

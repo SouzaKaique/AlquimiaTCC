@@ -1,4 +1,4 @@
-# dados fixos da marcha: etapas, sais do teste de chama, reagentes, acoes e visual inicial
+# bloco das etapas
 STAGE_DEFINITIONS = [
     {
         "id": 0,
@@ -27,6 +27,7 @@ STAGE_DEFINITIONS = [
     },
 ]
 
+# bloco dos sais do teste de chama
 FLAME_SAMPLES = {
     "Sal de potassio": {
         "sigla": "K",
@@ -51,6 +52,7 @@ FLAME_SAMPLES = {
     },
 }
 
+# bloco dos reagentes
 REAGENT_CATALOG = [
     {
         "nome": "Sal de potassio",
@@ -118,6 +120,7 @@ REAGENT_CATALOG = [
     },
 ]
 
+# bloco das acoes
 ACTION_CATALOG = {
     "iniciar_roteiro": {
         "label": "Iniciar marcha",
@@ -145,6 +148,7 @@ ACTION_CATALOG = {
     },
 }
 
+# bloco do visual inicial
 DEFAULT_VISUAL = {
     "nivel": 48,
     "cor_solucao": "#7a8e9b",

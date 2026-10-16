@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CenaCard } from '../../interfaces/cena.interface';
 import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
-// card de texto da bancada (solucao-mae, precipitado, sobrenadante)
+// bloco dos cards da bancada
 @Component({
   selector: 'app-bench-card',
   standalone: true,
