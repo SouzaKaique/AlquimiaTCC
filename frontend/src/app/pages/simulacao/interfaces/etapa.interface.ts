@@ -1,4 +1,4 @@
-﻿export interface Etapa {
+export interface Etapa {
   id: number;
   label: string;
   descricao: string;

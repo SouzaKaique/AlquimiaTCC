@@ -12,6 +12,7 @@ type DocumentoPdf = {
   line: (x1: number, y1: number, x2: number, y2: number) => void;
 };
 
+// gera o pdf do relatorio com jspdf (carregado sob demanda)
 @Injectable({
   providedIn: 'root',
 })

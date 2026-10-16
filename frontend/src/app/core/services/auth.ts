@@ -10,6 +10,7 @@ export interface RespostaLogin {
   usuario: {
     id: number;
     nome: string;
+    apresentador: boolean;
   };
 }
 
@@ -25,6 +26,7 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) {}
 
+  // ---------- chamadas da api ----------
   login(nome: string, senha: string): Observable<RespostaLogin> {
     return this.http.post<RespostaLogin>(`${this.api}/login`, { nome, senha });
   }
@@ -33,9 +35,11 @@ export class AuthService {
     return this.http.post<RespostaRegistro>(`${this.api}/register`, { nome, senha });
   }
 
-  salvarSessao(token: string, nome: string): void {
+  // ---------- sessao no localStorage ----------
+  salvarSessao(token: string, nome: string, apresentador = false): void {
     localStorage.setItem('token', token);
     localStorage.setItem('usuario_nome', nome);
+    localStorage.setItem('usuario_apresentador', apresentador ? '1' : '0');
   }
 
   obterToken(): string | null {
@@ -46,9 +50,15 @@ export class AuthService {
     return !!this.obterToken();
   }
 
+  // so libera o visual da navegacao livre; quem valida de verdade e o backend
+  ehApresentador(): boolean {
+    return localStorage.getItem('usuario_apresentador') === '1';
+  }
+
   encerrarSessao(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario_nome');
+    localStorage.removeItem('usuario_apresentador');
     sessionStorage.clear();
   }
 }

@@ -1,4 +1,4 @@
-﻿export enum AcaoSimulacao {
+export enum AcaoSimulacao {
   Agitar = 'agitar',
   Aquecer = 'aquecer',
   Centrifugar = 'centrifugar',

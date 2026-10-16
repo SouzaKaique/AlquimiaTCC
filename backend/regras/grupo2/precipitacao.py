@@ -8,6 +8,12 @@ from nucleo.operacoes_estado import (
 from visual.estado_visual import aplicar_visual
 
 
+# grupo 2 - Mg2+, Ca2+ e Ba2+
+# fases: pronto_para_mg -> precipitado_mg_formado -> sobrenadante_mg -> carbonatos_formados -> concluido
+# cada reagente pede agitar e depois centrifugar
+
+
+# aceita so o reagente esperado na fase atual
 def aplicar_reagente(estado: dict, reagente: str) -> None:
     grupo2 = estado["grupo2"]
 
@@ -32,6 +38,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
     estado["observacao_atual"] = "Esse reagente nao corresponde ao passo atual do grupo 2."
 
 
+# agitacao forma o precipitado (Mg2+ primeiro, depois carbonatos de Ca2+ e Ba2+)
 def agitar(estado: dict) -> None:
     grupo2 = estado["grupo2"]
 
@@ -93,6 +100,7 @@ def agitar(estado: dict) -> None:
         )
 
 
+# centrifugacao separa precipitado e sobrenadante; a segunda conclui o grupo 2
 def centrifugar(estado: dict) -> None:
     grupo2 = estado["grupo2"]
 

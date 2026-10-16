@@ -1,4 +1,4 @@
-﻿export interface VisualEstado {
+export interface VisualEstado {
   nivel: number;
   cor_solucao: string;
   gradiente: string;

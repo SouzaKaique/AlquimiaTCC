@@ -1,3 +1,2 @@
-// Em desenvolvimento, o Angular encaminha /api para o Flask pela configuracao de proxy.
-// Assim a conexao independe da porta escolhida para o frontend e de IPv4/IPv6.
+// /api e redirecionado para o flask (127.0.0.1:5000) pelo proxy.conf.json
 export const API_BASE_URL = '/api';

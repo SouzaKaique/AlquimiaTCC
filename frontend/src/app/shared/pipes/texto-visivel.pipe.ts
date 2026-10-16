@@ -55,8 +55,15 @@ const SUBSTITUICOES: ReadonlyArray<readonly [RegExp, string]> = [
   [/\bsera\b/gi, 'será'],
   [/\bpossivel\b/gi, 'possível'],
   [/\bja\b/gi, 'já'],
+  [/\bexecucao\b/gi, 'execução'],
+  [/\bproxima\b/gi, 'próxima'],
+  [/\btipico\b/gi, 'típico'],
+  [/\btipica\b/gi, 'típica'],
+  [/\bcaracteristica\b/gi, 'característica'],
+  [/\bconclusao\b/gi, 'conclusão'],
 ];
 
+// o backend manda textos sem acento; este pipe troca as palavras para a forma acentuada na tela
 @Pipe({
   name: 'textoVisivel',
   standalone: true,

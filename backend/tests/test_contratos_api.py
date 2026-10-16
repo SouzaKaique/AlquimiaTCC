@@ -121,6 +121,28 @@ class ContratosApiTestCase(unittest.TestCase):
         self.assertEqual(estado_confirmado["etapa_corrente"], 2)
         self.assertFalse(estado_confirmado["teste_chama"]["ativa"])
 
+    def test_modo_apresentacao_pula_para_o_grupo_3(self) -> None:
+        self.app.config["USUARIOS_APRESENTACAO"] = {"usuario-teste"}
+        headers = self.autenticar()
+
+        resposta = self.cliente.post("/simulacao/etapa", headers=headers, json={"etapa": 3})
+        self.assertEqual(resposta.status_code, 200)
+
+        estado = resposta.get_json()["estado"]
+        self.assertEqual(estado["etapa_corrente"], 3)
+        self.assertEqual(estado["progresso"], 67)
+        self.assertEqual([r["nome"] for r in estado["reagentes_disponiveis"]], ["NH4Cl"])
+
+        relatorio = self.cliente.post("/simulacao/etapa", headers=headers, json={"etapa": 4})
+        self.assertEqual(relatorio.get_json()["estado"]["progresso"], 100)
+
+    def test_modo_apresentacao_bloqueia_usuario_comum(self) -> None:
+        headers = self.autenticar()
+
+        resposta = self.cliente.post("/simulacao/etapa", headers=headers, json={"etapa": 2})
+
+        self.assertEqual(resposta.status_code, 403)
+
     def test_rotas_protegidas_rejeitam_requisicao_sem_token(self) -> None:
         resposta = self.cliente.get("/simulacao/estado")
 

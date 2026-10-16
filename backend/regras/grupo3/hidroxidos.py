@@ -8,6 +8,12 @@ from nucleo.operacoes_estado import (
 from visual.estado_visual import aplicar_visual
 
 
+# grupo 3 - Fe3+, Al3+ e Ni2+
+# fases: pronto_para_nh4cl -> pronto_para_nh4oh -> mistura_hidroxidos -> hidroxidos_formados
+#        -> sobrenadante_ni -> confirmacao_ni -> ni_precipitado -> concluido
+
+
+# NH4Cl -> NH4OH -> (depois da centrifugacao) dimetilglioxima
 def aplicar_reagente(estado: dict, reagente: str) -> None:
     grupo3 = estado["grupo3"]
 
@@ -24,7 +30,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
         grupo3["nh4oh_adicionado"] = True
         grupo3["fase"] = "mistura_hidroxidos"
         grupo3["pendencia"] = "agitar"
-        estado["observacao_atual"] = "NH4OH adicionado. Agite para formar os hidroxidos insoluvies."
+        estado["observacao_atual"] = "NH4OH adicionado. Agite para formar os hidroxidos insoluveis."
         registrar_evento(estado, "NH4OH adicionado ao grupo 3.")
         return
 
@@ -41,6 +47,7 @@ def aplicar_reagente(estado: dict, reagente: str) -> None:
     estado["observacao_atual"] = "Esse reagente nao corresponde ao passo atual do grupo 3."
 
 
+# agitacao forma os hidroxidos de Fe/Al ou o precipitado vermelho de Ni com DMG
 def agitar(estado: dict) -> None:
     grupo3 = estado["grupo3"]
 
@@ -63,7 +70,7 @@ def agitar(estado: dict) -> None:
             grupo="Grupo 3",
             precipitado="hidroxidos de Fe3+ e Al3+",
             ions=["Fe3+", "Al3+", "OH-"],
-            observacao="Fe3+ e Al3+ formaram hidroxidos insoluvies no grupo 3.",
+            observacao="Fe3+ e Al3+ formaram hidroxidos insoluveis no grupo 3.",
         )
         aplicar_visual(
             estado,
@@ -102,6 +109,7 @@ def agitar(estado: dict) -> None:
         )
 
 
+# primeira centrifugacao isola Fe/Al; a segunda conclui o grupo 3 e abre o relatorio
 def centrifugar(estado: dict) -> None:
     grupo3 = estado["grupo3"]
 

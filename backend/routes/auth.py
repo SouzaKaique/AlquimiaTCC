@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, current_app, jsonify, request
 from flask_jwt_extended import create_access_token
 
 from extensions import bcrypt, db
@@ -8,6 +8,7 @@ from nucleo.tempo import agora_utc
 auth_bp = Blueprint("auth", __name__)
 
 
+# cadastro: valida nome/senha, impede nome repetido e salva a senha com hash
 @auth_bp.route("/register", methods=["POST"])
 def registrar():
     data = request.get_json(silent=True) or {}
@@ -36,6 +37,7 @@ def registrar():
     return jsonify({"message": "Usuario criado com sucesso."}), 201
 
 
+# login: confere a senha e devolve o token jwt usado nas rotas da simulacao
 @auth_bp.route("/login", methods=["POST"])
 def entrar():
     data = request.get_json(silent=True) or {}
@@ -58,8 +60,17 @@ def entrar():
             {
                 "message": "Login realizado com sucesso.",
                 "access_token": access_token,
-                "usuario": {"id": usuario.id, "nome": usuario.nome},
+                "usuario": {
+                    "id": usuario.id,
+                    "nome": usuario.nome,
+                    "apresentador": eh_apresentador(usuario),
+                },
             }
         ),
         200,
     )
+
+
+# acesso de apresentacao: definido pelo nome do usuario em Config.USUARIOS_APRESENTACAO
+def eh_apresentador(usuario: User | None) -> bool:
+    return bool(usuario) and usuario.nome in current_app.config["USUARIOS_APRESENTACAO"]

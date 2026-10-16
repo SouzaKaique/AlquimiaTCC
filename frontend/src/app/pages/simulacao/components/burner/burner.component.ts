@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { TesteChama } from '../../interfaces/teste-chama.interface';
 import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
+// bico de bunsen do grupo 1: clique liga/desliga, area da chama recebe o tubo
 @Component({
   selector: 'app-burner',
   standalone: true,

@@ -45,15 +45,13 @@ Angular
 - `nucleo`: estado, operacoes compartilhadas, tempo e infraestrutura do motor.
 - `dados`: catalogos declarativos.
 - `visual`: transformacao do estado quimico em estado visual.
-- `dominio`: modelos de dominio reutilizaveis.
 - `models.py`: persistencia SQLAlchemy.
 
-### Compatibilidade
+### Modo apresentacao
 
-- `routes/reacoes.py` preserva o endpoint legado, mas delega ao `ServicoSimulacao`.
-- `simulacao/base_quimica.py` preserva imports antigos e delega aos modulos novos.
-- `simulacao/engine.py`, `simulacao/estado.py` e `simulacao/regras.py` permanecem como modulos experimentais/legados e nao participam do fluxo principal.
-- `nucleo/pipeline_quimico.py`, `nucleo/eventos.py` e parte de `dominio` sao bases para evolucao futura.
+- Usuarios listados em `USUARIOS_APRESENTACAO` (padrao: `apresentacao`) podem clicar nas etapas da topbar.
+- `POST /simulacao/etapa` monta a marcha ja posicionada na etapa escolhida, executando os grupos anteriores com `ROTEIRO_COMPLETO` (em `simulacoes/marcha_analitica.py`).
+- Usuario comum recebe `403` nessa rota.
 
 ## Contratos principais
 
@@ -63,13 +61,14 @@ Angular
 - `POST /simulacao/iniciar`
 - `POST /simulacao/reagente`
 - `POST /simulacao/acao`
+- `POST /simulacao/etapa` (modo apresentacao)
 - `POST /simulacao/finalizar`
 - `GET /saude`
 
 ## Persistencia
 
 O banco local fica em `backend/instance/database.db` e nao deve ser versionado em novos ambientes.
-O esquema ainda preserva compatibilidade com colunas historicas obrigatorias de reagentes no historico.
+As tabelas `reagentes` e `reacoes` continuam no esquema, mas a marcha usa o catalogo fixo de `dados/catalogos_marcha.py`.
 
 ## Validacao
 

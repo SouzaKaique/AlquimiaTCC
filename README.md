@@ -41,7 +41,19 @@ $env:FRONTEND_PORT = 4205
 
 O script executa testes backend, compilacao Python, testes Angular e build de producao.
 
+## Modo apresentacao
+
+Crie (pela tela de cadastro) um usuario chamado `apresentacao`. Ao entrar com ele,
+os botoes da barra superior (Teste de chama, Grupo 2, Grupo 3, Relatorio) ficam
+clicaveis e levam direto para a etapa, com os grupos anteriores ja concluidos.
+
+Para usar outro nome de usuario:
+
+```powershell
+$env:USUARIOS_APRESENTACAO = "kaique"
+.\scripts\iniciar.ps1
+```
+
 ## Documentacao
 
 - [Arquitetura](ARQUITETURA.md)
-- [Historico da refatoracao](REFATORACAO.md)

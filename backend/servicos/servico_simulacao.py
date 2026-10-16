@@ -6,9 +6,10 @@ from nucleo.tempo import agora_utc
 from simulacao.motor import MotorSimulacao
 
 
+# camada entre as rotas e o motor: carrega a simulacao do banco, aplica a regra e salva
 class ServicoSimulacao:
+    # desativa a simulacao anterior e grava um estado inicial novo
     def iniciar(self, usuario_id: int) -> dict:
-        # cada usuário mantém apenas uma simulação ativa por vez
         Simulacao.query.filter_by(usuario_id=usuario_id, ativa=True).update({"ativa": False})
 
         motor = MotorSimulacao()
@@ -32,16 +33,15 @@ class ServicoSimulacao:
         if not simulacao:
             return None
 
-        # o motor recebe o estado salvo, aplica a regra química e devolve o novo estado serializado
         motor = MotorSimulacao(estado_json=simulacao.estado_json)
         return {"estado": motor.obter_estado_publico()}
 
+    # reagente solto no tubo -> regra do grupo atual -> estado salvo + historico
     def aplicar_reagente(self, usuario_id: int, reagente: str) -> dict | None:
         simulacao = self.buscar_ativa(usuario_id)
         if not simulacao:
             return None
 
-        # ações como agitar, centrifugar e aquecer passam pelo mesmo motor da marcha
         motor = MotorSimulacao(estado_json=simulacao.estado_json)
         simulacao.estado_json = motor.aplicar_reagente(reagente)
         self.registrar_historico(
@@ -57,6 +57,7 @@ class ServicoSimulacao:
             "estado": motor.obter_estado_publico(),
         }
 
+    # aquecer, agitar, centrifugar... mesmo fluxo do reagente
     def executar_acao(self, usuario_id: int, acao: str, descricao_historico: str) -> dict | None:
         simulacao = self.buscar_ativa(usuario_id)
         if not simulacao:
@@ -73,6 +74,25 @@ class ServicoSimulacao:
         db.session.commit()
 
         return {"mensagem": "Acao registrada.", "estado": motor.obter_estado_publico()}
+
+    # modo apresentacao: substitui o estado pela marcha ja posicionada na etapa escolhida
+    def ir_para_etapa(self, usuario_id: int, etapa: int) -> dict:
+        simulacao = self.buscar_ativa(usuario_id)
+        if not simulacao:
+            self.iniciar(usuario_id)
+            simulacao = self.buscar_ativa(usuario_id)
+
+        motor = MotorSimulacao()
+        simulacao.estado_json = motor.ir_para_etapa(etapa)
+        self.registrar_historico(
+            usuario_id=usuario_id,
+            simulacao_id=simulacao.id,
+            acao="apresentacao",
+            descricao=f"Modo apresentacao: navegou para a etapa {etapa}.",
+        )
+        db.session.commit()
+
+        return {"mensagem": "Etapa carregada.", "estado": motor.obter_estado_publico()}
 
     def finalizar(self, usuario_id: int) -> bool:
         simulacao = self.buscar_ativa(usuario_id)
@@ -91,6 +111,7 @@ class ServicoSimulacao:
             .first()
         )
 
+    # cada passo do aluno vira uma linha na tabela historico
     def registrar_historico(self, usuario_id: int, simulacao_id: int, acao: str, descricao: str) -> None:
         db.session.add(
             Historico(

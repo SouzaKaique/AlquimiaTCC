@@ -1,4 +1,4 @@
-<nav class="topbar">
+<nav class="topbar" [class.modo-apresentacao]="navegacaoLivre">
   <div class="topbar-left">
     <button
       type="button"
@@ -9,9 +9,11 @@
       <img src="/assets/img/user.png" alt="Perfil" />
     </button>
 
-    <div class="brand">Alquimia | Marcha Analítica 2.0</div>
+    <div class="brand">Alquimia | Marcha Analítica</div>
+    <span class="badge-apresentacao" *ngIf="navegacaoLivre">Apresentação</span>
   </div>
 
+  <!-- botoes das etapas; no modo apresentacao ficam todos clicaveis -->
   <div class="stage-nav" *ngIf="etapas.length">
     <button
       type="button"
@@ -19,8 +21,9 @@
       *ngFor="let etapa of etapas; trackBy: trackByEtapa"
       [class.active]="etapaCorrente === etapa.id"
       [class.completed]="etapa.concluida"
-      [class.locked]="etapa.bloqueada"
-      [disabled]="etapa.bloqueada"
+      [class.locked]="etapa.bloqueada && !navegacaoLivre"
+      [disabled]="etapa.bloqueada && !navegacaoLivre"
+      (click)="clicarEtapa(etapa)"
     >
       {{ etapa.label | textoVisivel }}
     </button>

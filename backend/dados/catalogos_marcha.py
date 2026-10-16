@@ -1,4 +1,4 @@
-# Dados estáticos usados para montar etapas, reagentes, ações e visual inicial da marcha.
+# dados fixos da marcha: etapas, sais do teste de chama, reagentes, acoes e visual inicial
 STAGE_DEFINITIONS = [
     {
         "id": 0,

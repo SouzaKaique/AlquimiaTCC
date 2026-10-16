@@ -6,6 +6,7 @@ import { AuthService } from '../../core/services/auth';
 import { DrawerComponent } from '../simulacao/components/drawer/drawer.component';
 import { TopbarComponent } from '../simulacao/components/topbar/topbar.component';
 
+// perguntas fixas do quiz sobre a marcha analitica
 interface AlternativaQuiz {
   texto: string;
   correta: boolean;
@@ -186,6 +187,7 @@ const PERGUNTAS_QUIZ: PerguntaQuiz[] = [
   },
 ];
 
+// pagina do quiz: uma pergunta por vez, mostra explicacao e soma os acertos
 @Component({
   selector: 'app-quiz',
   standalone: true,
@@ -232,6 +234,7 @@ export class QuizComponent {
     window.location.assign('/');
   }
 
+  // ---------- fluxo do quiz ----------
   iniciar(): void {
     this.iniciado.set(true);
     this.finalizado.set(false);

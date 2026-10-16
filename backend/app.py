@@ -5,12 +5,10 @@ from sqlalchemy import inspect, text
 from config import Config
 from extensions import bcrypt, db, jwt
 from routes.auth import auth_bp
-from routes.historico import historico_bp
-from routes.reacoes import reacoes_bp
-from routes.reagentes import reagentes_bp
 from routes.simulacao import bp as simulacao_bp
 
 
+# monta a aplicacao flask: config, cors, extensoes e rotas
 def create_app(configuracao: dict | None = None) -> Flask:
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -30,9 +28,6 @@ def create_app(configuracao: dict | None = None) -> Flask:
     jwt.init_app(app)
 
     app.register_blueprint(auth_bp, url_prefix="/auth")
-    app.register_blueprint(reagentes_bp, url_prefix="/reagentes")
-    app.register_blueprint(reacoes_bp, url_prefix="/reacoes")
-    app.register_blueprint(historico_bp, url_prefix="/historico")
     app.register_blueprint(simulacao_bp, url_prefix="/simulacao")
 
     registrar_rotas_sistema(app)
@@ -40,6 +35,7 @@ def create_app(configuracao: dict | None = None) -> Flask:
     return app
 
 
+# rotas simples usadas para conferir se o backend esta no ar
 def registrar_rotas_sistema(app: Flask) -> None:
     @app.route("/")
     def pagina_inicial():
@@ -50,6 +46,7 @@ def registrar_rotas_sistema(app: Flask) -> None:
         return {"status": "ok", "servico": "alquimia-api"}
 
 
+# respostas padrao quando o token jwt esta ausente, invalido ou expirado
 def registrar_callbacks(app: Flask) -> None:
     @jwt.invalid_token_loader
     def retorno_token_invalido(erro):
@@ -64,6 +61,7 @@ def registrar_callbacks(app: Flask) -> None:
         return jsonify({"error": "Token expirado."}), 401
 
 
+# adiciona colunas novas em bancos sqlite criados antes delas existirem
 def garantir_esquema_legado() -> None:
     inspector = inspect(db.engine)
 

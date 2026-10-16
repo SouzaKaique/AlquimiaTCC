@@ -1,4 +1,4 @@
-﻿export interface Acao {
+export interface Acao {
   nome: string;
   label: string;
   descricao: string;

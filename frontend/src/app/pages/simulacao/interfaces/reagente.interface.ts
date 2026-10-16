@@ -1,4 +1,4 @@
-﻿export interface Reagente {
+export interface Reagente {
   nome: string;
   sigla: string;
   descricao: string;

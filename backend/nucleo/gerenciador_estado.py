@@ -1,10 +1,13 @@
-﻿import copy
+import copy
 from typing import Any
 
 from dados.catalogos_marcha import ACTION_CATALOG, DEFAULT_VISUAL, REAGENT_CATALOG, STAGE_DEFINITIONS
 from visual.estado_visual import atualizar_cena
 
 
+# ---------- estado inicial ----------
+# monta o dicionario da marcha. ele e salvo como json na tabela simulacao
+# e enviado inteiro para o frontend a cada requisicao
 def criar_estado_inicial() -> dict[str, Any]:
     etapas = []
     for definition in STAGE_DEFINITIONS:
@@ -20,7 +23,6 @@ def criar_estado_inicial() -> dict[str, Any]:
             }
         )
 
-    # este dicionÃ¡rio Ã© o contrato central entre backend, frontend e relatÃ³rio
     estado = {
         "schema_version": 1,
         "simulacao_tipo": "marcha-por-grupos",
@@ -31,10 +33,10 @@ def criar_estado_inicial() -> dict[str, Any]:
         "etapa_corrente": 0,
         "etapas": etapas,
         "historico": [
-            "Simulacao iniciada. O roteiro foi reorganizado por grupos conhecidos para facilitar o estudo."
+            "Simulacao iniciada com o roteiro por grupos conhecidos."
         ],
         "observacao_atual": (
-            "Nesta versao, cada grupo comeca com uma solucao-mae conhecida. "
+            "Cada grupo comeca com uma solucao-mae conhecida. "
             "Voce observa a separacao por reagentes, agitacao, centrifugacao e aquecimento."
         ),
         "progresso": 0,
@@ -42,6 +44,7 @@ def criar_estado_inicial() -> dict[str, Any]:
         "precipitacoes": [],
         "ultima_precipitacao": None,
         "reagentes_utilizados": [],
+        # controle interno de cada grupo (fase atual e o que falta fazer)
         "grupo1": {
             "amostra_atual": None,
             "testadas": [],
@@ -76,12 +79,13 @@ def criar_estado_inicial() -> dict[str, Any]:
     return estado
 
 
+# ---------- reagentes liberados ----------
+# filtra o catalogo pela etapa e pela fase do grupo, para o aluno so ver o reagente do passo atual
 def obter_catalogo_reagentes(estado: dict[str, Any]) -> list[dict[str, Any]]:
     etapa = estado["etapa_corrente"]
     reagentes = []
 
     for item in REAGENT_CATALOG:
-        # libera apenas os reagentes compatÃ­veis com a etapa e a fase interna atual
         if etapa not in item["etapas"]:
             continue
 
@@ -113,12 +117,13 @@ def obter_catalogo_reagentes(estado: dict[str, Any]) -> list[dict[str, Any]]:
     return reagentes
 
 
+# ---------- acoes liberadas ----------
+# botoes que o frontend pode mostrar agora (iniciar, aquecer, agitar, centrifugar...)
 def obter_acoes_disponiveis(estado: dict[str, Any]) -> list[dict[str, Any]]:
     etapa = estado["etapa_corrente"]
     acoes = []
 
     if etapa == 0:
-        # a introduÃ§Ã£o sÃ³ permite iniciar o roteiro
         acoes.append(criar_acao("iniciar_roteiro"))
 
     if etapa == 1 and estado["grupo1"]["pendencia"] == "aquecer":
@@ -143,6 +148,7 @@ def obter_acoes_disponiveis(estado: dict[str, Any]) -> list[dict[str, Any]]:
     return acoes
 
 
+# estado enviado ao frontend = estado salvo + reagentes e acoes liberados
 def obter_estado_publico(estado: dict[str, Any]) -> dict[str, Any]:
     garantir_campos_atuais(estado)
     publico = copy.deepcopy(estado)
@@ -151,8 +157,8 @@ def obter_estado_publico(estado: dict[str, Any]) -> dict[str, Any]:
     return publico
 
 
+# completa campos que nao existiam em simulacoes antigas salvas no banco
 def garantir_campos_atuais(estado: dict[str, Any]) -> None:
-    # mantém compatibilidade com simulações antigas salvas no banco local
     estado.setdefault("precipitacoes", [])
     estado.setdefault("ultima_precipitacao", None)
     estado.setdefault("reagentes_utilizados", [])

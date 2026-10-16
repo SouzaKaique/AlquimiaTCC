@@ -77,7 +77,7 @@ app-simulacao {
   border-top: 2px solid rgba(49, 70, 83, 0.18);
 }
 
-/* Visual refresh: laboratory depth, safer text layout, stronger reaction effects. */
+/* fundo da bancada e ajustes de profundidade */
 .lab-page {
   background:
     linear-gradient(180deg, rgba(6, 14, 18, 0.18), rgba(6, 14, 18, 0.34)),

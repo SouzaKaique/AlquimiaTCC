@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { Etapa } from '../../interfaces/etapa.interface';
 import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
+// barra superior com a marca e os botoes das etapas da marcha
 @Component({
   selector: 'app-simulacao-topbar',
   standalone: true,
@@ -15,8 +16,18 @@ import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 export class TopbarComponent {
   @Input({ required: true }) etapas: Etapa[] = [];
   @Input() etapaCorrente: number | null = null;
+  // true so para o usuario de apresentacao
+  @Input() navegacaoLivre = false;
 
   @Output() abrirPerfil = new EventEmitter<MouseEvent>();
+  @Output() selecionarEtapa = new EventEmitter<number>();
+
+  // so emite no modo apresentacao; para o aluno os botoes sao apenas indicadores
+  clicarEtapa(etapa: Etapa): void {
+    if (this.navegacaoLivre && etapa.id !== this.etapaCorrente) {
+      this.selecionarEtapa.emit(etapa.id);
+    }
+  }
 
   trackByEtapa(index: number, etapa: Etapa): number {
     return etapa.id;

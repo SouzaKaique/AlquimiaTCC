@@ -5,6 +5,7 @@ import { Acao } from '../../interfaces/acao.interface';
 import { Reagente } from '../../interfaces/reagente.interface';
 import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
+// painel lateral com os reagentes liberados e os botoes de acao da etapa
 @Component({
   selector: 'app-reagent-board',
   standalone: true,

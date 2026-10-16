@@ -78,7 +78,11 @@ export class LoginComponent implements OnInit {
 
   private loginSucesso(resposta: RespostaLogin): void {
     this.carregando = false;
-    this.authService.salvarSessao(resposta.access_token, resposta.usuario.nome || this.usuario);
+    this.authService.salvarSessao(
+      resposta.access_token,
+      resposta.usuario.nome || this.usuario,
+      resposta.usuario.apresentador,
+    );
     this.animarSucesso();
     this.notyf.open({
       type: 'sucesso',

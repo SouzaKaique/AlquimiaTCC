@@ -3,6 +3,7 @@ from extensions import db
 from nucleo.tempo import agora_utc
 
 
+# usuario do sistema (login por nome + senha com hash)
 class User(db.Model):
     __tablename__ = "usuarios"
 
@@ -14,6 +15,8 @@ class User(db.Model):
     simulacoes = db.relationship("Simulacao", backref="usuario", lazy=True)
 
 
+# tabelas reagentes/reacoes: fazem parte do esquema do banco, mas a marcha atual
+# usa o catalogo fixo de dados/catalogos_marcha.py
 class Reagente(db.Model):
     __tablename__ = "reagentes"
 
@@ -47,6 +50,7 @@ class Reacao(db.Model):
     efeitos_json = db.Column(db.Text, nullable=False)
 
 
+# marcha de um usuario; todo o andamento fica em estado_json
 class Simulacao(db.Model):
     __tablename__ = "simulacao"
 
@@ -64,6 +68,7 @@ class Simulacao(db.Model):
     data_fim = db.Column(db.DateTime)
 
 
+# log de cada reagente/acao executado na simulacao
 class Historico(db.Model):
     __tablename__ = "historico"
 

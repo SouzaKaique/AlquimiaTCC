@@ -1,4 +1,4 @@
-﻿export interface CenaCard {
+export interface CenaCard {
   titulo: string;
   subtitulo?: string;
   conteudo: string;

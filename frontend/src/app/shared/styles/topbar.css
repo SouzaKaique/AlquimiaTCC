@@ -136,3 +136,30 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
   transform: translateY(-1px);
 }
+
+/* modo apresentacao: topbar fica acima dos modais para permitir trocar de etapa */
+.topbar.modo-apresentacao {
+  z-index: 59;
+}
+
+.topbar.modo-apresentacao .stage-btn {
+  cursor: pointer;
+}
+
+.badge-apresentacao {
+  padding: 4px 8px;
+  border: 2px solid var(--pixel-border-dark);
+  background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
+  color: #2f2418;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+/* com a topbar por cima, o modal do relatorio desce para nao ficar escondido */
+.lab-page.modo-apresentacao .report-modal-overlay {
+  padding-top: 104px;
+}
+
+.lab-page.modo-apresentacao .report-modal {
+  max-height: calc(100vh - 128px);
+}
