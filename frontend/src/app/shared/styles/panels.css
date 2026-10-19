@@ -1,6 +1,6 @@
 /* Paineis, cards, progresso, logs, resumo e botoes de acao. */
 
-.panel {
+.painel {
   height: 100%;
   min-height: 0;
   padding: 18px;
@@ -15,32 +15,32 @@
   overflow: hidden;
 }
 
-.intro-panel,
-.report-panel {
+.painel-intro,
+.relatorio-painel {
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.report-panel-compact {
+.relatorio-painel-compacto {
   justify-content: flex-start;
 }
 
-.report-lead {
+.relatorio-introducao {
   padding: 12px;
   border: 3px solid rgba(49, 70, 83, 0.28);
   background: rgba(255, 255, 255, 0.32);
 }
 
-.compact-report-summary {
+.resumo-relatorio-compacto {
   flex: 0 0 auto;
   max-height: 245px;
 }
 
-.intro-panel {
+.painel-intro {
   gap: 12px;
 }
 
-.stage-panel {
+.painel-etapa {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -48,7 +48,7 @@
   overflow: hidden;
 }
 
-.panel h2 {
+.painel h2 {
   margin: 0;
   font-size: 1.62rem;
   line-height: 1.05;
@@ -56,13 +56,13 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.panel p {
+.painel p {
   margin: 0;
   font-size: 0.98rem;
   line-height: 1.46;
 }
 
-.loading-error {
+.erro-carregamento {
   padding: 10px 12px;
   border: 3px solid #7b4d42;
   background: rgba(176, 94, 78, 0.18);
@@ -70,8 +70,8 @@
   font-size: 1rem;
 }
 
-.sample-card,
-.phase-card {
+.cartao-amostra,
+.cartao-fase {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -81,11 +81,11 @@
   box-shadow: 0 4px 0 rgba(30, 44, 52, 0.14);
 }
 
-.sample-card.compact {
+.cartao-amostra.compacto {
   margin-bottom: 4px;
 }
 
-.intro-guide {
+.guia-intro {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -96,32 +96,32 @@
   box-shadow: inset 0 0 18px rgba(127, 255, 218, 0.08);
 }
 
-.intro-guide-title {
+.titulo-guia-intro {
   font-size: 1rem;
   line-height: 1;
 }
 
-.intro-guide-step {
+.passo-guia-intro {
   font-size: 0.92rem;
   line-height: 1.35;
 }
 
-.intro-guide-step + .intro-guide-step {
+.passo-guia-intro + .passo-guia-intro {
   border-top: 1px solid rgba(49, 70, 83, 0.12);
   padding-top: 7px;
 }
 
-.intro-actions {
+.acoes-intro {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
 }
 
-.intro-action-btn {
+.botao-acao-intro {
   width: 100%;
 }
 
-.sample-code {
+.codigo-amostra {
   width: 72px;
   min-height: 54px;
   display: grid;
@@ -135,47 +135,47 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 0 rgba(77, 55, 24, 0.2);
 }
 
-.sample-copy {
+.texto-amostra {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.sample-copy strong,
-.phase-title {
+.texto-amostra strong,
+.titulo-fase {
   font-size: 1.05rem;
   line-height: 1.1;
 }
 
-.sample-copy span,
-.phase-copy {
+.texto-amostra span,
+.texto-fase {
   font-size: 0.92rem;
   line-height: 1.35;
 }
 
-.phase-card {
+.cartao-fase {
   flex-direction: column;
   align-items: flex-start;
 }
 
-.stage-summary {
+.resumo-etapa {
   display: flex;
   flex-direction: column;
   gap: 10px;
   flex: 0 0 auto;
 }
 
-.compact-phase {
+.fase-compacta {
   padding: 10px 12px;
 }
 
-.phase-stack {
+.pilha-fases {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.action-btn {
+.botao-acao {
   min-height: 46px;
   padding: 10px 16px;
   border: 3px solid #1d2b35;
@@ -187,21 +187,21 @@
   border-color: rgba(10, 24, 32, 0.95);
 }
 
-.action-btn:disabled {
+.botao-acao:disabled {
   opacity: 0.62;
   cursor: not-allowed;
 }
 
-.action-btn.secondary {
+.botao-acao.secundario {
   background: linear-gradient(180deg, #a97a62 0%, #855744 100%);
 }
 
-.reset-btn {
+.botao-reiniciar {
   width: 100%;
   margin-top: 2px;
 }
 
-.progress-box {
+.caixa-progresso {
   padding: 14px;
   border: 3px solid #50606a;
   background:
@@ -209,12 +209,12 @@
   box-shadow: inset 0 0 18px rgba(32, 52, 62, 0.08);
 }
 
-.progress-title {
+.titulo-progresso {
   font-size: 1rem;
   margin-bottom: 8px;
 }
 
-.progress-track {
+.trilha-progresso {
   position: relative;
   overflow: hidden;
   height: 16px;
@@ -222,7 +222,7 @@
   background: rgba(37, 52, 60, 0.16);
 }
 
-.progress-fill {
+.preenchimento-progresso {
   position: relative;
   height: 100%;
   background: linear-gradient(90deg, #6a9c69 0%, #d9c47f 100%);
@@ -230,7 +230,7 @@
   transition: width 520ms var(--ease-pixel), filter var(--transition-med);
 }
 
-.progress-fill::after {
+.preenchimento-progresso::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -239,21 +239,21 @@
   animation: progressSheen 2.8s ease-in-out infinite;
 }
 
-.progress-label {
+.rotulo-progresso {
   margin-top: 8px;
   font-size: 0.95rem;
 }
 
-.summary-list,
-.log-list {
+.lista-resumo,
+.lista-registros {
   display: flex;
   flex-direction: column;
   gap: 10px;
   overflow: auto;
 }
 
-.summary-item,
-.log-item {
+.item-resumo,
+.item-registro {
   padding: 10px;
   border: 3px solid #50606a;
   background: rgba(255, 255, 255, 0.45);
@@ -262,26 +262,26 @@
   color: rgba(31, 45, 54, 0.92);
 }
 
-.panel {
+.painel {
   background:
     linear-gradient(180deg, rgba(237, 246, 238, 0.96), rgba(205, 219, 216, 0.92)),
     rgba(227, 234, 228, 0.92);
   box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.stage-copy h2,
-.panel h2 {
+.texto-etapa h2,
+.painel h2 {
   overflow-wrap: anywhere;
 }
 
-.action-btn {
+.botao-acao {
   position: relative;
   overflow: hidden;
   box-shadow: 0 6px 0 rgba(11, 22, 30, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
-.action-btn::after {
+.botao-acao::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -290,11 +290,11 @@
   transition: transform 420ms ease;
 }
 
-.action-btn:hover::after {
+.botao-acao:hover::after {
   transform: translateX(120%);
 }
 
-.report-modal-overlay {
+.relatorio-modal-sobreposicao {
   position: fixed;
   inset: 0;
   z-index: 58;
@@ -308,7 +308,7 @@
   animation: overlayEnter 180ms ease both;
 }
 
-.report-modal {
+.relatorio-modal {
   width: min(780px, calc(100vw - 44px));
   max-height: calc(100vh - 54px);
   display: flex;
@@ -325,65 +325,65 @@
   animation: dialogEnter 240ms var(--ease-pixel) both;
 }
 
-.report-modal.detail-open {
+.relatorio-modal.detalhe-aberto {
   width: min(980px, calc(100vw - 44px));
 }
 
-.report-modal-header {
+.relatorio-modal-cabecalho {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
 }
 
-.report-modal h2,
-.report-modal h3 {
+.relatorio-modal h2,
+.relatorio-modal h3 {
   margin: 0;
   color: #182a34;
 }
 
-.report-modal h2 {
+.relatorio-modal h2 {
   font-size: 1.7rem;
   line-height: 1;
 }
 
-.report-modal h3 {
+.relatorio-modal h3 {
   font-size: 1.05rem;
 }
 
-.report-eyebrow {
+.relatorio-sobretitulo {
   margin-bottom: 6px;
   color: #7d5e35;
   font-size: 0.82rem;
   letter-spacing: 0;
 }
 
-.report-modal-body {
+.relatorio-modal-corpo {
   display: flex;
   flex-direction: column;
   gap: 14px;
   min-height: 0;
 }
 
-.report-modal-body p {
+.relatorio-modal-corpo p {
   margin: 0;
   line-height: 1.42;
 }
 
-.report-kpis {
+.relatorio-indicadores {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
-.report-kpis > div,
-.report-section {
+.relatorio-indicadores > div,
+.relatorio-secao {
   border: 3px solid rgba(49, 70, 83, 0.44);
   background: rgba(255, 255, 255, 0.42);
   box-shadow: inset 0 0 16px rgba(127, 255, 218, 0.06);
 }
 
-.report-kpis > div {
+.relatorio-indicadores > div {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -391,22 +391,22 @@
   text-align: center;
 }
 
-.report-kpis strong {
+.relatorio-indicadores strong {
   font-size: 1.35rem;
   color: #2d4b70;
 }
 
-.report-kpis span {
+.relatorio-indicadores span {
   font-size: 0.82rem;
 }
 
-.report-modal-highlights {
+.relatorio-modal-destaques {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
-.report-modal-highlights > div {
+.relatorio-modal-destaques > div {
   min-width: 0;
   padding: 12px;
   border: 3px solid rgba(49, 70, 83, 0.38);
@@ -416,17 +416,17 @@
   gap: 6px;
 }
 
-.report-modal-highlights strong {
+.relatorio-modal-destaques strong {
   color: #2d4b70;
 }
 
-.report-modal-highlights span {
+.relatorio-modal-destaques span {
   font-size: 0.88rem;
   line-height: 1.32;
   overflow-wrap: anywhere;
 }
 
-.report-modal-precipitant {
+.relatorio-modal-precipitante {
   padding: 12px;
   border: 3px solid rgba(49, 70, 83, 0.38);
   background: rgba(223, 200, 140, 0.28);
@@ -435,16 +435,16 @@
   gap: 6px;
 }
 
-.report-modal-precipitant strong {
+.relatorio-modal-precipitante strong {
   color: #5b4427;
 }
 
-.report-modal-precipitant span {
+.relatorio-modal-precipitante span {
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
 
-.report-detail-grid {
+.relatorio-grade-detalhes {
   min-height: 0;
   display: grid;
   grid-template-columns: minmax(230px, 0.8fr) minmax(300px, 1.2fr);
@@ -453,23 +453,23 @@
   padding-right: 4px;
 }
 
-.report-section {
+.relatorio-secao {
   min-width: 0;
   padding: 14px;
 }
 
-.report-section.wide {
+.relatorio-secao.largo {
   grid-column: 1 / -1;
 }
 
-.report-pill-list {
+.relatorio-lista-etiquetas {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 12px;
 }
 
-.report-pill-list span {
+.relatorio-lista-etiquetas span {
   padding: 7px 9px;
   border: 2px solid rgba(49, 70, 83, 0.36);
   background: rgba(223, 200, 140, 0.34);
@@ -477,17 +477,17 @@
   overflow-wrap: anywhere;
 }
 
-.report-log-list {
+.relatorio-lista-registros {
   max-height: 220px;
 }
 
-.report-modal-actions {
+.relatorio-modal-acoes {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.report-modal-actions .action-btn {
+.relatorio-modal-acoes .botao-acao {
   min-width: 190px;
 }

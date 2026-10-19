@@ -9,7 +9,7 @@
   margin-bottom: 20px;
 }
 
-.input-pixel {
+.campo-pixel {
   border: 2px solid #000 !important;
   background: #d1d5d8 !important;
   font-family: inherit;
@@ -28,7 +28,7 @@
   background: #aebbc8;
 }
 
-.link-auth {
+.link-autenticacao {
   font-size: 18px;
   margin-top: 10px;
   display: block;

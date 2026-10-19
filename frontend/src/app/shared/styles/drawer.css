@@ -1,6 +1,6 @@
 /* Menu lateral de perfil e navegacao do usuario. */
 
-.drawer-backdrop {
+.fundo-menu-lateral {
   position: fixed;
   inset: 0;
   background: rgba(7, 12, 16, 0);
@@ -9,13 +9,13 @@
   z-index: 34;
 }
 
-.drawer-backdrop.open {
+.fundo-menu-lateral.aberto {
   background: rgba(7, 12, 16, 0.48);
   backdrop-filter: blur(2px);
   pointer-events: auto;
 }
 
-.profile-drawer {
+.menu-perfil {
   position: fixed;
   top: 0;
   left: 0;
@@ -30,11 +30,11 @@
   overflow: hidden;
 }
 
-.profile-drawer.open {
+.menu-perfil.aberto {
   transform: translateX(0);
 }
 
-.profile-menu-header {
+.cabecalho-menu-perfil {
   background:
     linear-gradient(180deg, rgba(172, 192, 191, 0.98), rgba(122, 147, 151, 0.98)),
     var(--drawer-header);
@@ -46,7 +46,7 @@
   border-bottom: 4px solid rgba(22, 32, 40, 0.2);
 }
 
-.profile-avatar {
+.avatar-perfil {
   width: 72px;
   height: 72px;
   display: grid;
@@ -54,7 +54,7 @@
   margin-bottom: 10px;
 }
 
-.profile-avatar img {
+.avatar-perfil img {
   width: 52px;
   height: 52px;
   object-fit: contain;
@@ -62,7 +62,7 @@
   filter: brightness(0.28);
 }
 
-.profile-name {
+.nome-perfil {
   font-size: 1.55rem;
   line-height: 1;
   font-weight: 700;
@@ -71,14 +71,14 @@
   text-align: center;
 }
 
-.profile-menu-body {
+.corpo-menu-perfil {
   padding: 18px 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.menu-item {
+.item-menu {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -97,33 +97,33 @@
   box-shadow: 0 5px 0 rgba(8, 15, 20, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.menu-item:hover,
-.menu-item.active {
+.item-menu:hover,
+.item-menu.ativo {
   transform: translateX(4px);
   background: linear-gradient(180deg, #3a4d59, #263945);
   border-color: rgba(127, 255, 218, 0.2);
 }
 
-.menu-item.active {
+.item-menu.ativo {
   color: #fff4c8;
   box-shadow: 0 0 18px rgba(255, 207, 112, 0.18), 0 5px 0 rgba(8, 15, 20, 0.28);
 }
 
-.menu-icon {
+.icone-menu {
   width: 24px;
   height: 24px;
   display: grid;
   place-items: center;
 }
 
-.menu-icon img {
+.icone-menu img {
   width: 22px;
   height: 22px;
   object-fit: contain;
   image-rendering: pixelated;
 }
 
-.menu-pixel-icon {
+.icone-pixel-menu {
   width: 28px;
   height: 28px;
   display: grid;
@@ -136,24 +136,24 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
-.menu-item.active .menu-pixel-icon {
+.item-menu.ativo .icone-pixel-menu {
   background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
   color: #2f2418;
 }
 
-.menu-label {
+.rotulo-menu {
   flex: 1;
   font-size: 1.45rem;
   line-height: 1;
 }
 
-.menu-arrow {
+.seta-menu {
   font-size: 1.75rem;
   line-height: 1;
   opacity: 0.85;
 }
 
-.profile-button {
+.botao-perfil {
   width: 54px;
   height: 54px;
   display: grid;
@@ -164,13 +164,13 @@
   box-shadow: 0 5px 0 rgba(4, 10, 14, 0.34);
 }
 
-.profile-button:hover {
+.botao-perfil:hover {
   background: rgba(127, 255, 218, 0.12);
   border-color: rgba(244, 241, 223, 0.32);
   transform: translateY(-1px);
 }
 
-.profile-button img {
+.botao-perfil img {
   width: 30px;
   height: 30px;
   object-fit: contain;

@@ -1,18 +1,18 @@
-<div class="reagent-board">
-  <div class="reagent-board-header">
+<div class="painel-reagentes">
+  <div class="cabecalho-painel-reagentes">
     <div>
-      <div class="reagent-board-title">Bandeja de reagentes</div>
-      <div class="reagent-board-copy">{{ destaque | textoVisivel }}</div>
+      <div class="titulo-painel-reagentes">Bandeja de reagentes</div>
+      <div class="texto-painel-reagentes">{{ destaque | textoVisivel }}</div>
     </div>
-    <div class="reagent-counter">{{ totalReagentes }} ativos</div>
+    <div class="contador-reagentes">{{ totalReagentes }} ativos</div>
   </div>
 
-  <div class="selected-reagent">
-    <div class="selected-reagent-chip" [style.background]="reagenteSelecionado?.corCard || '#748792'">
+  <div class="reagente-selecionado">
+    <div class="etiqueta-reagente-selecionado" [style.background]="reagenteSelecionado?.corCard || '#748792'">
       {{ reagenteSelecionado?.sigla || '...' }}
     </div>
 
-    <div class="selected-reagent-copy">
+    <div class="texto-reagente-selecionado">
       <strong>{{ reagenteAtivoTexto | textoVisivel }}</strong>
       <span>
         {{ (reagenteSelecionado?.descricao || 'Selecione um reagente e arraste para o tubo.') | textoVisivel }}
@@ -20,40 +20,40 @@
     </div>
   </div>
 
-  <div class="reagent-list" *ngIf="reagentes.length; else semReagentesTpl">
+  <div class="lista-reagentes" *ngIf="reagentes.length; else semReagentesTpl">
     <button
       type="button"
-      class="reagent-card"
+      class="cartao-reagente"
       *ngFor="let reagente of reagentes; trackBy: trackByReagente"
-      [class.active]="reagenteSelecionado?.nome === reagente.nome"
+      [class.ativo]="reagenteSelecionado?.nome === reagente.nome"
       [attr.draggable]="true"
       (click)="selecionarReagente.emit(reagente)"
       (dragstart)="iniciarArrasteReagente.emit({ event: $event, reagente })"
     >
-      <div class="reagent-card-top">
-        <div class="reagent-tag" [style.background]="reagente.corCard">
+      <div class="topo-cartao-reagente">
+        <div class="etiqueta-reagente" [style.background]="reagente.corCard">
           {{ reagente.sigla }}
         </div>
       </div>
 
-      <div class="reagent-info">
+      <div class="info-reagente">
         <strong>{{ reagente.nome | textoVisivel }}</strong>
       </div>
     </button>
   </div>
 
   <ng-template #semReagentesTpl>
-    <div class="reagent-empty">
+    <div class="reagentes-vazio">
       Nenhum reagente disponível nesta etapa. Use os equipamentos ou avance pelo roteiro.
     </div>
   </ng-template>
 
-  <div class="board-actions" *ngIf="acoes.length">
+  <div class="acoes-painel" *ngIf="acoes.length">
     <button
       *ngFor="let acao of acoes; trackBy: trackByAcao"
       type="button"
-      class="action-btn"
-      [class.secondary]="acao.nome === 'centrifugar' || acao.nome === 'desligar_chama'"
+      class="botao-acao"
+      [class.secundario]="acao.nome === 'centrifugar' || acao.nome === 'desligar_chama'"
       (click)="executarAcao.emit(acao.nome)"
     >
       {{ acao.label | textoVisivel }}

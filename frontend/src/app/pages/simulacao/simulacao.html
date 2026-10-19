@@ -1,4 +1,4 @@
-<div class="lab-page" [class.modo-apresentacao]="modoApresentacao()">
+<div class="pagina-laboratorio" [class.modo-apresentacao]="modoApresentacao()">
   <app-menu-lateral
     [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
@@ -14,35 +14,35 @@
     (selecionarEtapa)="irParaEtapa($event)"
   ></app-barra-superior>
 
-  <section class="workspace" *ngIf="!carregando() && estado() && cena(); else carregandoTpl">
-    <aside class="sidebar">
+  <section class="area-trabalho" *ngIf="!carregando() && estado() && cena(); else carregandoTpl">
+    <aside class="barra-lateral">
       <!-- bloco da introducao -->
-      <div class="panel intro-panel" *ngIf="estado()!.etapa_corrente === 0">
+      <div class="painel painel-intro" *ngIf="estado()!.etapa_corrente === 0">
         <h2>{{ estado()!.roteiro.titulo | textoVisivel }}</h2>
         <p>{{ estado()!.roteiro.descricao | textoVisivel }}</p>
-        <div class="sample-card">
-          <div class="sample-code">0</div>
-          <div class="sample-copy">
+        <div class="cartao-amostra">
+          <div class="codigo-amostra">0</div>
+          <div class="texto-amostra">
             <strong>Grupos da marcha</strong>
             <span>{{ cena()!.solucao_mae.conteudo | textoVisivel }}</span>
           </div>
         </div>
 
-        <div class="intro-guide">
-          <div class="intro-guide-title">Como a prática funciona</div>
-          <div class="intro-guide-step">1. Leia a descrição do grupo e da solução-mãe.</div>
-          <div class="intro-guide-step">2. Selecione ou arraste o reagente até o tubo.</div>
-          <div class="intro-guide-step">3. Use os equipamentos da bancada no momento indicado.</div>
-          <div class="intro-guide-step">
+        <div class="guia-intro">
+          <div class="titulo-guia-intro">Como a prática funciona</div>
+          <div class="passo-guia-intro">1. Leia a descrição do grupo e da solução-mãe.</div>
+          <div class="passo-guia-intro">2. Selecione ou arraste o reagente até o tubo.</div>
+          <div class="passo-guia-intro">3. Use os equipamentos da bancada no momento indicado.</div>
+          <div class="passo-guia-intro">
             4. Observe o histórico, o tubo e o progresso da marcha.
           </div>
         </div>
 
-        <div class="intro-actions">
+        <div class="acoes-intro">
           <button
             *ngFor="let acao of acoes(); trackBy: trackByAcao"
             type="button"
-            class="action-btn intro-action-btn"
+            class="botao-acao botao-acao-intro"
             (click)="executarAcao(acao.nome)"
           >
             {{ acao.label | textoVisivel }}
@@ -52,38 +52,38 @@
 
       <!-- bloco do grupo atual -->
       <div
-        class="panel stage-panel"
+        class="painel painel-etapa"
         *ngIf="estado()!.etapa_corrente !== 0 && estado()!.etapa_corrente !== 4"
       >
-        <div class="stage-scroll">
-          <div class="stage-copy">
+        <div class="rolagem-etapa">
+          <div class="texto-etapa">
             <h2>{{ etapaAtual()?.label | textoVisivel }}</h2>
-            <p class="stage-description">{{ etapaAtual()?.descricao | textoVisivel }}</p>
+            <p class="descricao-etapa">{{ etapaAtual()?.descricao | textoVisivel }}</p>
           </div>
 
-          <div class="stage-summary">
-            <div class="sample-card compact">
-              <div class="sample-code">{{ etapaAtual()?.id }}</div>
-              <div class="sample-copy">
+          <div class="resumo-etapa">
+            <div class="cartao-amostra compacto">
+              <div class="codigo-amostra">{{ etapaAtual()?.id }}</div>
+              <div class="texto-amostra">
                 <strong>{{ cena()!.solucao_mae.titulo | textoVisivel }}</strong>
                 <span>{{ cena()!.solucao_mae.subtitulo | textoVisivel }}</span>
               </div>
             </div>
 
-            <div class="phase-card">
-              <div class="phase-title">Solução-mãe</div>
-              <div class="phase-copy">{{ cena()!.solucao_mae.conteudo | textoVisivel }}</div>
+            <div class="cartao-fase">
+              <div class="titulo-fase">Solução-mãe</div>
+              <div class="texto-fase">{{ cena()!.solucao_mae.conteudo | textoVisivel }}</div>
             </div>
 
-            <div class="phase-stack" *ngIf="cena()!.precipitado || cena()!.sobrenadante">
-              <div class="phase-card compact-phase" *ngIf="cena()!.precipitado">
-                <div class="phase-title">Precipitado</div>
-                <div class="phase-copy">{{ cena()!.precipitado!.conteudo | textoVisivel }}</div>
+            <div class="pilha-fases" *ngIf="cena()!.precipitado || cena()!.sobrenadante">
+              <div class="cartao-fase fase-compacta" *ngIf="cena()!.precipitado">
+                <div class="titulo-fase">Precipitado</div>
+                <div class="texto-fase">{{ cena()!.precipitado!.conteudo | textoVisivel }}</div>
               </div>
 
-              <div class="phase-card compact-phase" *ngIf="cena()!.sobrenadante">
-                <div class="phase-title">Sobrenadante</div>
-                <div class="phase-copy">{{ cena()!.sobrenadante!.conteudo | textoVisivel }}</div>
+              <div class="cartao-fase fase-compacta" *ngIf="cena()!.sobrenadante">
+                <div class="titulo-fase">Sobrenadante</div>
+                <div class="texto-fase">{{ cena()!.sobrenadante!.conteudo | textoVisivel }}</div>
               </div>
             </div>
           </div>
@@ -101,17 +101,17 @@
           ></app-painel-reagentes>
         </div>
 
-        <div class="stage-footer">
-          <div class="progress-box">
-            <div class="progress-title">Progresso da marcha</div>
-            <div class="progress-track">
-              <div class="progress-fill" [style.width.%]="progresso()"></div>
+        <div class="rodape-etapa">
+          <div class="caixa-progresso">
+            <div class="titulo-progresso">Progresso da marcha</div>
+            <div class="trilha-progresso">
+              <div class="preenchimento-progresso" [style.width.%]="progresso()"></div>
             </div>
-            <div class="progress-label">{{ progresso() }}%</div>
+            <div class="rotulo-progresso">{{ progresso() }}%</div>
           </div>
 
           <button
-            class="action-btn secondary reset-btn"
+            class="botao-acao secundario botao-reiniciar"
             type="button"
             (click)="reiniciarSimulacao()"
           >
@@ -121,39 +121,39 @@
       </div>
 
       <!-- bloco do relatorio -->
-      <div class="panel report-panel report-panel-compact" *ngIf="estado()!.etapa_corrente === 4">
+      <div class="painel relatorio-painel relatorio-painel-compacto" *ngIf="estado()!.etapa_corrente === 4">
         <h2>Relatório final</h2>
 
-        <p class="report-lead">
+        <p class="relatorio-introducao">
           A marcha foi concluída. Abra o relatório completo para revisar grupos, observações e
           histórico.
         </p>
 
         <div
-          class="summary-list compact-report-summary"
+          class="lista-resumo resumo-relatorio-compacto"
           *ngIf="resumoPreview().length; else resumoVazioTpl"
         >
-          <div class="summary-item" *ngFor="let item of resumoPreview(); trackBy: trackByHistorico">
+          <div class="item-resumo" *ngFor="let item of resumoPreview(); trackBy: trackByHistorico">
             {{ item | textoVisivel }}
           </div>
         </div>
 
         <ng-template #resumoVazioTpl>
-          <div class="empty-state">O resumo final será preenchido ao concluir os grupos.</div>
+          <div class="estado-vazio">O resumo final será preenchido ao concluir os grupos.</div>
         </ng-template>
 
-        <button class="action-btn" type="button" (click)="navegarRelatorioCompleto()">
+        <button class="botao-acao" type="button" (click)="navegarRelatorioCompleto()">
           Ver relatório completo
         </button>
-        <button class="action-btn secondary" type="button" (click)="reiniciarSimulacao()">
+        <button class="botao-acao secundario" type="button" (click)="reiniciarSimulacao()">
           Reiniciar roteiro
         </button>
       </div>
     </aside>
 
     <!-- bloco da bancada -->
-    <main class="scene">
-      <div class="scene-overlay"></div>
+    <main class="cena">
+      <div class="sobreposicao-cena"></div>
 
       <app-caixa-status
         [mensagem]="mensagemReacao()"
@@ -194,11 +194,11 @@
         variante="side-bottom"
       ></app-cartao-bancada>
 
-      <div class="equipment-panel">
+      <div class="painel-equipamentos">
         <button
           type="button"
-          class="equipment-chip"
-          [class.active]="cena()!.equipamentos.agitador"
+          class="etiqueta-equipamento"
+          [class.ativo]="cena()!.equipamentos.agitador"
           [disabled]="!acaoDisponivel('agitar')"
           (click)="executarAcao('agitar')"
         >
@@ -206,14 +206,14 @@
         </button>
         <button
           type="button"
-          class="equipment-chip"
-          [class.active]="cena()!.equipamentos.centrifuga"
+          class="etiqueta-equipamento"
+          [class.ativo]="cena()!.equipamentos.centrifuga"
           [disabled]="!acaoDisponivel('centrifugar')"
           (click)="executarAcao('centrifugar')"
         >
           Centrífuga
         </button>
-        <div class="equipment-chip" [class.active]="cena()!.equipamentos.bico">Bico</div>
+        <div class="etiqueta-equipamento" [class.ativo]="cena()!.equipamentos.bico">Bico</div>
       </div>
 
       <!-- bloco do bico -->
@@ -245,9 +245,9 @@
   ></app-centrifuga>
 
   <!-- bloco do fim do teste de chama -->
-  <div class="flame-confirm-overlay" *ngIf="testeChamaAguardandoConfirmacao()">
-    <section class="flame-confirm-dialog">
-      <div class="report-eyebrow">Grupo 1 finalizado</div>
+  <div class="sobreposicao-confirmar-chama" *ngIf="testeChamaAguardandoConfirmacao()">
+    <section class="janela-confirmar-chama">
+      <div class="relatorio-sobretitulo">Grupo 1 finalizado</div>
       <h2>Você concluiu o teste de chama</h2>
       <p>
         {{ estado()!.teste_chama.mensagem | textoVisivel }}
@@ -256,7 +256,7 @@
         Observe a coloração final da chama antes de seguir para a próxima análise da marcha.
       </p>
       <button
-        class="action-btn"
+        class="botao-acao"
         type="button"
         [disabled]="acaoEmAndamento() === 'confirmar_teste_chama'"
         (click)="confirmarTesteChama()"
@@ -267,22 +267,22 @@
   </div>
 
   <!-- bloco do modal do relatorio -->
-  <div class="report-modal-overlay" *ngIf="estado()?.etapa_corrente === 4">
-    <section class="report-modal">
-      <div class="report-modal-header">
+  <div class="relatorio-modal-sobreposicao" *ngIf="estado()?.etapa_corrente === 4">
+    <section class="relatorio-modal">
+      <div class="relatorio-modal-cabecalho">
         <div>
-          <div class="report-eyebrow">Conclusão da marcha</div>
+          <div class="relatorio-sobretitulo">Conclusão da marcha</div>
           <h2>Relatório final</h2>
         </div>
       </div>
 
-      <div class="report-modal-body">
+      <div class="relatorio-modal-corpo">
         <p>
           Experimento concluído com {{ progresso() }}% de progresso. Confira o resumo principal ou
           abra o relatório completo para revisar cada evidência registrada.
         </p>
 
-        <div class="report-kpis">
+        <div class="relatorio-indicadores">
           <div>
             <strong>{{ gruposConcluidos() }}</strong>
             <span>grupos concluídos</span>
@@ -297,7 +297,7 @@
           </div>
         </div>
 
-        <div class="report-modal-highlights">
+        <div class="relatorio-modal-destaques">
           <div>
             <strong>Observações</strong>
             <span>{{ mensagemReacao() | textoVisivel }}</span>
@@ -312,7 +312,7 @@
           </div>
         </div>
 
-        <div class="report-modal-precipitant" *ngIf="ultimaPrecipitacao() as precipitacao">
+        <div class="relatorio-modal-precipitante" *ngIf="ultimaPrecipitacao() as precipitacao">
           <strong>Último reagente precipitante</strong>
           <span>
             {{ precipitacao.reagente_precipitante.nome | textoVisivel }}
@@ -321,20 +321,20 @@
           </span>
         </div>
 
-        <div class="summary-list" *ngIf="resumoModal().length">
-          <div class="summary-item" *ngFor="let item of resumoModal(); trackBy: trackByHistorico">
+        <div class="lista-resumo" *ngIf="resumoModal().length">
+          <div class="item-resumo" *ngFor="let item of resumoModal(); trackBy: trackByHistorico">
             {{ item | textoVisivel }}
           </div>
         </div>
 
-        <div class="report-modal-actions">
-          <button class="action-btn" type="button" (click)="navegarRelatorioCompleto()">
+        <div class="relatorio-modal-acoes">
+          <button class="botao-acao" type="button" (click)="navegarRelatorioCompleto()">
             Ver relatório completo
           </button>
-          <button class="action-btn" type="button" (click)="exportarRelatorioPdf()">
+          <button class="botao-acao" type="button" (click)="exportarRelatorioPdf()">
             Exportar PDF
           </button>
-          <button class="action-btn secondary" type="button" (click)="reiniciarSimulacao()">
+          <button class="botao-acao secundario" type="button" (click)="reiniciarSimulacao()">
             Reiniciar roteiro
           </button>
         </div>
@@ -344,18 +344,18 @@
 
   <!-- bloco de carregamento -->
   <ng-template #carregandoTpl>
-    <section class="workspace">
-      <aside class="sidebar">
-        <div class="panel loading-panel">
+    <section class="area-trabalho">
+      <aside class="barra-lateral">
+        <div class="painel painel-carregamento">
           <h2>Preparando simulação</h2>
           <p>Sincronizando a bancada virtual com o backend.</p>
-          <p class="loading-error" *ngIf="erroCarregamento()">
+          <p class="erro-carregamento" *ngIf="erroCarregamento()">
             {{ erroCarregamento() }}
           </p>
         </div>
       </aside>
-      <main class="scene">
-        <div class="loading-state">Carregando laboratório...</div>
+      <main class="cena">
+        <div class="estado-carregamento">Carregando laboratório...</div>
       </main>
     </section>
   </ng-template>

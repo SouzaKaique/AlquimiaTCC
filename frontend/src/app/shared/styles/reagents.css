@@ -1,6 +1,6 @@
 /* Bandeja, lista e selecao de reagentes. */
 
-.reagent-board {
+.painel-reagentes {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -13,21 +13,21 @@
   overflow: visible;
 }
 
-.reagent-board-header {
+.cabecalho-painel-reagentes {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
 
-.reagent-board-title {
+.titulo-painel-reagentes {
   font-size: 1.02rem;
   line-height: 1;
   font-weight: 700;
   color: #1a3039;
 }
 
-.reagent-board-copy {
+.texto-painel-reagentes {
   margin-top: 6px;
   font-size: 0.85rem;
   line-height: 1.35;
@@ -35,7 +35,7 @@
   max-width: 240px;
 }
 
-.reagent-counter {
+.contador-reagentes {
   flex: 0 0 auto;
   padding: 6px 10px;
   border: 2px solid #314653;
@@ -45,7 +45,7 @@
   box-shadow: inset 0 0 12px rgba(127, 255, 218, 0.08);
 }
 
-.selected-reagent {
+.reagente-selecionado {
   display: grid;
   grid-template-columns: 56px 1fr;
   gap: 12px;
@@ -58,7 +58,7 @@
   transition: background var(--transition-med), border-color var(--transition-med), box-shadow var(--transition-med);
 }
 
-.selected-reagent-chip {
+.etiqueta-reagente-selecionado {
   width: 56px;
   height: 56px;
   padding: 4px;
@@ -75,26 +75,26 @@
   transition: background var(--transition-slow), transform var(--transition-med), filter var(--transition-med);
 }
 
-.selected-reagent-copy {
+.texto-reagente-selecionado {
   display: flex;
   flex-direction: column;
   gap: 4px;
   min-width: 0;
 }
 
-.selected-reagent-copy strong {
+.texto-reagente-selecionado strong {
   font-size: 0.95rem;
   line-height: 1.15;
 }
 
-.selected-reagent-copy span {
+.texto-reagente-selecionado span {
   font-size: 0.84rem;
   line-height: 1.3;
   opacity: 0.8;
   overflow-wrap: anywhere;
 }
 
-.reagent-list {
+.lista-reagentes {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
@@ -106,7 +106,7 @@
   align-content: start;
 }
 
-.reagent-card {
+.cartao-reagente {
   display: grid;
   grid-template-columns: 52px minmax(0, 1fr);
   align-items: center;
@@ -125,29 +125,29 @@
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease, background 140ms ease;
 }
 
-.reagent-card:hover {
+.cartao-reagente:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 0 rgba(30, 44, 52, 0.16);
   border-color: #304854;
 }
 
-.reagent-card.active {
+.cartao-reagente.ativo {
   border-color: #b28a49;
   background: linear-gradient(180deg, rgba(254, 247, 222, 0.82), rgba(240, 227, 190, 0.66));
   box-shadow: 0 6px 0 rgba(116, 86, 38, 0.18);
 }
 
-.reagent-card.active .reagent-tag {
+.cartao-reagente.ativo .etiqueta-reagente {
   filter: brightness(1.08) saturate(1.08);
   transform: translateY(-1px);
 }
 
-.reagent-card-top {
+.topo-cartao-reagente {
   grid-row: 1;
   min-width: 0;
 }
 
-.reagent-empty {
+.reagentes-vazio {
   min-height: 96px;
   padding: 14px;
   border: 3px dashed rgba(49, 70, 83, 0.35);
@@ -157,7 +157,7 @@
   color: rgba(31, 45, 54, 0.78);
 }
 
-.reagent-tag {
+.etiqueta-reagente {
   width: 50px;
   height: 50px;
   padding: 4px;
@@ -176,7 +176,7 @@
   transition: transform var(--transition-fast), filter var(--transition-fast), background var(--transition-slow);
 }
 
-.reagent-info {
+.info-reagente {
   display: flex;
   align-items: center;
   min-width: 0;
@@ -184,7 +184,7 @@
   overflow: hidden;
 }
 
-.reagent-info strong {
+.info-reagente strong {
   max-width: 100%;
   font-size: clamp(0.82rem, 0.95vw, 0.98rem);
   line-height: 1.16;
@@ -197,53 +197,53 @@
   overflow: hidden;
 }
 
-.board-actions {
+.acoes-painel {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   flex: 0 0 auto;
 }
 
-.board-actions .action-btn {
+.acoes-painel .botao-acao {
   min-width: 0;
   padding-inline: 10px;
   font-size: 0.92rem;
 }
 
-.stage-description,
-.phase-copy,
-.sample-copy span,
-.reagent-board-copy,
-.status-main,
-.bench-copy,
-.equipment-dialog-copy,
-.equipment-status {
+.descricao-etapa,
+.texto-fase,
+.texto-amostra span,
+.texto-painel-reagentes,
+.status-principal,
+.texto-bancada,
+.texto-janela-equipamento,
+.status-equipamento {
   overflow-wrap: anywhere;
   hyphens: auto;
 }
 
-.sample-card,
-.phase-card,
-.reagent-board,
-.selected-reagent,
-.progress-box,
-.summary-item,
-.log-item {
+.cartao-amostra,
+.cartao-fase,
+.painel-reagentes,
+.reagente-selecionado,
+.caixa-progresso,
+.item-resumo,
+.item-registro {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(224, 236, 230, 0.52));
   border-color: rgba(32, 52, 62, 0.82);
 }
 
-.phase-card,
-.selected-reagent,
-.reagent-card {
+.cartao-fase,
+.reagente-selecionado,
+.cartao-reagente {
   min-width: 0;
 }
 
-.reagent-board {
+.painel-reagentes {
   box-shadow: inset 0 0 28px rgba(120, 166, 143, 0.15);
 }
 
-.reagent-card.active {
+.cartao-reagente.ativo {
   box-shadow: 0 0 18px rgba(255, 205, 105, 0.42), 0 6px 0 rgba(116, 86, 38, 0.2);
 }

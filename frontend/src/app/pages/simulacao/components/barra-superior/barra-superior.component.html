@@ -1,27 +1,27 @@
-<nav class="topbar" [class.modo-apresentacao]="navegacaoLivre">
-  <div class="topbar-left">
+<nav class="barra-superior" [class.modo-apresentacao]="navegacaoLivre">
+  <div class="barra-superior-esquerda">
     <button
       type="button"
-      class="profile-button"
+      class="botao-perfil"
       (click)="abrirPerfil.emit($event)"
       aria-label="Abrir menu do perfil"
     >
       <img src="/assets/img/user.png" alt="Perfil" />
     </button>
 
-    <div class="brand">Alquimia | Marcha Analítica</div>
-    <span class="badge-apresentacao" *ngIf="navegacaoLivre">Apresentação</span>
+    <div class="marca">Alquimia | Marcha Analítica</div>
+    <span class="selo-apresentacao" *ngIf="navegacaoLivre">Apresentação</span>
   </div>
 
   <!-- bloco dos botoes das etapas -->
-  <div class="stage-nav" *ngIf="etapas.length">
+  <div class="nav-etapas" *ngIf="etapas.length">
     <button
       type="button"
-      class="stage-btn"
+      class="botao-etapa"
       *ngFor="let etapa of etapas; trackBy: trackByEtapa"
-      [class.active]="etapaCorrente === etapa.id"
-      [class.completed]="etapa.concluida"
-      [class.locked]="etapa.bloqueada && !navegacaoLivre"
+      [class.ativo]="etapaCorrente === etapa.id"
+      [class.concluida]="etapa.concluida"
+      [class.bloqueada]="etapa.bloqueada && !navegacaoLivre"
       [disabled]="etapa.bloqueada && !navegacaoLivre"
       (click)="clicarEtapa(etapa)"
     >

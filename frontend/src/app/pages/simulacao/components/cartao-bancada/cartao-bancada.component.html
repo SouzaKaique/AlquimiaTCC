@@ -1,9 +1,9 @@
 <div
-  class="bench-card"
-  [class.bench-card-main]="variante === 'main'"
-  [class.bench-card-side]="variante === 'side' || variante === 'side-bottom'"
-  [class.bottom]="variante === 'side-bottom'"
+  class="cartao-bancada"
+  [class.cartao-bancada-principal]="variante === 'main'"
+  [class.cartao-bancada-lateral]="variante === 'side' || variante === 'side-bottom'"
+  [class.inferior]="variante === 'side-bottom'"
 >
-  <div class="bench-title">{{ card.titulo | textoVisivel }}</div>
-  <div class="bench-copy">{{ card.conteudo | textoVisivel }}</div>
+  <div class="titulo-bancada">{{ card.titulo | textoVisivel }}</div>
+  <div class="texto-bancada">{{ card.conteudo | textoVisivel }}</div>
 </div>

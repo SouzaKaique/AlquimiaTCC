@@ -27,6 +27,7 @@ export class RegistroComponent implements OnInit {
   mostrarSenha = false;
   mostrarConfirmar = false;
   mensagemErro = '';
+  carregando = false;
 
   @ViewChild('formEl', { read: ElementRef }) formulario?: ElementRef;
 
@@ -53,6 +54,10 @@ export class RegistroComponent implements OnInit {
   }
 
   registrar(): void {
+    if (this.carregando) {
+      return;
+    }
+
     this.mensagemErro = '';
 
     if (this.senha !== this.confirmarSenha) {
@@ -62,6 +67,7 @@ export class RegistroComponent implements OnInit {
       return;
     }
 
+    this.carregando = true;
     this.autenticacaoService.registrar(this.usuario, this.senha).subscribe({
         next: () => {
           this.notyf.open({ type: 'sucesso', message: 'Conta criada com sucesso. Você já pode entrar.' });
@@ -71,6 +77,7 @@ export class RegistroComponent implements OnInit {
           }, 900);
         },
         error: (erro: HttpErrorResponse) => {
+          this.carregando = false;
           this.mensagemErro = erro?.error?.error || 'Não foi possível criar a conta.';
           this.notyf.open({ type: 'erro', message: this.mensagemErro });
           this.animarErro();

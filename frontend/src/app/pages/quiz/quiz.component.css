@@ -1,9 +1,9 @@
-.quiz-page {
+.quiz-pagina {
   min-height: 100vh;
   overflow: auto;
 }
 
-.quiz-shell {
+.quiz-estrutura {
   min-height: 100vh;
   padding: 132px 24px 32px;
   display: grid;
@@ -13,8 +13,8 @@
     rgba(10, 22, 29, 0.42);
 }
 
-.quiz-hero,
-.quiz-card {
+.quiz-destaque,
+.quiz-cartao {
   width: min(980px, 100%);
   border: 4px solid var(--panel-border);
   background:
@@ -25,20 +25,20 @@
   animation: dialogEnter 240ms var(--ease-pixel) both;
 }
 
-.quiz-hero {
+.quiz-destaque {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
   gap: 22px;
   padding: 28px;
 }
 
-.quiz-hero-copy,
-.quiz-start-panel,
-.quiz-card {
+.quiz-destaque-texto,
+.quiz-painel-inicio,
+.quiz-cartao {
   min-width: 0;
 }
 
-.quiz-kicker {
+.quiz-chamada {
   display: inline-block;
   margin-bottom: 10px;
   padding: 6px 9px;
@@ -48,30 +48,30 @@
   font-size: 0.8rem;
 }
 
-.quiz-hero h1,
-.quiz-card h1 {
+.quiz-destaque h1,
+.quiz-cartao h1 {
   margin: 0;
   color: #182a34;
   line-height: 1.04;
 }
 
-.quiz-hero h1 {
+.quiz-destaque h1 {
   font-size: clamp(2rem, 5vw, 4.2rem);
 }
 
-.quiz-card h1 {
+.quiz-cartao h1 {
   font-size: clamp(1.28rem, 2.3vw, 2.1rem);
 }
 
-.quiz-hero p,
-.quiz-card p {
+.quiz-destaque p,
+.quiz-cartao p {
   margin: 14px 0 0;
   max-width: 700px;
   font-size: 1rem;
   line-height: 1.48;
 }
 
-.quiz-start-panel {
+.quiz-painel-inicio {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -83,7 +83,7 @@
   text-align: center;
 }
 
-.quiz-score-orb {
+.quiz-pontuacao-circulo {
   width: 86px;
   height: 86px;
   display: grid;
@@ -96,43 +96,43 @@
   box-shadow: 0 8px 0 rgba(77, 55, 24, 0.22);
 }
 
-.quiz-card {
+.quiz-cartao {
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.quiz-card-header,
-.quiz-actions {
+.quiz-cartao-cabecalho,
+.quiz-acoes {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
 }
 
-.quiz-counter,
-.quiz-score {
+.quiz-contador,
+.quiz-pontuacao {
   flex: 0 0 auto;
   padding: 9px 12px;
   border: 3px solid #314653;
   background: rgba(49, 70, 83, 0.1);
 }
 
-.quiz-progress {
+.quiz-progresso {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 12px;
 }
 
-.quiz-options {
+.quiz-opcoes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-.quiz-option {
+.quiz-opcao {
   min-height: 74px;
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr);
@@ -152,12 +152,12 @@
   transition: transform var(--transition-fast), border-color var(--transition-fast), filter var(--transition-fast);
 }
 
-.quiz-option:hover:not(:disabled) {
+.quiz-opcao:hover:not(:disabled) {
   transform: translateY(-2px);
   filter: brightness(1.04);
 }
 
-.quiz-option span {
+.quiz-opcao span {
   width: 34px;
   height: 34px;
   display: grid;
@@ -167,17 +167,17 @@
   color: #fffdf4;
 }
 
-.quiz-option.correct {
+.quiz-opcao.correta {
   border-color: #4d7048;
   background: linear-gradient(180deg, rgba(219, 245, 208, 0.82), rgba(179, 218, 168, 0.72));
 }
 
-.quiz-option.wrong {
+.quiz-opcao.errada {
   border-color: #8d4f45;
   background: linear-gradient(180deg, rgba(246, 215, 207, 0.88), rgba(216, 172, 160, 0.76));
 }
 
-.quiz-feedback {
+.quiz-retorno {
   padding: 13px;
   border: 3px solid #8d4f45;
   background: rgba(176, 94, 78, 0.16);
@@ -187,24 +187,24 @@
   line-height: 1.35;
 }
 
-.quiz-feedback.good {
+.quiz-retorno.bom {
   border-color: #4d7048;
   background: rgba(106, 156, 105, 0.16);
 }
 
-.quiz-result {
+.quiz-resultado {
   text-align: center;
   align-items: center;
 }
 
-.quiz-result-grid {
+.quiz-resultado-grade {
   width: min(620px, 100%);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
-.quiz-result-grid > div {
+.quiz-resultado-grade > div {
   padding: 16px;
   border: 3px solid rgba(49, 70, 83, 0.44);
   background: rgba(255, 255, 255, 0.42);
@@ -213,24 +213,24 @@
   gap: 5px;
 }
 
-.quiz-result-grid strong {
+.quiz-resultado-grade strong {
   font-size: 1.55rem;
   color: #2d4b70;
 }
 
 @media (max-width: 820px) {
-  .quiz-shell {
+  .quiz-estrutura {
     padding-top: 178px;
   }
 
-  .quiz-hero,
-  .quiz-options,
-  .quiz-result-grid {
+  .quiz-destaque,
+  .quiz-opcoes,
+  .quiz-resultado-grade {
     grid-template-columns: 1fr;
   }
 
-  .quiz-card-header,
-  .quiz-actions {
+  .quiz-cartao-cabecalho,
+  .quiz-acoes {
     flex-direction: column;
     align-items: stretch;
   }

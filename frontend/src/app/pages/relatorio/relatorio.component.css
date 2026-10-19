@@ -1,9 +1,9 @@
-.report-page {
+.relatorio-pagina {
   min-height: 100vh;
   overflow: auto;
 }
 
-.report-shell {
+.relatorio-estrutura {
   min-height: 100vh;
   padding: 120px 24px 34px;
   background:
@@ -11,10 +11,10 @@
     rgba(10, 22, 29, 0.44);
 }
 
-.report-hero,
-.report-metrics,
-.report-section,
-.report-loading {
+.relatorio-destaque,
+.relatorio-metricas,
+.relatorio-secao,
+.relatorio-carregando {
   border: 4px solid var(--panel-border);
   background:
     linear-gradient(180deg, rgba(237, 246, 238, 0.96), rgba(205, 219, 216, 0.92)),
@@ -23,7 +23,7 @@
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.report-hero {
+.relatorio-destaque {
   width: min(1180px, 100%);
   margin: 0 auto 16px;
   padding: 20px;
@@ -33,7 +33,7 @@
   gap: 18px;
 }
 
-.report-kicker {
+.relatorio-chamada {
   display: inline-block;
   margin-bottom: 10px;
   padding: 6px 9px;
@@ -43,31 +43,31 @@
   font-size: 0.8rem;
 }
 
-.report-hero h1,
-.report-section h2 {
+.relatorio-destaque h1,
+.relatorio-secao h2 {
   margin: 0;
   color: #182a34;
 }
 
-.report-hero h1 {
+.relatorio-destaque h1 {
   font-size: clamp(1.55rem, 3vw, 2.45rem);
   line-height: 1.04;
 }
 
-.report-hero p,
-.report-section p {
+.relatorio-destaque p,
+.relatorio-secao p {
   margin: 10px 0 0;
   line-height: 1.45;
 }
 
-.report-actions {
+.relatorio-acoes {
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-width: 220px;
 }
 
-.report-metrics {
+.relatorio-metricas {
   width: min(1180px, 100%);
   margin: 0 auto 16px;
   padding: 12px;
@@ -76,7 +76,7 @@
   gap: 12px;
 }
 
-.report-metrics > div {
+.relatorio-metricas > div {
   padding: 12px;
   border: 3px solid rgba(49, 70, 83, 0.42);
   background: rgba(255, 255, 255, 0.36);
@@ -86,12 +86,12 @@
   text-align: center;
 }
 
-.report-metrics strong {
+.relatorio-metricas strong {
   font-size: 1.5rem;
   color: #2d4b70;
 }
 
-.report-grid {
+.relatorio-grade {
   width: min(1180px, 100%);
   margin: 0 auto;
   display: grid;
@@ -100,7 +100,7 @@
   align-items: start;
 }
 
-.report-section {
+.relatorio-secao {
   min-width: 0;
   padding: 16px;
   animation: panelEnterSoft 220ms var(--ease-pixel) both;
@@ -108,47 +108,47 @@
   overflow: hidden;
 }
 
-.report-section.wide {
+.relatorio-secao.largo {
   grid-column: 1 / -1;
 }
 
-.report-list,
-.report-history,
-.stage-timeline,
-.reagent-mini-grid {
+.relatorio-lista,
+.relatorio-historico,
+.linha-tempo-etapas,
+.grade-reagente-mini {
   display: flex;
   flex-direction: column;
   gap: 9px;
   margin-top: 10px;
 }
 
-.reagent-mini-grid {
+.grade-reagente-mini {
   max-height: 360px;
   overflow: auto;
   padding-right: 6px;
 }
 
-.report-item,
-.history-row,
-.timeline-step,
-.reagent-mini {
+.relatorio-item,
+.linha-historico,
+.passo-linha-tempo,
+.reagente-mini {
   padding: 10px;
   border: 3px solid rgba(49, 70, 83, 0.38);
   background: rgba(255, 255, 255, 0.38);
 }
 
-.timeline-step,
-.history-row,
-.reagent-mini {
+.passo-linha-tempo,
+.linha-historico,
+.reagente-mini {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr);
   gap: 12px;
   align-items: start;
 }
 
-.timeline-step > span,
-.history-row > span,
-.reagent-mini > span {
+.passo-linha-tempo > span,
+.linha-historico > span,
+.reagente-mini > span {
   width: 48px;
   height: 48px;
   display: grid;
@@ -162,24 +162,24 @@
   line-height: 1;
 }
 
-.timeline-step.done > span {
+.passo-linha-tempo.feito > span {
   background: #6a9c69;
 }
 
-.timeline-step.active {
+.passo-linha-tempo.ativo {
   border-color: #b28a49;
   box-shadow: 0 0 18px rgba(255, 205, 105, 0.34);
 }
 
-.timeline-step strong,
-.reagent-mini-copy strong {
+.passo-linha-tempo strong,
+.texto-reagente-mini strong {
   display: block;
   overflow-wrap: anywhere;
   line-height: 1.2;
 }
 
-.timeline-step small,
-.reagent-mini-copy small {
+.passo-linha-tempo small,
+.texto-reagente-mini small {
   display: block;
   margin-top: 4px;
   line-height: 1.3;
@@ -187,39 +187,39 @@
   overflow-wrap: anywhere;
 }
 
-.reagent-mini-copy {
+.texto-reagente-mini {
   min-width: 0;
 }
 
-.report-badges {
+.relatorio-selos {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 12px;
 }
 
-.report-badges span {
+.relatorio-selos span {
   padding: 7px 9px;
   border: 2px solid rgba(49, 70, 83, 0.36);
   background: rgba(223, 200, 140, 0.34);
   font-size: 0.82rem;
 }
 
-.report-observation {
+.relatorio-observacao {
   margin-top: 12px;
   padding: 12px;
   border: 3px solid rgba(49, 70, 83, 0.28);
   background: rgba(255, 255, 255, 0.28);
 }
 
-.precipitation-grid {
+.grade-precipitacoes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin-top: 12px;
 }
 
-.precipitation-card {
+.cartao-precipitacao {
   min-width: 0;
   padding: 12px;
   border: 3px solid rgba(49, 70, 83, 0.38);
@@ -229,18 +229,18 @@
   gap: 7px;
 }
 
-.precipitation-card strong,
-.precipitation-card small,
-.precipitation-card p {
+.cartao-precipitacao strong,
+.cartao-precipitacao small,
+.cartao-precipitacao p {
   overflow-wrap: anywhere;
 }
 
-.precipitation-card p {
+.cartao-precipitacao p {
   margin: 0;
   line-height: 1.35;
 }
 
-.precipitation-badge {
+.selo-precipitacao {
   width: fit-content;
   padding: 6px 8px;
   border: 2px solid rgba(49, 70, 83, 0.32);
@@ -249,12 +249,12 @@
   font-size: 0.78rem;
 }
 
-.history-row p {
+.linha-historico p {
   margin: 0;
   overflow-wrap: anywhere;
 }
 
-.report-loading {
+.relatorio-carregando {
   width: min(760px, calc(100% - 24px));
   min-height: 180px;
   margin: 0 auto;
@@ -266,18 +266,18 @@
 }
 
 @media (max-width: 900px) {
-  .report-shell {
+  .relatorio-estrutura {
     padding-top: 180px;
   }
 
-  .report-hero,
-  .report-actions {
+  .relatorio-destaque,
+  .relatorio-acoes {
     flex-direction: column;
   }
 
-  .report-metrics,
-  .report-grid,
-  .precipitation-grid {
+  .relatorio-metricas,
+  .relatorio-grade,
+  .grade-precipitacoes {
     grid-template-columns: 1fr;
   }
 }

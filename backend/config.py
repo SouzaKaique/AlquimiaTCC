@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 
 # bloco do cors
@@ -26,6 +27,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///database.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "TCCAlquimia2026_jwt_secret_key_segura")
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=8)
     CORS_ORIGINS = carregar_origens_cors()
     USUARIOS_APRESENTACAO = carregar_usuarios_apresentacao()
     PORT = int(os.getenv("PORT", "5000"))

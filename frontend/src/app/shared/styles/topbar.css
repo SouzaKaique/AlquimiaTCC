@@ -1,6 +1,6 @@
 /* Barra superior, marca e navegacao das etapas. */
 
-.topbar {
+.barra-superior {
   position: fixed;
   inset: 0 0 auto 0;
   min-height: 80px;
@@ -14,34 +14,34 @@
   z-index: 30;
 }
 
-.topbar-left {
+.barra-superior-esquerda {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.brand {
+.marca {
   color: #f4f1df;
   font-size: 2rem;
   line-height: 1;
   white-space: nowrap;
 }
 
-.stage-nav {
+.nav-etapas {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-end;
 }
 
-.product-nav {
+.nav-produto {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-left: auto;
 }
 
-.product-nav-link {
+.link-nav-produto {
   min-height: 38px;
   display: grid;
   place-items: center;
@@ -56,18 +56,18 @@
   transition: transform var(--transition-fast), filter var(--transition-fast), background var(--transition-fast);
 }
 
-.product-nav-link:hover {
+.link-nav-produto:hover {
   transform: translateY(-1px);
   filter: brightness(1.08);
 }
 
-.product-nav-link.active {
+.link-nav-produto.ativo {
   background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
   color: #2f2418;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
-.stage-btn {
+.botao-etapa {
   min-height: 42px;
   padding: 8px 14px;
   border: 3px solid var(--pixel-border-dark);
@@ -78,22 +78,22 @@
   line-height: 1;
 }
 
-.stage-btn.active {
+.botao-etapa.ativo {
   background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
   color: #2f2418;
 }
 
-.stage-btn.completed {
+.botao-etapa.concluida {
   background: linear-gradient(180deg, #769d71 0%, #4d7048 100%);
 }
 
-.stage-btn.locked,
-.stage-btn:disabled {
+.botao-etapa.bloqueada,
+.botao-etapa:disabled {
   background: linear-gradient(180deg, #707d84 0%, #4c565c 100%);
   opacity: 0.8;
 }
 
-.topbar {
+.barra-superior {
   min-height: 92px;
   padding: 16px 26px;
   background:
@@ -103,7 +103,7 @@
   backdrop-filter: blur(8px);
 }
 
-.brand {
+.marca {
   max-width: min(30vw, 460px);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -114,12 +114,12 @@
   letter-spacing: 0;
 }
 
-.stage-nav {
+.nav-etapas {
   max-width: 62vw;
   gap: 8px;
 }
 
-.stage-btn {
+.botao-etapa {
   min-width: 92px;
   max-width: 132px;
   padding: 7px 10px;
@@ -131,22 +131,22 @@
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.28);
 }
 
-.stage-btn.active {
+.botao-etapa.ativo {
   box-shadow: 0 0 22px rgba(255, 207, 112, 0.38), 0 6px 0 rgba(70, 46, 16, 0.42);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
   transform: translateY(-1px);
 }
 
 /* bloco do modo apresentacao */
-.topbar.modo-apresentacao {
+.barra-superior.modo-apresentacao {
   z-index: 59;
 }
 
-.topbar.modo-apresentacao .stage-btn {
+.barra-superior.modo-apresentacao .botao-etapa {
   cursor: pointer;
 }
 
-.badge-apresentacao {
+.selo-apresentacao {
   padding: 4px 8px;
   border: 2px solid var(--pixel-border-dark);
   background: linear-gradient(180deg, #dfc88c 0%, #b28a49 100%);
@@ -155,18 +155,18 @@
   white-space: nowrap;
 }
 
-.lab-page.modo-apresentacao .report-modal-overlay {
+.pagina-laboratorio.modo-apresentacao .relatorio-modal-sobreposicao {
   padding-top: 104px;
 }
 
-.lab-page.modo-apresentacao .report-modal {
+.pagina-laboratorio.modo-apresentacao .relatorio-modal {
   max-height: calc(100vh - 128px);
 }
 
-.lab-page.modo-apresentacao .drawer-backdrop {
+.pagina-laboratorio.modo-apresentacao .fundo-menu-lateral {
   z-index: 61;
 }
 
-.lab-page.modo-apresentacao .profile-drawer {
+.pagina-laboratorio.modo-apresentacao .menu-perfil {
   z-index: 62;
 }

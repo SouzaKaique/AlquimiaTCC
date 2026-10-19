@@ -1,25 +1,25 @@
 <div
-  class="burner-area"
-  [class.flame-active]="chamaAtiva"
+  class="area-bico"
+  [class.chama-ativa]="chamaAtiva"
   [style.--flame-color]="corChama"
 >
-  <div class="burner-drop-target" [class.active]="hoverChama || testeChama?.ativa"></div>
-  <button class="burner" type="button" (click)="alternarChama.emit()">
-    <div class="burner-visual" [class.test-flame]="testeChama?.ativa">
+  <div class="alvo-chama" [class.ativo]="hoverChama || testeChama?.ativa"></div>
+  <button class="bico" type="button" (click)="alternarChama.emit()">
+    <div class="visual-bico" [class.chama-teste]="testeChama?.ativa">
       <img
-        class="burner-image"
+        class="imagem-bico"
         src="/assets/img/bico-off.png"
         alt="Bico de Bunsen"
       />
-      <div class="burner-flame" *ngIf="chamaAtiva" aria-hidden="true">
-        <span class="flame-glow"></span>
-        <span class="flame-outer"></span>
-        <span class="flame-inner"></span>
-        <span class="flame-core"></span>
+      <div class="chama-bico" *ngIf="chamaAtiva" aria-hidden="true">
+        <span class="chama-brilho"></span>
+        <span class="chama-externa"></span>
+        <span class="chama-interna"></span>
+        <span class="chama-nucleo"></span>
       </div>
     </div>
   </button>
-  <span class="burner-label">
+  <span class="legenda-bico">
     {{ mensagem | textoVisivel }}
   </span>
 </div>

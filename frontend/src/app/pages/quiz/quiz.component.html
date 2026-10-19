@@ -1,4 +1,4 @@
-<div class="lab-page quiz-page">
+<div class="pagina-laboratorio quiz-pagina">
   <app-menu-lateral
     [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
@@ -12,10 +12,10 @@
     (abrirPerfil)="alternarMenuPerfil($event)"
   ></app-barra-superior>
 
-  <main class="quiz-shell">
-    <section class="quiz-hero" *ngIf="!iniciado()">
-      <div class="quiz-hero-copy">
-        <span class="quiz-kicker">Treino rápido</span>
+  <main class="quiz-estrutura">
+    <section class="quiz-destaque" *ngIf="!iniciado()">
+      <div class="quiz-destaque-texto">
+        <span class="quiz-chamada">Treino rápido</span>
         <h1>Quiz da Marcha Analítica</h1>
         <p>
           Revise conceitos de química geral, precipitação, segurança, vidrarias, íons e teste de chama
@@ -23,38 +23,38 @@
         </p>
       </div>
 
-      <div class="quiz-start-panel">
-        <div class="quiz-score-orb">15</div>
+      <div class="quiz-painel-inicio">
+        <div class="quiz-pontuacao-circulo">15</div>
         <strong>perguntas</strong>
         <span>pontuação, progresso e resultado final</span>
-        <button type="button" class="action-btn" (click)="iniciar()">Iniciar quiz</button>
+        <button type="button" class="botao-acao" (click)="iniciar()">Iniciar quiz</button>
       </div>
     </section>
 
-    <section class="quiz-card" *ngIf="iniciado() && !finalizado()">
-      <div class="quiz-card-header">
+    <section class="quiz-cartao" *ngIf="iniciado() && !finalizado()">
+      <div class="quiz-cartao-cabecalho">
         <div>
-          <span class="quiz-kicker">{{ perguntaAtual().categoria }}</span>
+          <span class="quiz-chamada">{{ perguntaAtual().categoria }}</span>
           <h1>{{ perguntaAtual().enunciado }}</h1>
         </div>
-        <div class="quiz-counter">{{ indiceAtual() + 1 }}/{{ perguntas.length }}</div>
+        <div class="quiz-contador">{{ indiceAtual() + 1 }}/{{ perguntas.length }}</div>
       </div>
 
-      <div class="quiz-progress">
-        <div class="progress-track">
-          <div class="progress-fill" [style.width.%]="progresso()"></div>
+      <div class="quiz-progresso">
+        <div class="trilha-progresso">
+          <div class="preenchimento-progresso" [style.width.%]="progresso()"></div>
         </div>
         <span>{{ progresso() }}%</span>
       </div>
 
-      <div class="quiz-options">
+      <div class="quiz-opcoes">
         <button
           *ngFor="let alternativa of perguntaAtual().alternativas; let i = index; trackBy: trackByAlternativa"
           type="button"
-          class="quiz-option"
-          [class.selected]="alternativaSelecionada() === i"
-          [class.correct]="alternativaSelecionada() !== null && alternativa.correta"
-          [class.wrong]="alternativaSelecionada() === i && !alternativa.correta"
+          class="quiz-opcao"
+          [class.selecionado]="alternativaSelecionada() === i"
+          [class.correta]="alternativaSelecionada() !== null && alternativa.correta"
+          [class.errada]="alternativaSelecionada() === i && !alternativa.correta"
           [disabled]="alternativaSelecionada() !== null"
           (click)="responder(i)"
         >
@@ -63,16 +63,16 @@
         </button>
       </div>
 
-      <div class="quiz-feedback" *ngIf="acertouAtual() !== null" [class.good]="acertouAtual()">
+      <div class="quiz-retorno" *ngIf="acertouAtual() !== null" [class.bom]="acertouAtual()">
         <strong>{{ acertouAtual() ? 'Resposta correta' : 'Revise este ponto' }}</strong>
         <span>{{ perguntaAtual().explicacao }}</span>
       </div>
 
-      <div class="quiz-actions">
-        <div class="quiz-score">Pontuação: {{ pontuacao() }}/{{ perguntas.length }}</div>
+      <div class="quiz-acoes">
+        <div class="quiz-pontuacao">Pontuação: {{ pontuacao() }}/{{ perguntas.length }}</div>
         <button
           type="button"
-          class="action-btn"
+          class="botao-acao"
           [disabled]="alternativaSelecionada() === null"
           (click)="proxima()"
         >
@@ -81,15 +81,15 @@
       </div>
     </section>
 
-    <section class="quiz-card quiz-result" *ngIf="finalizado()">
-      <span class="quiz-kicker">Resultado</span>
+    <section class="quiz-cartao quiz-resultado" *ngIf="finalizado()">
+      <span class="quiz-chamada">Resultado</span>
       <h1>Desempenho: {{ desempenho() }}%</h1>
       <p>
         Você acertou {{ pontuacao() }} de {{ perguntas.length }} perguntas. Use o resultado para revisar
         os tópicos antes de concluir o relatório da prática.
       </p>
 
-      <div class="quiz-result-grid">
+      <div class="quiz-resultado-grade">
         <div>
           <strong>{{ pontuacao() }}</strong>
           <span>acertos</span>
@@ -104,9 +104,9 @@
         </div>
       </div>
 
-      <div class="quiz-actions">
-        <button type="button" class="action-btn" (click)="refazer()">Refazer quiz</button>
-        <button type="button" class="action-btn secondary" (click)="voltarLaboratorio()">
+      <div class="quiz-acoes">
+        <button type="button" class="botao-acao" (click)="refazer()">Refazer quiz</button>
+        <button type="button" class="botao-acao secundario" (click)="voltarLaboratorio()">
           Voltar ao laboratório
         </button>
       </div>

@@ -1,20 +1,20 @@
-<div class="equipment-overlay" *ngIf="equipamento">
-  <div class="equipment-dialog">
-    <div class="equipment-dialog-header">
+<div class="sobreposicao-equipamento" *ngIf="equipamento">
+  <div class="janela-equipamento">
+    <div class="cabecalho-janela-equipamento">
       <div>
-        <div class="equipment-dialog-title">{{ titulo | textoVisivel }}</div>
-        <div class="equipment-dialog-copy">{{ instrucao | textoVisivel }}</div>
+        <div class="titulo-janela-equipamento">{{ titulo | textoVisivel }}</div>
+        <div class="texto-janela-equipamento">{{ instrucao | textoVisivel }}</div>
       </div>
 
-      <button type="button" class="equipment-dialog-close" aria-label="Fechar simulador" (click)="fechar.emit()">
+      <button type="button" class="fechar-janela-equipamento" aria-label="Fechar simulador" (click)="fechar.emit()">
         ×
       </button>
     </div>
 
-    <div class="equipment-workspace" [class.tube-loaded]="tuboNoEquipamento">
-      <div class="equipment-source" *ngIf="!tuboNoEquipamento">
+    <div class="area-trabalho-equipamento" [class.tubo-carregado]="tuboNoEquipamento">
+      <div class="origem-equipamento" *ngIf="!tuboNoEquipamento">
         <div
-          class="equipment-source-tube"
+          class="tubo-origem-equipamento"
           draggable="true"
           (dragstart)="iniciarArrasteTubo.emit($event)"
         >
@@ -24,18 +24,18 @@
       </div>
 
       <div
-        class="equipment-dropzone"
-        [class.has-tube]="tuboNoEquipamento"
-        [class.processing]="processamento"
+        class="area-soltar-equipamento"
+        [class.com-tubo]="tuboNoEquipamento"
+        [class.processando]="processamento"
         (dragover)="permitirSoltar.emit($event)"
         (drop)="soltarTubo.emit($event)"
       >
-        <div class="equipment-machine" [class.centrifuga-machine]="equipamento === equipamentoSimulacao.Centrifuga">
-          <div class="machine-core"></div>
-          <div class="machine-slot">
+        <div class="maquina-equipamento" [class.maquina-centrifuga]="equipamento === equipamentoSimulacao.Centrifuga">
+          <div class="nucleo-maquina"></div>
+          <div class="encaixe-maquina">
             <img
               *ngIf="tuboNoEquipamento"
-              class="equipment-drop-tube"
+              class="tubo-no-equipamento"
               src="/assets/img/tubo.png"
               alt="Tubo dentro do equipamento"
             />
@@ -45,11 +45,11 @@
       </div>
     </div>
 
-    <div class="equipment-actions">
-      <div class="equipment-status">{{ status | textoVisivel }}</div>
+    <div class="acoes-equipamento">
+      <div class="status-equipamento">{{ status | textoVisivel }}</div>
       <button
         type="button"
-        class="action-btn"
+        class="botao-acao"
         [disabled]="!tuboNoEquipamento || processamento"
         (click)="iniciarProcesso.emit()"
       >

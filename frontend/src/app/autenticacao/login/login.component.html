@@ -7,7 +7,7 @@
     <div class="mb-2">
       <input
         type="text"
-        class="form-control input-pixel"
+        class="form-control campo-pixel"
         placeholder="Usuário"
         name="usuario"
         [(ngModel)]="usuario"
@@ -19,7 +19,7 @@
     <div class="mb-2 position-relative">
       <input
         [type]="mostrarSenha ? 'text' : 'password'"
-        class="form-control input-pixel"
+        class="form-control campo-pixel"
         placeholder="Senha"
         name="senha"
         [(ngModel)]="senha"
@@ -44,7 +44,7 @@
     </button>
   </form>
 
-  <a routerLink="/registro" class="link-auth">
+  <a routerLink="/registro" class="link-autenticacao">
     Não possui conta? Registrar
   </a>
 </app-layout-autenticacao>

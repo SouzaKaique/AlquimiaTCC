@@ -1,50 +1,50 @@
-<div class="drawer-backdrop" [class.open]="aberto" (click)="fechar.emit()"></div>
+<div class="fundo-menu-lateral" [class.aberto]="aberto" (click)="fechar.emit()"></div>
 
-<aside class="profile-drawer" [class.open]="aberto">
-  <div class="profile-menu-header">
-    <div class="profile-avatar">
+<aside class="menu-perfil" [class.aberto]="aberto">
+  <div class="cabecalho-menu-perfil">
+    <div class="avatar-perfil">
       <img src="/assets/img/user.png" alt="Usuário" />
     </div>
-    <div class="profile-name">{{ usuarioNome }}</div>
+    <div class="nome-perfil">{{ usuarioNome }}</div>
   </div>
 
-  <div class="profile-menu-body">
+  <div class="corpo-menu-perfil">
     <a
-      class="menu-item"
+      class="item-menu"
       routerLink="/simulacao"
-      routerLinkActive="active"
+      routerLinkActive="ativo"
       [routerLinkActiveOptions]="{ exact: true }"
       (click)="fechar.emit()"
     >
-      <span class="menu-icon">
-        <span class="menu-pixel-icon">L</span>
+      <span class="icone-menu">
+        <span class="icone-pixel-menu">L</span>
       </span>
-      <span class="menu-label">Laboratório</span>
-      <span class="menu-arrow">></span>
+      <span class="rotulo-menu">Laboratório</span>
+      <span class="seta-menu">></span>
     </a>
 
-    <a class="menu-item" routerLink="/quiz" routerLinkActive="active" (click)="fechar.emit()">
-      <span class="menu-icon">
-        <span class="menu-pixel-icon">Q</span>
+    <a class="item-menu" routerLink="/quiz" routerLinkActive="ativo" (click)="fechar.emit()">
+      <span class="icone-menu">
+        <span class="icone-pixel-menu">Q</span>
       </span>
-      <span class="menu-label">Quiz</span>
-      <span class="menu-arrow">></span>
+      <span class="rotulo-menu">Quiz</span>
+      <span class="seta-menu">></span>
     </a>
 
-    <a class="menu-item" routerLink="/relatorio" routerLinkActive="active" (click)="fechar.emit()">
-      <span class="menu-icon">
-        <span class="menu-pixel-icon">R</span>
+    <a class="item-menu" routerLink="/relatorio" routerLinkActive="ativo" (click)="fechar.emit()">
+      <span class="icone-menu">
+        <span class="icone-pixel-menu">R</span>
       </span>
-      <span class="menu-label">Relatório</span>
-      <span class="menu-arrow">></span>
+      <span class="rotulo-menu">Relatório</span>
+      <span class="seta-menu">></span>
     </a>
 
-    <button type="button" class="menu-item menu-item-danger" (click)="sair.emit()">
-      <span class="menu-icon">
+    <button type="button" class="item-menu item-menu-perigo" (click)="sair.emit()">
+      <span class="icone-menu">
         <img src="/assets/img/icon-sair.png" alt="Sair" />
       </span>
-      <span class="menu-label">Sair</span>
-      <span class="menu-arrow">></span>
+      <span class="rotulo-menu">Sair</span>
+      <span class="seta-menu">></span>
     </button>
   </div>
 </aside>

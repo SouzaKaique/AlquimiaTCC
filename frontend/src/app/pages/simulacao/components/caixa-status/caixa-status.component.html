@@ -1,7 +1,7 @@
-<div class="status-box">
-  <div class="status-title">Observação atual</div>
-  <div class="status-main" [attr.data-message]="mensagem">{{ mensagem | textoVisivel }}</div>
-  <div class="status-sub">
+<div class="caixa-status">
+  <div class="titulo-status">Observação atual</div>
+  <div class="status-principal" [attr.data-message]="mensagem">{{ mensagem | textoVisivel }}</div>
+  <div class="status-secundario">
     Etapa: {{ etapaLabel | textoVisivel }}
     <span *ngIf="testeChama?.ativa"> | {{ testeChama?.mensagem | textoVisivel }}</span>
   </div>

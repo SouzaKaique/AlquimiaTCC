@@ -1,12 +1,12 @@
 /* Ajustes responsivos. */
 
 @media (max-width: 1100px) {
-  .workspace {
+  .area-trabalho {
     grid-template-columns: 1fr;
     padding-top: 118px;
   }
 
-  .sidebar {
+  .barra-lateral {
     position: absolute;
     top: 126px;
     left: 16px;
@@ -15,114 +15,114 @@
     z-index: 12;
   }
 
-  .panel {
+  .painel {
     height: auto;
     max-height: 100%;
     overflow: auto;
   }
 
-  .stage-panel {
+  .painel-etapa {
     display: flex;
   }
 
-  .reagent-board {
+  .painel-reagentes {
     min-height: 0;
   }
 
-  .reagent-list {
+  .lista-reagentes {
     max-height: none;
   }
 
-  .board-actions {
+  .acoes-painel {
     grid-template-columns: 1fr;
   }
 
-  .bench-card-main,
-  .bench-card-side {
+  .cartao-bancada-principal,
+  .cartao-bancada-lateral {
     width: 240px;
   }
 
-  .equipment-panel {
+  .painel-equipamentos {
     left: 34px;
     top: 210px;
     flex-wrap: wrap;
   }
 
-  .test-tube {
+  .tubo-ensaio {
     left: 90px;
     top: 260px;
   }
 
-  .burner-area {
+  .area-bico {
     right: clamp(18px, 5vw, 56px);
     top: 540px;
   }
 
-  .equipment-workspace {
+  .area-trabalho-equipamento {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 1300px) {
-  .brand {
+  .marca {
     font-size: 1.36rem;
     max-width: 42vw;
   }
 
-  .stage-nav {
+  .nav-etapas {
     max-width: 56vw;
   }
 
-  .product-nav-link {
+  .link-nav-produto {
     padding-inline: 8px;
     font-size: 0.82rem;
   }
 
-  .stage-btn {
+  .botao-etapa {
     min-width: 98px;
     font-size: 0.9rem;
   }
 
-  .workspace {
+  .area-trabalho {
     grid-template-columns: 350px 1fr;
   }
 
-  .bench-card-side {
+  .cartao-bancada-lateral {
     width: 280px;
   }
 
-  .equipment-panel {
+  .painel-equipamentos {
     left: 340px;
   }
 }
 
 @media (max-width: 900px) {
-  .lab-page {
+  .pagina-laboratorio {
     height: auto;
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
   }
 
-  .topbar {
+  .barra-superior {
     min-height: 118px;
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .brand,
-  .stage-nav {
+  .marca,
+  .nav-etapas {
     max-width: 100%;
   }
 
-  .product-nav {
+  .nav-produto {
     width: 100%;
     justify-content: flex-start;
     overflow-x: auto;
     padding-bottom: 2px;
   }
 
-  .workspace {
+  .area-trabalho {
     display: flex;
     flex-direction: column;
     height: auto;
@@ -130,7 +130,7 @@
     padding-top: 118px;
   }
 
-  .sidebar {
+  .barra-lateral {
     position: relative;
     top: auto;
     left: auto;
@@ -139,102 +139,102 @@
     margin: 14px auto;
   }
 
-  .panel,
-  .stage-panel {
+  .painel,
+  .painel-etapa {
     max-height: none;
   }
 
-  .stage-scroll {
+  .rolagem-etapa {
     overflow: visible;
   }
 
-  .scene {
+  .cena {
     flex: 0 0 auto;
     width: 100%;
     height: 720px;
     min-height: 720px;
   }
 
-  .status-box {
+  .caixa-status {
     left: 16px;
     bottom: 18px;
     width: calc(100% - 32px);
   }
 
-  .bench-card-main {
+  .cartao-bancada-principal {
     left: 18px;
     top: 300px;
   }
 
-  .bench-card-side {
+  .cartao-bancada-lateral {
     right: 18px;
     top: 300px;
   }
 
-  .equipment-dialog {
+  .janela-equipamento {
     width: calc(100vw - 24px);
     max-height: calc(100vh - 24px);
     padding: 16px;
   }
 
-  .report-modal {
+  .relatorio-modal {
     width: calc(100vw - 24px);
     max-height: calc(100vh - 24px);
     padding: 16px;
   }
 
-  .report-detail-grid {
+  .relatorio-grade-detalhes {
     grid-template-columns: 1fr;
   }
 
-  .report-modal-highlights {
+  .relatorio-modal-destaques {
     grid-template-columns: 1fr;
   }
 
-  .equipment-workspace {
+  .area-trabalho-equipamento {
     grid-template-columns: 1fr;
     max-height: none;
     overflow: auto;
   }
 
-  .equipment-source {
+  .origem-equipamento {
     min-height: 150px;
   }
 
-  .equipment-actions {
+  .acoes-equipamento {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .equipment-actions .action-btn,
-  .report-modal-actions .action-btn {
+  .acoes-equipamento .botao-acao,
+  .relatorio-modal-acoes .botao-acao {
     width: 100%;
   }
 
-  .report-modal-actions {
+  .relatorio-modal-acoes {
     flex-direction: column;
   }
 }
 
 @media (max-width: 680px) {
-  .topbar {
+  .barra-superior {
     padding: 12px 14px;
   }
 
-  .workspace {
+  .area-trabalho {
     padding-top: 164px;
   }
 
-  .topbar-left {
+  .barra-superior-esquerda {
     width: 100%;
   }
 
-  .brand {
+  .marca {
     font-size: 1.05rem;
     white-space: normal;
   }
 
-  .stage-nav {
+  .nav-etapas {
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
@@ -245,112 +245,112 @@
     scrollbar-width: thin;
   }
 
-  .product-nav-link {
+  .link-nav-produto {
     flex: 0 0 auto;
   }
 
-  .stage-btn {
+  .botao-etapa {
     flex: 0 0 108px;
     min-width: 108px;
     max-width: 108px;
     font-size: 0.84rem;
   }
 
-  .sidebar {
+  .barra-lateral {
     width: calc(100% - 20px);
     padding: 0;
     margin: 10px auto;
   }
 
-  .panel {
+  .painel {
     padding: 14px;
   }
 
-  .equipment-panel {
+  .painel-equipamentos {
     left: 12px;
     right: 12px;
     top: 210px;
     justify-content: center;
   }
 
-  .equipment-chip {
+  .etiqueta-equipamento {
     flex: 1 1 0;
     min-width: 0;
     padding-inline: 6px;
     font-size: 0.78rem;
   }
 
-  .test-tube {
+  .tubo-ensaio {
     left: 42px;
     top: 288px;
     width: 104px;
     height: 266px;
   }
 
-  .tube-liquid-viewport {
+  .janela-liquido-tubo {
     left: 30px;
     top: 35px;
     width: 44px;
     height: 196px;
   }
 
-  .burner-area {
+  .area-bico {
     right: 2px;
     top: 300px;
     transform: scale(0.72);
     transform-origin: top right;
   }
 
-  .report-kpis {
+  .relatorio-indicadores {
     grid-template-columns: 1fr;
   }
 
-  .bench-card-main,
-  .bench-card-side {
+  .cartao-bancada-principal,
+  .cartao-bancada-lateral {
     display: none;
   }
 }
 
 @media (max-height: 760px) and (min-width: 901px) {
-  .workspace {
+  .area-trabalho {
     padding-top: 84px;
   }
 
-  .topbar {
+  .barra-superior {
     min-height: 84px;
     padding-block: 12px;
   }
 
-  .panel {
+  .painel {
     gap: 10px;
     padding: 14px;
   }
 
-  .stage-scroll {
+  .rolagem-etapa {
     gap: 10px;
   }
 
-  .reagent-list {
+  .lista-reagentes {
     max-height: 230px;
   }
 
-  .test-tube {
+  .tubo-ensaio {
     top: 184px;
   }
 
-  .burner-area {
+  .area-bico {
     top: 320px;
   }
 
-  .status-box {
+  .caixa-status {
     bottom: 18px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lab-page *,
-  .lab-page *::before,
-  .lab-page *::after {
+  .pagina-laboratorio *,
+  .pagina-laboratorio *::before,
+  .pagina-laboratorio *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;

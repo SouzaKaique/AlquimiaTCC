@@ -1,4 +1,4 @@
-<div class="lab-page report-page">
+<div class="pagina-laboratorio relatorio-pagina">
   <app-menu-lateral
     [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
@@ -12,33 +12,33 @@
     (abrirPerfil)="alternarMenuPerfil($event)"
   ></app-barra-superior>
 
-  <main class="report-shell">
-    <section class="report-loading" *ngIf="carregando()">
+  <main class="relatorio-estrutura">
+    <section class="relatorio-carregando" *ngIf="carregando()">
       Carregando relatório...
     </section>
 
-    <section class="report-loading" *ngIf="!carregando() && erro()">
+    <section class="relatorio-carregando" *ngIf="!carregando() && erro()">
       <span>{{ erro() }}</span>
-      <button type="button" class="action-btn" (click)="voltarLaboratorio()">Voltar ao laboratório</button>
+      <button type="button" class="botao-acao" (click)="voltarLaboratorio()">Voltar ao laboratório</button>
     </section>
 
     <ng-container *ngIf="!carregando() && estado() as relatorio">
-      <section class="report-hero">
+      <section class="relatorio-destaque">
         <div>
-          <span class="report-kicker">Relatório completo</span>
+          <span class="relatorio-chamada">Relatório completo</span>
           <h1>{{ relatorio.roteiro.titulo | textoVisivel }}</h1>
           <p>{{ relatorio.roteiro.descricao | textoVisivel }}</p>
         </div>
 
-        <div class="report-actions">
-          <button type="button" class="action-btn" (click)="exportarPdf()">Exportar PDF</button>
-          <button type="button" class="action-btn secondary" (click)="voltarLaboratorio()">
+        <div class="relatorio-acoes">
+          <button type="button" class="botao-acao" (click)="exportarPdf()">Exportar PDF</button>
+          <button type="button" class="botao-acao secundario" (click)="voltarLaboratorio()">
             Voltar ao laboratório
           </button>
         </div>
       </section>
 
-      <section class="report-metrics">
+      <section class="relatorio-metricas">
         <div>
           <strong>{{ gruposConcluidos() }}</strong>
           <span>grupos concluídos</span>
@@ -57,24 +57,24 @@
         </div>
       </section>
 
-      <section class="report-grid">
-        <article class="report-section">
+      <section class="relatorio-grade">
+        <article class="relatorio-secao">
           <h2>Resumo</h2>
-          <div class="report-list" *ngIf="resumo().length; else vazioTpl">
-            <div class="report-item" *ngFor="let item of resumo(); trackBy: trackByIndex">
+          <div class="relatorio-lista" *ngIf="resumo().length; else vazioTpl">
+            <div class="relatorio-item" *ngFor="let item of resumo(); trackBy: trackByIndex">
               {{ item | textoVisivel }}
             </div>
           </div>
         </article>
 
-        <article class="report-section">
+        <article class="relatorio-secao">
           <h2>Grupos analisados</h2>
-          <div class="stage-timeline">
+          <div class="linha-tempo-etapas">
             <div
-              class="timeline-step"
+              class="passo-linha-tempo"
               *ngFor="let etapa of relatorio.etapas; trackBy: trackByEtapa"
-              [class.done]="etapa.concluida"
-              [class.active]="etapa.id === relatorio.etapa_corrente"
+              [class.feito]="etapa.concluida"
+              [class.ativo]="etapa.id === relatorio.etapa_corrente"
             >
               <span>{{ etapa.id }}</span>
               <div>
@@ -85,38 +85,38 @@
           </div>
         </article>
 
-        <article class="report-section">
+        <article class="relatorio-secao">
           <h2>Reagentes utilizados</h2>
-          <div class="reagent-mini-grid" *ngIf="relatorio.reagentes_utilizados.length; else semReagentesTpl">
-            <div class="reagent-mini" *ngFor="let reagente of relatorio.reagentes_utilizados; trackBy: trackByIndex">
+          <div class="grade-reagente-mini" *ngIf="relatorio.reagentes_utilizados.length; else semReagentesTpl">
+            <div class="reagente-mini" *ngFor="let reagente of relatorio.reagentes_utilizados; trackBy: trackByIndex">
               <span [style.background]="reagente.corCard">{{ reagente.sigla }}</span>
-              <div class="reagent-mini-copy">
+              <div class="texto-reagente-mini">
                 <strong>{{ reagente.nome | textoVisivel }}</strong>
                 <small>{{ reagente.descricao | textoVisivel }}</small>
               </div>
             </div>
           </div>
           <ng-template #semReagentesTpl>
-            <div class="report-item">Nenhum reagente utilizado até o momento.</div>
+            <div class="relatorio-item">Nenhum reagente utilizado até o momento.</div>
           </ng-template>
         </article>
 
-        <article class="report-section">
+        <article class="relatorio-secao">
           <h2>Reações e observações</h2>
-          <div class="report-badges">
+          <div class="relatorio-selos">
             <span *ngIf="relatorio.cena.precipitado">Precipitado identificado</span>
             <span *ngIf="relatorio.cena.sobrenadante">Sobrenadante separado</span>
             <span *ngIf="relatorio.teste_chama.ativa">Teste de chama ativo</span>
             <span>Progresso {{ relatorio.progresso }}%</span>
           </div>
-          <p class="report-observation">{{ relatorio.observacao_atual | textoVisivel }}</p>
+          <p class="relatorio-observacao">{{ relatorio.observacao_atual | textoVisivel }}</p>
         </article>
 
-        <article class="report-section wide" *ngIf="precipitacoes().length">
+        <article class="relatorio-secao largo" *ngIf="precipitacoes().length">
           <h2>Reagentes precipitantes</h2>
-          <div class="precipitation-grid">
-            <div class="precipitation-card" *ngFor="let item of precipitacoes(); trackBy: trackByIndex">
-              <span class="precipitation-badge">{{ item.grupo | textoVisivel }}</span>
+          <div class="grade-precipitacoes">
+            <div class="cartao-precipitacao" *ngFor="let item of precipitacoes(); trackBy: trackByIndex">
+              <span class="selo-precipitacao">{{ item.grupo | textoVisivel }}</span>
               <strong>
                 {{ item.reagente_precipitante.nome | textoVisivel }}
                 ({{ item.reagente_precipitante.formula }})
@@ -128,17 +128,17 @@
           </div>
         </article>
 
-        <article class="report-section wide">
+        <article class="relatorio-secao largo">
           <h2>Linha do tempo</h2>
-          <div class="report-history">
-            <div class="history-row" *ngFor="let item of historicoRecente(); let i = index; trackBy: trackByIndex">
+          <div class="relatorio-historico">
+            <div class="linha-historico" *ngFor="let item of historicoRecente(); let i = index; trackBy: trackByIndex">
               <span>{{ i + 1 }}</span>
               <p>{{ item | textoVisivel }}</p>
             </div>
           </div>
         </article>
 
-        <article class="report-section wide">
+        <article class="relatorio-secao largo">
           <h2>Resultado final e conclusão</h2>
           <p>
             A conclusão deve relacionar as evidências observadas, os precipitados formados, os testes de chama
@@ -151,5 +151,5 @@
 </div>
 
 <ng-template #vazioTpl>
-  <div class="report-item">Sem conclusões registradas até o momento.</div>
+  <div class="relatorio-item">Sem conclusões registradas até o momento.</div>
 </ng-template>

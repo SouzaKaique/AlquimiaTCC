@@ -1,13 +1,13 @@
 /* Bancada, tubo de ensaio, chama, liquidos e efeitos quimicos. */
 
-.scene {
+.cena {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.scene-overlay {
+.sobreposicao-cena {
   position: absolute;
   inset: 0;
   background:
@@ -17,7 +17,7 @@
   box-shadow: inset 0 18px 42px rgba(0, 0, 0, 0.18), inset 0 -22px 50px rgba(6, 15, 20, 0.2);
 }
 
-.status-box {
+.caixa-status {
   position: absolute;
   left: 34px;
   bottom: 34px;
@@ -31,23 +31,23 @@
   z-index: 5;
 }
 
-.status-title {
+.titulo-status {
   font-size: 1rem;
   margin-bottom: 8px;
 }
 
-.status-main {
+.status-principal {
   font-size: 1.2rem;
   line-height: 1.25;
   margin-bottom: 6px;
 }
 
-.status-sub {
+.status-secundario {
   font-size: 0.92rem;
   opacity: 0.84;
 }
 
-.bench-card {
+.cartao-bancada {
   position: absolute;
   width: 300px;
   padding: 14px;
@@ -57,31 +57,31 @@
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
 }
 
-.bench-card-main {
+.cartao-bancada-principal {
   top: 42px;
   left: 34px;
 }
 
-.bench-card-side {
+.cartao-bancada-lateral {
   top: 56px;
   right: 46px;
 }
 
-.bench-card-side.bottom {
+.cartao-bancada-lateral.inferior {
   top: 220px;
 }
 
-.bench-title {
+.titulo-bancada {
   font-size: 1rem;
   margin-bottom: 8px;
 }
 
-.bench-copy {
+.texto-bancada {
   font-size: 0.9rem;
   line-height: 1.35;
 }
 
-.test-tube {
+.tubo-ensaio {
   position: absolute;
   left: 170px;
   top: 210px;
@@ -93,19 +93,19 @@
   user-select: none;
 }
 
-.test-tube.tube-hover {
+.tubo-ensaio.tubo-destacado {
   filter: drop-shadow(0 0 18px rgba(255, 230, 142, 0.72));
 }
 
-.test-tube.tube-heating {
+.tubo-ensaio.tubo-aquecendo {
   filter: drop-shadow(0 0 20px rgba(255, 168, 99, 0.78));
 }
 
-.test-tube:active {
+.tubo-ensaio:active {
   cursor: grabbing;
 }
 
-.tube-shell {
+.vidro-tubo {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -116,7 +116,7 @@
   image-rendering: pixelated;
 }
 
-.tube-liquid-viewport {
+.janela-liquido-tubo {
   position: absolute;
   left: 34px;
   top: 40px;
@@ -128,7 +128,7 @@
   box-shadow: inset 3px 0 8px rgba(255, 255, 255, 0.1), inset -4px 0 9px rgba(8, 21, 28, 0.18);
 }
 
-.liquid-surface {
+.superficie-liquido {
   position: absolute;
   left: 4px;
   right: 4px;
@@ -142,7 +142,7 @@
   transition: bottom 520ms var(--ease-pixel);
 }
 
-.tube-liquid {
+.liquido-tubo {
   position: absolute;
   left: 0;
   right: 0;
@@ -152,17 +152,17 @@
   overflow: hidden;
 }
 
-.tube-liquid.turbid {
+.liquido-tubo.turvo {
   filter: saturate(0.84) blur(0.6px);
 }
 
-.tube-bubbles {
+.bolhas-tubo {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.bubble {
+.bolha {
   position: absolute;
   bottom: 8px;
   width: 8px;
@@ -172,40 +172,40 @@
   animation: bubbleRise 1.8s linear infinite;
 }
 
-.bubble-0 {
+.bolha-0 {
   left: 8px;
   animation-delay: 0s;
 }
 
-.bubble-1 {
+.bolha-1 {
   left: 18px;
   width: 6px;
   height: 6px;
   animation-delay: 0.3s;
 }
 
-.bubble-2 {
+.bolha-2 {
   left: 28px;
   width: 10px;
   height: 10px;
   animation-delay: 0.7s;
 }
 
-.bubble-3 {
+.bolha-3 {
   left: 38px;
   width: 7px;
   height: 7px;
   animation-delay: 1s;
 }
 
-.bubble-4 {
+.bolha-4 {
   left: 14px;
   width: 5px;
   height: 5px;
   animation-delay: 1.3s;
 }
 
-.precipitate {
+.precipitado {
   position: absolute;
   left: 4px;
   right: 4px;
@@ -215,7 +215,7 @@
   transition: height var(--transition-slow), background var(--transition-slow), opacity var(--transition-med);
 }
 
-.tube-smoke {
+.fumaca-tubo {
   position: absolute;
   left: 18px;
   top: 0;
@@ -224,7 +224,7 @@
   pointer-events: none;
 }
 
-.smoke {
+.fumaca {
   position: absolute;
   bottom: 0;
   width: 24px;
@@ -234,22 +234,22 @@
   animation: smokeLift 1.9s ease-out infinite;
 }
 
-.smoke-0 {
+.fumaca-0 {
   left: 8px;
   animation-delay: 0s;
 }
 
-.smoke-1 {
+.fumaca-1 {
   left: 28px;
   animation-delay: 0.4s;
 }
 
-.smoke-2 {
+.fumaca-2 {
   left: 48px;
   animation-delay: 0.8s;
 }
 
-.tube-aura {
+.aura-tubo {
   position: absolute;
   left: 10px;
   right: 10px;
@@ -260,7 +260,7 @@
   pointer-events: none;
 }
 
-.tube-drop-zone {
+.area-soltar-tubo {
   position: absolute;
   top: 18px;
   left: 12px;
@@ -280,13 +280,13 @@
   transition: opacity 140ms ease, border-color 140ms ease, background 140ms ease;
 }
 
-.test-tube.tube-hover .tube-drop-zone {
+.tubo-ensaio.tubo-destacado .area-soltar-tubo {
   border-color: rgba(255, 231, 154, 0.8);
   background: rgba(255, 236, 176, 0.16);
   opacity: 1;
 }
 
-.burner-area {
+.area-bico {
   position: absolute;
   right: 150px;
   top: 455px;
@@ -297,7 +297,7 @@
   align-items: center;
 }
 
-.burner-drop-target {
+.alvo-chama {
   width: 280px;
   height: 54px;
   margin-bottom: 10px;
@@ -310,7 +310,7 @@
   pointer-events: none;
 }
 
-.burner-drop-target.active {
+.alvo-chama.ativo {
   border-color: rgba(255, 185, 132, 0.92);
   background:
     radial-gradient(circle at center, rgba(255, 196, 122, 0.34) 0%, rgba(255, 196, 122, 0) 72%),
@@ -318,14 +318,14 @@
   opacity: 1;
 }
 
-.burner {
+.bico {
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
 }
 
-.burner-visual {
+.visual-bico {
   position: relative;
   width: 132px;
   height: 176px;
@@ -334,7 +334,7 @@
   justify-content: center;
 }
 
-.burner-image {
+.imagem-bico {
   position: relative;
   width: 120px;
   height: auto;
@@ -343,7 +343,7 @@
   z-index: 3;
 }
 
-.burner-label {
+.legenda-bico {
   margin-top: 10px;
   padding: 6px 12px;
   border: 3px solid rgba(20, 31, 38, 0.35);
@@ -355,8 +355,8 @@
   text-align: center;
 }
 
-.empty-state,
-.loading-state {
+.estado-vazio,
+.estado-carregamento {
   display: grid;
   place-items: center;
   min-height: 120px;
@@ -368,11 +368,11 @@
   text-align: center;
 }
 
-.scene {
+.cena {
   isolation: isolate;
 }
 
-.scene::before {
+.cena::before {
   content: "";
   position: absolute;
   left: 4%;
@@ -389,7 +389,7 @@
   z-index: 0;
 }
 
-.scene::after {
+.cena::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -404,7 +404,7 @@
   animation: labLightSweep 9s ease-in-out infinite;
 }
 
-.status-box {
+.caixa-status {
   width: min(610px, calc(100% - 96px));
   max-height: 190px;
   overflow: auto;
@@ -413,26 +413,26 @@
   box-shadow: 0 0 34px rgba(255, 200, 97, 0.22), 0 16px 34px rgba(0, 0, 0, 0.24);
 }
 
-.status-main {
+.status-principal {
   font-size: 1.06rem;
 }
 
-.bench-card {
+.cartao-bancada {
   max-height: 150px;
   overflow: auto;
   backdrop-filter: blur(2px);
 }
 
-.bench-card-side {
+.cartao-bancada-lateral {
   width: min(340px, 26vw);
 }
 
-.test-tube {
+.tubo-ensaio {
   filter: drop-shadow(0 18px 20px rgba(0, 0, 0, 0.35));
   will-change: transform;
 }
 
-.test-tube::before {
+.tubo-ensaio::before {
   content: "";
   position: absolute;
   top: 47px;
@@ -447,7 +447,7 @@
   z-index: 8;
 }
 
-.test-tube::after {
+.tubo-ensaio::after {
   content: "";
   position: absolute;
   inset: 24px 8px 4px;
@@ -457,34 +457,34 @@
   z-index: -1;
 }
 
-.test-tube.tube-hover::after,
-.test-tube.tube-heating::after {
+.tubo-ensaio.tubo-destacado::after,
+.tubo-ensaio.tubo-aquecendo::after {
   animation: reactionFlash 1.15s ease-out infinite;
 }
 
-.test-tube.tube-heating .tube-shell {
+.tubo-ensaio.tubo-aquecendo .vidro-tubo {
   filter: sepia(0.16) saturate(1.22) drop-shadow(0 0 8px rgba(255, 162, 88, 0.36));
 }
 
-.test-tube.tube-heating .tube-liquid-viewport {
+.tubo-ensaio.tubo-aquecendo .janela-liquido-tubo {
   box-shadow: inset 5px 0 12px rgba(255, 187, 111, 0.28), inset -4px 0 9px rgba(8, 21, 28, 0.18), 0 0 16px rgba(255, 145, 74, 0.22);
 }
 
-.test-tube.tube-ready {
+.tubo-ensaio.tubo-pronto {
   animation: tubeReadyGlow 2.8s ease-in-out infinite;
 }
 
-.test-tube.tube-hover,
-.test-tube.tube-heating {
+.tubo-ensaio.tubo-destacado,
+.tubo-ensaio.tubo-aquecendo {
   filter: drop-shadow(0 0 26px rgba(255, 224, 128, 0.88)) drop-shadow(0 18px 20px rgba(0, 0, 0, 0.35));
 }
 
-.tube-liquid {
+.liquido-tubo {
   background-size: 100% 180%;
   animation: liquidShimmer 3.2s ease-in-out infinite;
 }
 
-.tube-liquid::before {
+.liquido-tubo::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -495,11 +495,11 @@
   animation: reagentSwirl 2.7s ease-in-out infinite;
 }
 
-.tube-liquid.turbid {
+.liquido-tubo.turvo {
   filter: saturate(1.2) contrast(1.08);
 }
 
-.tube-liquid.turbid::after {
+.liquido-tubo.turvo::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -510,7 +510,7 @@
   animation: particlesDrift 1.8s linear infinite;
 }
 
-.precipitate {
+.precipitado {
   height: 24px;
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.55) 0 2px, transparent 3px),
@@ -519,11 +519,11 @@
   animation: precipitateSettle 1.6s ease-out both;
 }
 
-.bubble {
+.bolha {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.72);
 }
 
-.tube-aura {
+.aura-tubo {
   height: 86px;
   background:
     radial-gradient(circle, rgba(127, 255, 218, 0.5) 0%, rgba(255, 210, 111, 0.28) 38%, rgba(188, 150, 255, 0) 74%);
@@ -532,22 +532,22 @@
   will-change: transform, opacity;
 }
 
-.tube-smoke {
+.fumaca-tubo {
   filter: blur(0.3px);
 }
 
-.smoke {
+.fumaca {
   background: radial-gradient(circle, rgba(246, 250, 236, 0.68) 0%, rgba(173, 216, 200, 0.18) 44%, rgba(240, 240, 240, 0) 74%);
 }
 
-.burner-area {
+.area-bico {
   right: clamp(64px, 8.5vw, 138px);
   top: clamp(366px, 46vh, 424px);
   width: 270px;
   transition: right var(--transition-med), transform var(--transition-med), filter var(--transition-med);
 }
 
-.burner-area.flame-active::before {
+.area-bico.chama-ativa::before {
   content: "";
   position: absolute;
   left: 44%;
@@ -563,33 +563,33 @@
   z-index: 5;
 }
 
-.burner-drop-target {
+.alvo-chama {
   width: 100%;
   min-width: 0;
   box-shadow: inset 0 0 24px rgba(255, 183, 86, 0.1);
 }
 
-.burner-drop-target.active {
+.alvo-chama.ativo {
   box-shadow: 0 0 28px rgba(255, 180, 88, 0.48), inset 0 0 28px rgba(255, 216, 126, 0.28);
 }
 
-.burner-visual {
+.visual-bico {
   width: 156px;
   height: 208px;
 }
 
-.burner-flame,
-.flame-glow,
-.flame-outer,
-.flame-inner,
-.flame-core {
+.chama-bico,
+.chama-brilho,
+.chama-externa,
+.chama-interna,
+.chama-nucleo {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
 }
 
-.burner-flame {
+.chama-bico {
   left: 40%;
   bottom: 172px;
   width: 96px;
@@ -599,7 +599,7 @@
   --flame-mid: color-mix(in srgb, var(--flame-color) 78%, #ffffff);
 }
 
-.flame-glow {
+.chama-brilho {
   bottom: -16px;
   width: 114px;
   height: 114px;
@@ -610,15 +610,15 @@
   animation: flameGlowPulse 1.45s ease-in-out infinite alternate;
 }
 
-.flame-outer,
-.flame-inner,
-.flame-core {
+.chama-externa,
+.chama-interna,
+.chama-nucleo {
   z-index: 2;
   transform-origin: 50% 100%;
   will-change: transform, opacity;
 }
 
-.flame-outer {
+.chama-externa {
   bottom: 0;
   width: 48px;
   height: 104px;
@@ -630,7 +630,7 @@
   animation: cssFlameFlicker 0.88s ease-in-out infinite alternate;
 }
 
-.flame-inner {
+.chama-interna {
   bottom: 4px;
   width: 30px;
   height: 78px;
@@ -641,7 +641,7 @@
   animation: cssFlameInner 0.74s ease-in-out infinite alternate;
 }
 
-.flame-core {
+.chama-nucleo {
   bottom: 4px;
   width: 14px;
   height: 48px;
@@ -651,22 +651,22 @@
   animation: cssFlameCore 0.96s ease-in-out infinite alternate;
 }
 
-.burner-visual.test-flame .flame-glow {
+.visual-bico.chama-teste .chama-brilho {
   opacity: 0.92;
 }
 
-.burner-image {
+.imagem-bico {
   width: 132px;
 }
 
-.burner-label {
+.legenda-bico {
   max-width: 270px;
   background:
     linear-gradient(180deg, rgba(24, 42, 50, 0.95), rgba(10, 20, 27, 0.94));
   box-shadow: 0 0 22px rgba(127, 255, 218, 0.16);
 }
 
-.flame-confirm-overlay {
+.sobreposicao-confirmar-chama {
   position: fixed;
   inset: 0;
   z-index: 42;
@@ -677,7 +677,7 @@
   pointer-events: none;
 }
 
-.flame-confirm-dialog {
+.janela-confirmar-chama {
   width: min(420px, calc(100vw - 40px));
   padding: 22px;
   pointer-events: auto;
@@ -691,18 +691,18 @@
   animation: dialogEnter 180ms ease-out both;
 }
 
-.flame-confirm-dialog h2 {
+.janela-confirmar-chama h2 {
   margin: 8px 0 14px;
   font-size: clamp(1.45rem, 2vw, 2rem);
   line-height: 1.1;
 }
 
-.flame-confirm-dialog p {
+.janela-confirmar-chama p {
   margin: 0 0 12px;
   font-size: 1rem;
   line-height: 1.55;
 }
 
-.flame-confirm-dialog .action-btn {
+.janela-confirmar-chama .botao-acao {
   margin-top: 10px;
 }

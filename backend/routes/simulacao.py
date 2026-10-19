@@ -50,12 +50,6 @@ def aplicar_reagente():
 
 
 # bloco acoes
-@bp.route("/aquecer", methods=["POST"])
-@jwt_required()
-def aquecer():
-    return _executar_acao("aquecer", "Aquecimento executado na etapa atual.")
-
-
 @bp.route("/acao", methods=["POST"])
 @jwt_required()
 def executar_acao():
@@ -92,7 +86,7 @@ def ir_para_etapa():
     data = request.get_json(silent=True) or {}
     etapa = data.get("etapa")
 
-    if not isinstance(etapa, int) or etapa not in (0, 1, 2, 3, 4):
+    if type(etapa) is not int or etapa not in (0, 1, 2, 3, 4):
         return jsonify({"error": "Etapa invalida."}), 400
 
     return jsonify(servico_simulacao.ir_para_etapa(usuario.id, etapa)), 200

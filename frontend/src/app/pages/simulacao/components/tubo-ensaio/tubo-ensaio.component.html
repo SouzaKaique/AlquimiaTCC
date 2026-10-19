@@ -1,45 +1,45 @@
 <div
-  class="test-tube"
-  [class.tube-hover]="hoverTubo"
-  [class.tube-ready]="!!reagenteSelecionado"
-  [class.tube-heating]="hoverChama"
+  class="tubo-ensaio"
+  [class.tubo-destacado]="hoverTubo"
+  [class.tubo-pronto]="!!reagenteSelecionado"
+  [class.tubo-aquecendo]="hoverChama"
   [ngStyle]="tuboEstilo"
   (dragover)="tuboDragOver.emit($event)"
   (dragleave)="tuboDragLeave.emit()"
   (drop)="tuboDrop.emit($event)"
   (mousedown)="tuboPointerDown.emit($event)"
 >
-  <div class="tube-liquid-viewport">
+  <div class="janela-liquido-tubo">
     <div
-      class="tube-liquid"
+      class="liquido-tubo"
       [style.height.%]="visual.nivel"
       [style.background]="visual.gradiente"
-      [class.turbid]="visual.turva"
+      [class.turvo]="visual.turva"
     >
-      <div class="tube-bubbles" *ngIf="mostrarBolhas">
+      <div class="bolhas-tubo" *ngIf="mostrarBolhas">
         <span
           *ngFor="let bubble of bolhasDecorativas; trackBy: trackByDecorativo"
-          class="bubble bubble-{{ bubble }}"
+          class="bolha bolha-{{ bubble }}"
         ></span>
       </div>
       <div
-        class="precipitate"
+        class="precipitado"
         *ngIf="visual.precipitado_ativo"
         [style.background]="visual.precipitado_cor"
       ></div>
     </div>
-    <div class="liquid-surface" [style.bottom.%]="visual.nivel"></div>
+    <div class="superficie-liquido" [style.bottom.%]="visual.nivel"></div>
   </div>
 
-  <div class="tube-smoke" *ngIf="mostrarFumaca">
+  <div class="fumaca-tubo" *ngIf="mostrarFumaca">
     <span
       *ngFor="let smoke of fumacaDecorativa; trackBy: trackByDecorativo"
-      class="smoke smoke-{{ smoke }}"
+      class="fumaca fumaca-{{ smoke }}"
     ></span>
   </div>
-  <div class="tube-aura" *ngIf="mostrarAura"></div>
-  <img class="tube-shell" src="/assets/img/tubo.png" alt="Tubo de ensaio" />
-  <div class="tube-drop-zone">
+  <div class="aura-tubo" *ngIf="mostrarAura"></div>
+  <img class="vidro-tubo" src="/assets/img/tubo.png" alt="Tubo de ensaio" />
+  <div class="area-soltar-tubo">
     {{ dicaTubo }}
   </div>
 </div>

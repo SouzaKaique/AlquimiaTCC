@@ -36,7 +36,7 @@ export class RelatorioComponent implements OnInit {
       this.estado()?.etapas.filter((etapa) => [1, 2, 3].includes(etapa.id) && etapa.concluida)
         .length ?? 0,
   );
-  readonly historicoRecente = computed(() => this.estado()?.historico.slice(-10) ?? []);
+  readonly historicoRecente = computed(() => this.estado()?.historico.slice(0, 10) ?? []);
   readonly resumo = computed(() => this.estado()?.resumo_final ?? []);
   readonly precipitacoes = computed(() => this.estado()?.precipitacoes ?? []);
 

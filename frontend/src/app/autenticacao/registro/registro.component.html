@@ -7,7 +7,7 @@
     <div class="mb-2">
       <input
         type="text"
-        class="form-control input-pixel"
+        class="form-control campo-pixel"
         placeholder="Usuário"
         name="usuario"
         [(ngModel)]="usuario"
@@ -19,7 +19,7 @@
     <div class="mb-2 position-relative">
       <input
         [type]="mostrarSenha ? 'text' : 'password'"
-        class="form-control input-pixel"
+        class="form-control campo-pixel"
         placeholder="Senha"
         name="senha"
         [(ngModel)]="senha"
@@ -37,7 +37,7 @@
     <div class="mb-2 position-relative">
       <input
         [type]="mostrarConfirmar ? 'text' : 'password'"
-        class="form-control input-pixel"
+        class="form-control campo-pixel"
         placeholder="Confirmar senha"
         name="confirmarSenha"
         [(ngModel)]="confirmarSenha"
@@ -52,14 +52,16 @@
       ></i>
     </div>
 
-    <button type="submit" class="botao w-100">Registrar</button>
+    <button type="submit" class="botao w-100" [disabled]="carregando">
+      {{ carregando ? 'Registrando...' : 'Registrar' }}
+    </button>
 
     <p class="mt-3 text-danger" *ngIf="mensagemErro">
       {{ mensagemErro }}
     </p>
   </form>
 
-  <a routerLink="/" class="link-auth">
-    Ja possui conta? Entrar
+  <a routerLink="/" class="link-autenticacao">
+    Já possui conta? Entrar
   </a>
 </app-layout-autenticacao>

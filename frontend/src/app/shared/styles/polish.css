@@ -1,75 +1,75 @@
 
 /* bloco de ajustes finais */
-.lab-page,
-.lab-page button,
-.lab-page input,
-.lab-page textarea {
+.pagina-laboratorio,
+.pagina-laboratorio button,
+.pagina-laboratorio input,
+.pagina-laboratorio textarea {
   font-family: var(--font-pixel);
   letter-spacing: 0;
 }
 
-.lab-page button {
+.pagina-laboratorio button {
   -webkit-font-smoothing: none;
   text-rendering: geometricPrecision;
 }
 
-.lab-page button:focus-visible,
-.equipment-dialog-close:focus-visible,
-.profile-button:focus-visible {
+.pagina-laboratorio button:focus-visible,
+.fechar-janela-equipamento:focus-visible,
+.botao-perfil:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring), var(--shadow-pixel);
 }
 
-.panel,
-.bench-card,
-.status-box,
-.reagent-board,
-.equipment-dialog {
+.painel,
+.cartao-bancada,
+.caixa-status,
+.painel-reagentes,
+.janela-equipamento {
   image-rendering: pixelated;
 }
 
-.stage-scroll::-webkit-scrollbar,
-.reagent-list::-webkit-scrollbar,
-.bench-card::-webkit-scrollbar,
-.status-box::-webkit-scrollbar,
-.summary-list::-webkit-scrollbar,
-.log-list::-webkit-scrollbar,
-.intro-panel::-webkit-scrollbar,
-.report-panel::-webkit-scrollbar {
+.rolagem-etapa::-webkit-scrollbar,
+.lista-reagentes::-webkit-scrollbar,
+.cartao-bancada::-webkit-scrollbar,
+.caixa-status::-webkit-scrollbar,
+.lista-resumo::-webkit-scrollbar,
+.lista-registros::-webkit-scrollbar,
+.painel-intro::-webkit-scrollbar,
+.relatorio-painel::-webkit-scrollbar {
   width: 9px;
 }
 
-.stage-scroll::-webkit-scrollbar-track,
-.reagent-list::-webkit-scrollbar-track,
-.bench-card::-webkit-scrollbar-track,
-.status-box::-webkit-scrollbar-track,
-.summary-list::-webkit-scrollbar-track,
-.log-list::-webkit-scrollbar-track,
-.intro-panel::-webkit-scrollbar-track,
-.report-panel::-webkit-scrollbar-track {
+.rolagem-etapa::-webkit-scrollbar-track,
+.lista-reagentes::-webkit-scrollbar-track,
+.cartao-bancada::-webkit-scrollbar-track,
+.caixa-status::-webkit-scrollbar-track,
+.lista-resumo::-webkit-scrollbar-track,
+.lista-registros::-webkit-scrollbar-track,
+.painel-intro::-webkit-scrollbar-track,
+.relatorio-painel::-webkit-scrollbar-track {
   background: rgba(21, 34, 41, 0.16);
   border-left: 2px solid rgba(21, 34, 41, 0.08);
 }
 
-.stage-scroll::-webkit-scrollbar-thumb,
-.reagent-list::-webkit-scrollbar-thumb,
-.bench-card::-webkit-scrollbar-thumb,
-.status-box::-webkit-scrollbar-thumb,
-.summary-list::-webkit-scrollbar-thumb,
-.log-list::-webkit-scrollbar-thumb,
-.intro-panel::-webkit-scrollbar-thumb,
-.report-panel::-webkit-scrollbar-thumb {
+.rolagem-etapa::-webkit-scrollbar-thumb,
+.lista-reagentes::-webkit-scrollbar-thumb,
+.cartao-bancada::-webkit-scrollbar-thumb,
+.caixa-status::-webkit-scrollbar-thumb,
+.lista-resumo::-webkit-scrollbar-thumb,
+.lista-registros::-webkit-scrollbar-thumb,
+.painel-intro::-webkit-scrollbar-thumb,
+.relatorio-painel::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #8fa77e, #536c62);
   border: 2px solid rgba(16, 29, 36, 0.35);
 }
 
-.action-btn,
-.stage-btn,
-.equipment-chip,
-.menu-item,
-.profile-button,
-.equipment-dialog-close,
-.reagent-card {
+.botao-acao,
+.botao-etapa,
+.etiqueta-equipamento,
+.item-menu,
+.botao-perfil,
+.fechar-janela-equipamento,
+.cartao-reagente {
   transition:
     transform var(--transition-fast),
     filter var(--transition-fast),
@@ -79,59 +79,59 @@
     color var(--transition-fast);
 }
 
-.action-btn:hover:not(:disabled),
-.stage-btn:hover:not(:disabled),
-.equipment-chip:hover:not(:disabled),
-.reagent-card:hover {
+.botao-acao:hover:not(:disabled),
+.botao-etapa:hover:not(:disabled),
+.etiqueta-equipamento:hover:not(:disabled),
+.cartao-reagente:hover {
   filter: brightness(1.08) saturate(1.05);
 }
 
-.action-btn:active:not(:disabled),
-.stage-btn:active:not(:disabled),
-.equipment-chip:active:not(:disabled),
-.menu-item:active,
-.reagent-card:active {
+.botao-acao:active:not(:disabled),
+.botao-etapa:active:not(:disabled),
+.etiqueta-equipamento:active:not(:disabled),
+.item-menu:active,
+.cartao-reagente:active {
   transform: translateY(3px);
   box-shadow: 0 3px 0 rgba(11, 22, 30, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
-.action-btn:disabled,
-.stage-btn:disabled,
-.equipment-chip:disabled {
+.botao-acao:disabled,
+.botao-etapa:disabled,
+.etiqueta-equipamento:disabled {
   filter: grayscale(0.25);
   text-shadow: none;
 }
 
-.stage-btn.locked,
-.stage-btn:disabled {
+.botao-etapa.bloqueada,
+.botao-etapa:disabled {
   color: rgba(244, 241, 223, 0.68);
 }
 
-.loading-state {
+.estado-carregamento {
   position: relative;
   z-index: 3;
 }
 
-.panel,
-.status-box,
-.bench-card,
-.reagent-board,
-.equipment-panel {
+.painel,
+.caixa-status,
+.cartao-bancada,
+.painel-reagentes,
+.painel-equipamentos {
   animation: panelEnterSoft 260ms ease both;
 }
 
-.scene {
+.cena {
   background:
     radial-gradient(circle at 44% 46%, rgba(127, 255, 218, 0.06), transparent 24%),
     linear-gradient(180deg, rgba(7, 16, 21, 0.06), rgba(7, 16, 21, 0.18));
 }
 
-.scene::before {
+.cena::before {
   height: 44%;
   border-top-color: rgba(14, 28, 35, 0.74);
 }
 
-.status-box {
+.caixa-status {
   min-height: 104px;
   max-height: 148px;
   padding: 11px 16px;
@@ -139,136 +139,136 @@
   animation: panelEnterSoft 260ms ease both, statusPulseSoft 5s ease-in-out infinite 800ms;
 }
 
-.status-title {
+.titulo-status {
   font-weight: 700;
   color: #3a281d;
   margin-bottom: 5px;
 }
 
-.status-main {
+.status-principal {
   font-size: 0.98rem;
   line-height: 1.36;
   color: #3f2c22;
   transition: opacity var(--transition-med), transform var(--transition-med), color var(--transition-med);
 }
 
-.status-sub {
+.status-secundario {
   line-height: 1.35;
   color: rgba(77, 52, 39, 0.82);
 }
 
-.bench-card {
+.cartao-bancada {
   background:
     linear-gradient(180deg, rgba(236, 246, 239, 0.94), rgba(198, 216, 212, 0.88));
   box-shadow: 0 0 24px rgba(127, 255, 218, 0.1), 0 14px 28px rgba(0, 0, 0, 0.22);
   transition: transform var(--transition-med), box-shadow var(--transition-med), background var(--transition-med);
 }
 
-.bench-card:hover {
+.cartao-bancada:hover {
   transform: translateY(-2px);
   box-shadow: 0 0 28px rgba(127, 255, 218, 0.14), 0 18px 32px rgba(0, 0, 0, 0.25);
 }
 
-.bench-title {
+.titulo-bancada {
   color: #172c35;
   font-weight: 700;
 }
 
-.bench-copy {
+.texto-bancada {
   color: rgba(28, 45, 54, 0.9);
 }
 
-.test-tube {
+.tubo-ensaio {
   transition: filter var(--transition-med), transform var(--transition-fast);
 }
 
-.tube-liquid {
+.liquido-tubo {
   box-shadow: inset 8px 0 14px rgba(255, 255, 255, 0.14), inset -7px 0 10px rgba(0, 0, 0, 0.12);
 }
 
-.tube-drop-zone {
+.area-soltar-tubo {
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
 }
 
-.burner-area {
+.area-bico {
   filter: drop-shadow(0 20px 24px rgba(0, 0, 0, 0.28));
 }
 
-.burner-drop-target {
+.alvo-chama {
   transition: opacity var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med);
 }
 
-.burner-visual {
+.visual-bico {
   transition: transform var(--transition-fast), filter var(--transition-fast);
 }
 
-.burner:hover .burner-visual {
+.bico:hover .visual-bico {
   transform: translateY(-2px);
   filter: saturate(1.08);
 }
 
-.burner-label {
+.legenda-bico {
   border-color: rgba(127, 255, 218, 0.24);
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.34);
 }
 
-.empty-state,
-.loading-state {
+.estado-vazio,
+.estado-carregamento {
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.34);
 }
 
-.equipment-panel {
+.painel-equipamentos {
   padding: 6px;
   border: 3px solid rgba(21, 34, 41, 0.3);
   background: rgba(11, 22, 30, 0.22);
   box-shadow: inset 0 0 18px rgba(127, 255, 218, 0.08);
 }
 
-.equipment-chip {
+.etiqueta-equipamento {
   box-shadow: 0 4px 0 rgba(7, 15, 20, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.24);
 }
 
-.equipment-chip.active {
+.etiqueta-equipamento.ativo {
   box-shadow: 0 0 18px rgba(255, 207, 112, 0.34), 0 4px 0 rgba(70, 46, 16, 0.28);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.equipment-dialog {
+.janela-equipamento {
   box-shadow: 0 0 54px rgba(125, 255, 218, 0.2), 0 30px 76px rgba(0, 0, 0, 0.52);
 }
 
-.equipment-dialog-title {
+.titulo-janela-equipamento {
   font-weight: 700;
   color: #172c35;
 }
 
-.equipment-dialog-close {
+.fechar-janela-equipamento {
   box-shadow: 0 5px 0 rgba(11, 22, 30, 0.22);
 }
 
-.equipment-dialog-close:hover {
+.fechar-janela-equipamento:hover {
   background: rgba(255, 244, 214, 0.84);
   transform: translateY(-1px);
 }
 
-.equipment-source {
+.origem-equipamento {
   color: rgba(31, 45, 54, 0.86);
   box-shadow: inset 0 0 18px rgba(127, 255, 218, 0.08);
 }
 
-.equipment-dropzone {
+.area-soltar-equipamento {
   box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.15);
 }
 
-.equipment-dropzone.has-tube {
+.area-soltar-equipamento.com-tubo {
   box-shadow: inset 0 0 40px rgba(255, 205, 105, 0.14), 0 0 18px rgba(255, 205, 105, 0.22);
 }
 
-.machine-slot {
+.encaixe-maquina {
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.32);
 }
 
-.equipment-status {
+.status-equipamento {
   color: rgba(31, 45, 54, 0.88);
 }

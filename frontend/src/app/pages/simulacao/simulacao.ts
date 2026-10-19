@@ -263,6 +263,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     );
   });
   readonly tempoGastoTexto = computed(() => {
+    this.estado();
     const minutos = Math.max(1, Math.round((Date.now() - this.inicioSessao) / 60000));
     return `${minutos} min`;
   });
@@ -282,6 +283,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    window.removeEventListener('mousemove', this.onWindowMouseMove);
+    window.removeEventListener('mouseup', this.onWindowMouseUp);
     this.limparTimersEquipamento();
     this.limparTimersEfeito();
   }
@@ -556,7 +559,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   }
 
   onTubePointerDown(event: MouseEvent): void {
-    if ((event.target as HTMLElement)?.closest('.tube-drop-zone')) {
+    if ((event.target as HTMLElement)?.closest('.area-soltar-tubo')) {
       return;
     }
 
@@ -586,7 +589,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const scene = document.querySelector('.scene') as HTMLElement | null;
+    const scene = document.querySelector('.cena') as HTMLElement | null;
     if (!scene) {
       return;
     }
@@ -617,8 +620,8 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   };
 
   private atualizarHoverChama(): void {
-    const tubo = document.querySelector('.test-tube') as HTMLElement | null;
-    const chama = document.querySelector('.burner-drop-target') as HTMLElement | null;
+    const tubo = document.querySelector('.tubo-ensaio') as HTMLElement | null;
+    const chama = document.querySelector('.alvo-chama') as HTMLElement | null;
 
     if (!tubo || !chama) {
       this.hoverChama.set(false);
