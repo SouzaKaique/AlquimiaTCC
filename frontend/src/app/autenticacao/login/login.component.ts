@@ -8,13 +8,13 @@ import 'notyf/notyf.min.css';
 import gsap from 'gsap';
 import { Notyf } from 'notyf';
 
-import { AuthLayoutComponent } from '../../auth/auth-layout.component/auth-layout.component';
-import { AuthService, RespostaLogin } from '../../core/services/auth';
+import { LayoutAutenticacaoComponent } from '../layout-autenticacao/layout-autenticacao.component';
+import { AutenticacaoService, RespostaLogin } from '../../core/services/autenticacao';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, AuthLayoutComponent],
+  imports: [CommonModule, FormsModule, RouterModule, LayoutAutenticacaoComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('formEl', { read: ElementRef }) formulario?: ElementRef;
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly autenticacaoService: AutenticacaoService) {}
 
   ngOnInit(): void {
     this.mensagemErro = '';
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
 
     this.carregando = true;
 
-    this.authService.login(this.usuario, this.senha).subscribe({
+    this.autenticacaoService.login(this.usuario, this.senha).subscribe({
         next: (resposta) => this.loginSucesso(resposta),
         error: (erro) => this.loginErro(erro),
       });
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
 
   private loginSucesso(resposta: RespostaLogin): void {
     this.carregando = false;
-    this.authService.salvarSessao(
+    this.autenticacaoService.salvarSessao(
       resposta.access_token,
       resposta.usuario.nome || this.usuario,
       resposta.usuario.apresentador,

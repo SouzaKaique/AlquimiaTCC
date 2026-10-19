@@ -6,14 +6,14 @@ import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
 // bloco do agitador e centrifuga
 @Component({
-  selector: 'app-centrifuge',
+  selector: 'app-centrifuga',
   standalone: true,
   imports: [CommonModule, TextoVisivelPipe],
-  templateUrl: './centrifuge.component.html',
-  styleUrls: ['./centrifuge.component.css'],
+  templateUrl: './centrifuga.component.html',
+  styleUrls: ['./centrifuga.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CentrifugeComponent {
+export class CentrifugaComponent {
   @Input() equipamento: EquipamentoSimulacao | null = null;
   @Input() titulo = '';
   @Input() instrucao = '';

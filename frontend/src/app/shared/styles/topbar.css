@@ -162,3 +162,11 @@
 .lab-page.modo-apresentacao .report-modal {
   max-height: calc(100vh - 128px);
 }
+
+.lab-page.modo-apresentacao .drawer-backdrop {
+  z-index: 61;
+}
+
+.lab-page.modo-apresentacao .profile-drawer {
+  z-index: 62;
+}

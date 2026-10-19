@@ -4,8 +4,8 @@
 
 ```text
 Angular
-  -> AuthService / SimulacaoApiService
-  -> authInterceptor
+  -> AutenticacaoService / SimulacaoApiService
+  -> autenticacaoInterceptor
   -> Flask routes
   -> ServicoSimulacao
   -> MotorSimulacao
@@ -49,7 +49,7 @@ Angular
 
 ### Modo apresentacao
 
-- Usuarios listados em `USUARIOS_APRESENTACAO` (padrao: `apresentacao`) podem clicar nas etapas da topbar.
+- Usuarios listados em `USUARIOS_APRESENTACAO` (padrao: `apresentacao`) podem clicar nas etapas da barra superior.
 - `POST /simulacao/etapa` monta a marcha ja posicionada na etapa escolhida, executando os grupos anteriores com `ROTEIRO_COMPLETO` (em `simulacoes/marcha_analitica.py`).
 - Usuario comum recebe `403` nessa rota.
 

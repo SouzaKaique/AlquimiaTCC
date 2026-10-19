@@ -1,5 +1,5 @@
 # bloco das etapas
-STAGE_DEFINITIONS = [
+DEFINICOES_ETAPAS = [
     {
         "id": 0,
         "label": "Introducao",
@@ -28,7 +28,7 @@ STAGE_DEFINITIONS = [
 ]
 
 # bloco dos sais do teste de chama
-FLAME_SAMPLES = {
+AMOSTRAS_CHAMA = {
     "Sal de potassio": {
         "sigla": "K",
         "descricao": "Use no teste de chama para observar a coloracao violeta.",
@@ -53,28 +53,28 @@ FLAME_SAMPLES = {
 }
 
 # bloco dos reagentes
-REAGENT_CATALOG = [
+CATALOGO_REAGENTES = [
     {
         "nome": "Sal de potassio",
         "sigla": "K",
-        "descricao": FLAME_SAMPLES["Sal de potassio"]["descricao"],
-        "corCard": FLAME_SAMPLES["Sal de potassio"]["corCard"],
+        "descricao": AMOSTRAS_CHAMA["Sal de potassio"]["descricao"],
+        "corCard": AMOSTRAS_CHAMA["Sal de potassio"]["corCard"],
         "tipo": "sal",
         "etapas": [1],
     },
     {
         "nome": "Sal de sodio",
         "sigla": "Na",
-        "descricao": FLAME_SAMPLES["Sal de sodio"]["descricao"],
-        "corCard": FLAME_SAMPLES["Sal de sodio"]["corCard"],
+        "descricao": AMOSTRAS_CHAMA["Sal de sodio"]["descricao"],
+        "corCard": AMOSTRAS_CHAMA["Sal de sodio"]["corCard"],
         "tipo": "sal",
         "etapas": [1],
     },
     {
         "nome": "Sal de estroncio",
         "sigla": "Sr",
-        "descricao": FLAME_SAMPLES["Sal de estroncio"]["descricao"],
-        "corCard": FLAME_SAMPLES["Sal de estroncio"]["corCard"],
+        "descricao": AMOSTRAS_CHAMA["Sal de estroncio"]["descricao"],
+        "corCard": AMOSTRAS_CHAMA["Sal de estroncio"]["corCard"],
         "tipo": "sal",
         "etapas": [1],
     },
@@ -121,7 +121,7 @@ REAGENT_CATALOG = [
 ]
 
 # bloco das acoes
-ACTION_CATALOG = {
+CATALOGO_ACOES = {
     "iniciar_roteiro": {
         "label": "Iniciar marcha",
         "descricao": "Abre a primeira pratica com a solucao-mae do grupo 1.",
@@ -149,7 +149,7 @@ ACTION_CATALOG = {
 }
 
 # bloco do visual inicial
-DEFAULT_VISUAL = {
+VISUAL_PADRAO = {
     "nivel": 48,
     "cor_solucao": "#7a8e9b",
     "gradiente": "linear-gradient(180deg, #90a4b2 0%, #7a8e9b 55%, #5e6c78 100%)",

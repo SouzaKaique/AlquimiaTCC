@@ -1,18 +1,18 @@
 <div class="lab-page" [class.modo-apresentacao]="modoApresentacao()">
-  <app-simulacao-drawer
+  <app-menu-lateral
     [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
     (fechar)="fecharMenuPerfil()"
     (sair)="logout()"
-  ></app-simulacao-drawer>
+  ></app-menu-lateral>
 
-  <app-simulacao-topbar
+  <app-barra-superior
     [etapas]="etapas()"
     [etapaCorrente]="estado()?.etapa_corrente ?? null"
     [navegacaoLivre]="modoApresentacao()"
     (abrirPerfil)="alternarMenuPerfil($event)"
     (selecionarEtapa)="irParaEtapa($event)"
-  ></app-simulacao-topbar>
+  ></app-barra-superior>
 
   <section class="workspace" *ngIf="!carregando() && estado() && cena(); else carregandoTpl">
     <aside class="sidebar">
@@ -88,7 +88,7 @@
             </div>
           </div>
 
-          <app-reagent-board
+          <app-painel-reagentes
             [destaque]="destaqueReagentes()"
             [totalReagentes]="totalReagentes()"
             [reagenteSelecionado]="reagenteSelecionado()"
@@ -96,9 +96,9 @@
             [reagentes]="reagentes()"
             [acoes]="acoesPainel()"
             (selecionarReagente)="selecionarReagente($event)"
-            (iniciarArrasteReagente)="onReagentBoardDragStart($event)"
+            (iniciarArrasteReagente)="onPainelReagentesDragStart($event)"
             (executarAcao)="executarAcao($event)"
-          ></app-reagent-board>
+          ></app-painel-reagentes>
         </div>
 
         <div class="stage-footer">
@@ -155,16 +155,16 @@
     <main class="scene">
       <div class="scene-overlay"></div>
 
-      <app-status-box
+      <app-caixa-status
         [mensagem]="mensagemReacao()"
         [etapaLabel]="etapaAtual()?.label || 'Introdução'"
         [testeChama]="estado()!.teste_chama"
-      ></app-status-box>
+      ></app-caixa-status>
 
-      <app-bench-card [card]="cena()!.solucao_mae"></app-bench-card>
+      <app-cartao-bancada [card]="cena()!.solucao_mae"></app-cartao-bancada>
 
       <!-- bloco do tubo -->
-      <app-test-tube
+      <app-tubo-ensaio
         [visual]="visual()"
         [hoverTubo]="hoverTubo()"
         [hoverChama]="hoverChama()"
@@ -180,19 +180,19 @@
         (tuboDragLeave)="onTubeDragLeave()"
         (tuboDrop)="onTubeDrop($event)"
         (tuboPointerDown)="onTubePointerDown($event)"
-      ></app-test-tube>
+      ></app-tubo-ensaio>
 
-      <app-bench-card
+      <app-cartao-bancada
         *ngIf="cena()!.precipitado"
         [card]="cena()!.precipitado!"
         variante="side"
-      ></app-bench-card>
+      ></app-cartao-bancada>
 
-      <app-bench-card
+      <app-cartao-bancada
         *ngIf="cena()!.sobrenadante"
         [card]="cena()!.sobrenadante!"
         variante="side-bottom"
-      ></app-bench-card>
+      ></app-cartao-bancada>
 
       <div class="equipment-panel">
         <button
@@ -217,19 +217,19 @@
       </div>
 
       <!-- bloco do bico -->
-      <app-burner
+      <app-bico-bunsen
         *ngIf="cena()!.equipamentos.bico"
         [hoverChama]="hoverChama()"
         [testeChama]="estado()!.teste_chama"
         [fogoAtivo]="fogoAtivo()"
         [mensagem]="burnerMensagem()"
         (alternarChama)="ligarOuDesligarChama()"
-      ></app-burner>
+      ></app-bico-bunsen>
     </main>
   </section>
 
   <!-- bloco do agitador e centrifuga -->
-  <app-centrifuge
+  <app-centrifuga
     [equipamento]="simuladorEquipamento()"
     [titulo]="equipamentoTitulo()"
     [instrucao]="equipamentoInstrucao()"
@@ -242,7 +242,7 @@
     (permitirSoltar)="allowEquipmentDrop($event)"
     (soltarTubo)="onEquipmentDrop($event)"
     (iniciarProcesso)="iniciarProcessoEquipamento()"
-  ></app-centrifuge>
+  ></app-centrifuga>
 
   <!-- bloco do fim do teste de chama -->
   <div class="flame-confirm-overlay" *ngIf="testeChamaAguardandoConfirmacao()">

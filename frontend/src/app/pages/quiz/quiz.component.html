@@ -1,16 +1,16 @@
 <div class="lab-page quiz-page">
-  <app-simulacao-drawer
+  <app-menu-lateral
     [aberto]="menuPerfilAberto()"
     [usuarioNome]="usuarioNome()"
     (fechar)="fecharMenuPerfil()"
     (sair)="logout()"
-  ></app-simulacao-drawer>
+  ></app-menu-lateral>
 
-  <app-simulacao-topbar
+  <app-barra-superior
     [etapas]="[]"
     [etapaCorrente]="null"
     (abrirPerfil)="alternarMenuPerfil($event)"
-  ></app-simulacao-topbar>
+  ></app-barra-superior>
 
   <main class="quiz-shell">
     <section class="quiz-hero" *ngIf="!iniciado()">

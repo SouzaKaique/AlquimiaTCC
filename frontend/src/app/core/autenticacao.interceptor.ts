@@ -2,11 +2,11 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 
 import { API_BASE_URL } from './config/api.config';
-import { AuthService } from './services/auth';
+import { AutenticacaoService } from './services/autenticacao';
 
 // bloco do token nas requisicoes
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = inject(AuthService).obterToken();
+export const autenticacaoInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = inject(AutenticacaoService).obterToken();
 
   if (!token || !req.url.startsWith(API_BASE_URL)) {
     return next(req);

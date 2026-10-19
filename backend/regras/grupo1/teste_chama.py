@@ -1,4 +1,4 @@
-from dados.catalogos_marcha import FLAME_SAMPLES
+from dados.catalogos_marcha import AMOSTRAS_CHAMA
 from nucleo.operacoes_estado import (
     concluir_etapa,
     desbloquear_etapa,
@@ -14,7 +14,7 @@ RESUMO_GRUPO_1 = "Grupo 1: K, Na e Sr foram diferenciados com clareza pelo teste
 
 # bloco do sal no tubo
 def aplicar_reagente(estado: dict, reagente: str) -> None:
-    if reagente not in FLAME_SAMPLES:
+    if reagente not in AMOSTRAS_CHAMA:
         estado["observacao_atual"] = "Use um sal conhecido no teste de chama do grupo 1."
         return
 
@@ -44,7 +44,7 @@ def aquecer(estado: dict) -> None:
         estado["observacao_atual"] = "Escolha um sal antes de aquecer."
         return
 
-    dados = FLAME_SAMPLES[amostra]
+    dados = AMOSTRAS_CHAMA[amostra]
     estado["teste_chama"]["ativa"] = True
     estado["teste_chama"]["cor"] = dados["flame_color"]
     estado["teste_chama"]["mensagem"] = dados["resultado"]
@@ -57,7 +57,7 @@ def aquecer(estado: dict) -> None:
     registrar_evento(estado, dados["resultado"])
     estado["observacao_atual"] = dados["resultado"]
 
-    if len(estado["grupo1"]["testadas"]) == len(FLAME_SAMPLES):
+    if len(estado["grupo1"]["testadas"]) == len(AMOSTRAS_CHAMA):
         estado["teste_chama"]["aguardando_confirmacao"] = True
         estado["observacao_atual"] = (
             f"{dados['resultado']} Teste de chama concluido. Confirme para seguir para a proxima analise."

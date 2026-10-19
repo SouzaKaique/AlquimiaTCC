@@ -6,14 +6,14 @@ import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
 // bloco do bico de bunsen
 @Component({
-  selector: 'app-burner',
+  selector: 'app-bico-bunsen',
   standalone: true,
   imports: [CommonModule, TextoVisivelPipe],
-  templateUrl: './burner.component.html',
-  styleUrls: ['./burner.component.css'],
+  templateUrl: './bico-bunsen.component.html',
+  styleUrls: ['./bico-bunsen.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BurnerComponent {
+export class BicoBunsenComponent {
   @Input() hoverChama = false;
   @Input() testeChama: TesteChama | null = null;
   @Input() fogoAtivo = false;

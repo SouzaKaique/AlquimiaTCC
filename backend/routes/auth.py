@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, jsonify, request
 from flask_jwt_extended import create_access_token
 
 from extensions import bcrypt, db
-from models import User
+from models import Usuario
 from nucleo.tempo import agora_utc
 
 auth_bp = Blueprint("auth", __name__)
@@ -19,13 +19,13 @@ def registrar():
     if not nome or not senha:
         return jsonify({"error": "Nome e senha sao obrigatorios."}), 400
 
-    existente = User.query.filter_by(nome=nome).first()
+    existente = Usuario.query.filter_by(nome=nome).first()
     if existente:
         return jsonify({"error": "Ja existe um usuario com esse nome."}), 409
 
     senha_hash = bcrypt.generate_password_hash(senha).decode("utf-8")
 
-    novo_usuario = User(
+    novo_usuario = Usuario(
         nome=nome,
         senha_hash=senha_hash,
         data_criacao=agora_utc(),
@@ -48,7 +48,7 @@ def entrar():
     if not nome or not senha:
         return jsonify({"error": "Nome e senha sao obrigatorios."}), 400
 
-    usuario = User.query.filter_by(nome=nome).first()
+    usuario = Usuario.query.filter_by(nome=nome).first()
 
     if not usuario or not bcrypt.check_password_hash(usuario.senha_hash, senha):
         return jsonify({"error": "Credenciais invalidas."}), 401
@@ -72,5 +72,5 @@ def entrar():
 
 
 # bloco do modo apresentacao
-def eh_apresentador(usuario: User | None) -> bool:
+def eh_apresentador(usuario: Usuario | None) -> bool:
     return bool(usuario) and usuario.nome in current_app.config["USUARIOS_APRESENTACAO"]

@@ -6,14 +6,14 @@ import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
 // bloco dos cards da bancada
 @Component({
-  selector: 'app-bench-card',
+  selector: 'app-cartao-bancada',
   standalone: true,
   imports: [CommonModule, TextoVisivelPipe],
-  templateUrl: './bench-card.component.html',
-  styleUrls: ['./bench-card.component.css'],
+  templateUrl: './cartao-bancada.component.html',
+  styleUrls: ['./cartao-bancada.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BenchCardComponent {
+export class CartaoBancadaComponent {
   @Input({ required: true }) card!: CenaCard;
   @Input() variante: 'main' | 'side' | 'side-bottom' = 'main';
 }

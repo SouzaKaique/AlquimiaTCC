@@ -12,15 +12,15 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BenchCardComponent } from './components/bench-card/bench-card.component';
-import { BurnerComponent } from './components/burner/burner.component';
-import { CentrifugeComponent } from './components/centrifuge/centrifuge.component';
-import { DrawerComponent } from './components/drawer/drawer.component';
-import { ReagentBoardComponent } from './components/reagent-board/reagent-board.component';
-import { StatusBoxComponent } from './components/status-box/status-box.component';
-import { TestTubeComponent } from './components/test-tube/test-tube.component';
-import { TopbarComponent } from './components/topbar/topbar.component';
-import { AuthService } from '../../core/services/auth';
+import { CartaoBancadaComponent } from './components/cartao-bancada/cartao-bancada.component';
+import { BicoBunsenComponent } from './components/bico-bunsen/bico-bunsen.component';
+import { CentrifugaComponent } from './components/centrifuga/centrifuga.component';
+import { MenuLateralComponent } from './components/menu-lateral/menu-lateral.component';
+import { PainelReagentesComponent } from './components/painel-reagentes/painel-reagentes.component';
+import { CaixaStatusComponent } from './components/caixa-status/caixa-status.component';
+import { TuboEnsaioComponent } from './components/tubo-ensaio/tubo-ensaio.component';
+import { BarraSuperiorComponent } from './components/barra-superior/barra-superior.component';
+import { AutenticacaoService } from '../../core/services/autenticacao';
 import { TextoVisivelPipe } from '../../shared/pipes/texto-visivel.pipe';
 import { RelatorioPdfService } from '../../shared/services/relatorio-pdf.service';
 import { AcaoSimulacao } from './enums/acao-simulacao.enum';
@@ -35,14 +35,14 @@ import { SimulacaoApiService } from './services/simulacao-api.service';
   standalone: true,
   imports: [
     CommonModule,
-    BenchCardComponent,
-    BurnerComponent,
-    CentrifugeComponent,
-    DrawerComponent,
-    ReagentBoardComponent,
-    StatusBoxComponent,
-    TestTubeComponent,
-    TopbarComponent,
+    CartaoBancadaComponent,
+    BicoBunsenComponent,
+    CentrifugaComponent,
+    MenuLateralComponent,
+    PainelReagentesComponent,
+    CaixaStatusComponent,
+    TuboEnsaioComponent,
+    BarraSuperiorComponent,
     TextoVisivelPipe,
   ],
   templateUrl: './simulacao.html',
@@ -51,7 +51,7 @@ import { SimulacaoApiService } from './services/simulacao-api.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SimulacaoComponent implements OnInit, OnDestroy {
-  private readonly authService = inject(AuthService);
+  private readonly autenticacaoService = inject(AutenticacaoService);
   private readonly simulacaoApi = inject(SimulacaoApiService);
   private readonly router = inject(Router);
   private readonly relatorioPdf = inject(RelatorioPdfService);
@@ -271,7 +271,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
   // bloco do ciclo de vida
   ngOnInit(): void {
     this.usuarioNome.set(localStorage.getItem('usuario_nome') || 'Usuário');
-    this.modoApresentacao.set(this.authService.ehApresentador());
+    this.modoApresentacao.set(this.autenticacaoService.ehApresentador());
 
     if (!localStorage.getItem('token')) {
       window.location.assign('/');
@@ -299,7 +299,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.fecharMenuPerfil();
-    this.authService.encerrarSessao();
+    this.autenticacaoService.encerrarSessao();
     window.location.assign('/');
   }
 
@@ -420,7 +420,7 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
     this.reagenteSelecionado.set(reagente);
   }
 
-  onReagentBoardDragStart(payload: { event: DragEvent; reagente: Reagente }): void {
+  onPainelReagentesDragStart(payload: { event: DragEvent; reagente: Reagente }): void {
     this.onReagentDragStart(payload.event, payload.reagente);
   }
 

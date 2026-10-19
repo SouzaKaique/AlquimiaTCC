@@ -8,13 +8,13 @@ import 'notyf/notyf.min.css';
 import gsap from 'gsap';
 import { Notyf } from 'notyf';
 
-import { AuthLayoutComponent } from '../../auth/auth-layout.component/auth-layout.component';
-import { AuthService } from '../../core/services/auth';
+import { LayoutAutenticacaoComponent } from '../layout-autenticacao/layout-autenticacao.component';
+import { AutenticacaoService } from '../../core/services/autenticacao';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, AuthLayoutComponent],
+  imports: [CommonModule, FormsModule, RouterModule, LayoutAutenticacaoComponent],
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css'],
 })
@@ -30,7 +30,7 @@ export class RegistroComponent implements OnInit {
 
   @ViewChild('formEl', { read: ElementRef }) formulario?: ElementRef;
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly autenticacaoService: AutenticacaoService) {}
 
   ngOnInit(): void {
     this.notyf = new Notyf({
@@ -62,7 +62,7 @@ export class RegistroComponent implements OnInit {
       return;
     }
 
-    this.authService.registrar(this.usuario, this.senha).subscribe({
+    this.autenticacaoService.registrar(this.usuario, this.senha).subscribe({
         next: () => {
           this.notyf.open({ type: 'sucesso', message: 'Conta criada com sucesso. Você já pode entrar.' });
           this.animarSucesso();

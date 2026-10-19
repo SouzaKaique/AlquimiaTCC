@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from extensions import db
-from models import User
+from models import Usuario
 from routes.auth import eh_apresentador
 from servicos.servico_simulacao import ServicoSimulacao
 
@@ -85,7 +85,7 @@ def _executar_acao(acao: str, descricao_historico: str):
 @bp.route("/etapa", methods=["POST"])
 @jwt_required()
 def ir_para_etapa():
-    usuario = db.session.get(User, int(get_jwt_identity()))
+    usuario = db.session.get(Usuario, int(get_jwt_identity()))
     if not eh_apresentador(usuario):
         return jsonify({"error": "Acesso restrito ao modo apresentacao."}), 403
 

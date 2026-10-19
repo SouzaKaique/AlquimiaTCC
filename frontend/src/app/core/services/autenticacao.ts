@@ -21,7 +21,7 @@ export interface RespostaRegistro {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AutenticacaoService {
   private readonly api = `${API_BASE_URL}/auth`;
 
   constructor(private readonly http: HttpClient) {}

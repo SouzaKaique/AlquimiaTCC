@@ -6,14 +6,14 @@ import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
 // bloco da caixa de status
 @Component({
-  selector: 'app-status-box',
+  selector: 'app-caixa-status',
   standalone: true,
   imports: [CommonModule, TextoVisivelPipe],
-  templateUrl: './status-box.component.html',
-  styleUrls: ['./status-box.component.css'],
+  templateUrl: './caixa-status.component.html',
+  styleUrls: ['./caixa-status.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatusBoxComponent {
+export class CaixaStatusComponent {
   @Input() mensagem = '';
   @Input() etapaLabel = 'Introdução';
   @Input() testeChama: TesteChama | null = null;

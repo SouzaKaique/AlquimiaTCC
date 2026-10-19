@@ -1,6 +1,6 @@
 import copy
 
-from dados.catalogos_marcha import REAGENT_CATALOG
+from dados.catalogos_marcha import CATALOGO_REAGENTES
 
 
 # bloco do historico
@@ -14,7 +14,7 @@ def registrar_reagente_utilizado(estado: dict, nome: str) -> None:
     if any(item["nome"] == nome for item in usados):
         return
 
-    catalogo = next((item for item in REAGENT_CATALOG if item["nome"] == nome), None)
+    catalogo = next((item for item in CATALOGO_REAGENTES if item["nome"] == nome), None)
     if not catalogo:
         return
 

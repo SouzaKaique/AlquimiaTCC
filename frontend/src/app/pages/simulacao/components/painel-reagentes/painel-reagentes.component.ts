@@ -7,14 +7,14 @@ import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
 // bloco dos reagentes
 @Component({
-  selector: 'app-reagent-board',
+  selector: 'app-painel-reagentes',
   standalone: true,
   imports: [CommonModule, TextoVisivelPipe],
-  templateUrl: './reagent-board.component.html',
-  styleUrls: ['./reagent-board.component.css'],
+  templateUrl: './painel-reagentes.component.html',
+  styleUrls: ['./painel-reagentes.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReagentBoardComponent {
+export class PainelReagentesComponent {
   @Input() destaque = '';
   @Input() totalReagentes = 0;
   @Input() reagenteSelecionado: Reagente | null = null;

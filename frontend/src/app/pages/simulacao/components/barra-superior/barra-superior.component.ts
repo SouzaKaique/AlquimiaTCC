@@ -6,14 +6,14 @@ import { TextoVisivelPipe } from '../../../../shared/pipes/texto-visivel.pipe';
 
 // bloco da topbar
 @Component({
-  selector: 'app-simulacao-topbar',
+  selector: 'app-barra-superior',
   standalone: true,
   imports: [CommonModule, TextoVisivelPipe],
-  templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.css'],
+  templateUrl: './barra-superior.component.html',
+  styleUrls: ['./barra-superior.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TopbarComponent {
+export class BarraSuperiorComponent {
   @Input({ required: true }) etapas: Etapa[] = [];
   @Input() etapaCorrente: number | null = null;
   @Input() navegacaoLivre = false;

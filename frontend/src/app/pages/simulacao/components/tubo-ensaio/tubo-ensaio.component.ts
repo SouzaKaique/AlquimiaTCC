@@ -6,14 +6,14 @@ import { VisualEstado } from '../../interfaces/visual-estado.interface';
 
 // bloco do tubo de ensaio
 @Component({
-  selector: 'app-test-tube',
+  selector: 'app-tubo-ensaio',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './test-tube.component.html',
-  styleUrls: ['./test-tube.component.css'],
+  templateUrl: './tubo-ensaio.component.html',
+  styleUrls: ['./tubo-ensaio.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TestTubeComponent {
+export class TuboEnsaioComponent {
   @Input({ required: true }) visual!: VisualEstado;
   @Input() hoverTubo = false;
   @Input() hoverChama = false;

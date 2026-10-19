@@ -1,14 +1,14 @@
 import copy
 from typing import Any
 
-from dados.catalogos_marcha import ACTION_CATALOG, DEFAULT_VISUAL, REAGENT_CATALOG, STAGE_DEFINITIONS
+from dados.catalogos_marcha import CATALOGO_ACOES, VISUAL_PADRAO, CATALOGO_REAGENTES, DEFINICOES_ETAPAS
 from visual.estado_visual import atualizar_cena
 
 
 # bloco do estado inicial
 def criar_estado_inicial() -> dict[str, Any]:
     etapas = []
-    for definition in STAGE_DEFINITIONS:
+    for definition in DEFINICOES_ETAPAS:
         etapa_id = definition["id"]
         etapas.append(
             {
@@ -62,7 +62,7 @@ def criar_estado_inicial() -> dict[str, Any]:
             "hidroxidos_separados": False,
             "ni_confirmado": False,
         },
-        "visual": copy.deepcopy(DEFAULT_VISUAL),
+        "visual": copy.deepcopy(VISUAL_PADRAO),
         "cena": {},
         "teste_chama": {
             "ativa": False,
@@ -81,7 +81,7 @@ def obter_catalogo_reagentes(estado: dict[str, Any]) -> list[dict[str, Any]]:
     etapa = estado["etapa_corrente"]
     reagentes = []
 
-    for item in REAGENT_CATALOG:
+    for item in CATALOGO_REAGENTES:
         if etapa not in item["etapas"]:
             continue
 
@@ -165,5 +165,5 @@ def garantir_campos_atuais(estado: dict[str, Any]) -> None:
 
 
 def criar_acao(nome: str) -> dict[str, Any]:
-    dados = ACTION_CATALOG[nome]
+    dados = CATALOGO_ACOES[nome]
     return {"nome": nome, "label": dados["label"], "descricao": dados["descricao"]}

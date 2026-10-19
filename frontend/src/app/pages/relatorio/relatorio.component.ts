@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../core/services/auth';
-import { DrawerComponent } from '../simulacao/components/drawer/drawer.component';
-import { TopbarComponent } from '../simulacao/components/topbar/topbar.component';
+import { AutenticacaoService } from '../../core/services/autenticacao';
+import { MenuLateralComponent } from '../simulacao/components/menu-lateral/menu-lateral.component';
+import { BarraSuperiorComponent } from '../simulacao/components/barra-superior/barra-superior.component';
 import { EstadoSimulacao } from '../simulacao/models/estado-simulacao.model';
 import { SimulacaoApiService } from '../simulacao/services/simulacao-api.service';
 import { TextoVisivelPipe } from '../../shared/pipes/texto-visivel.pipe';
@@ -14,7 +14,7 @@ import { RelatorioPdfService } from '../../shared/services/relatorio-pdf.service
 @Component({
   selector: 'app-relatorio',
   standalone: true,
-  imports: [CommonModule, DrawerComponent, TopbarComponent, TextoVisivelPipe],
+  imports: [CommonModule, MenuLateralComponent, BarraSuperiorComponent, TextoVisivelPipe],
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,7 +23,7 @@ export class RelatorioComponent implements OnInit {
   private readonly simulacaoApi = inject(SimulacaoApiService);
   private readonly pdfService = inject(RelatorioPdfService);
   private readonly router = inject(Router);
-  private readonly authService = inject(AuthService);
+  private readonly autenticacaoService = inject(AutenticacaoService);
 
   readonly estado = signal<EstadoSimulacao | null>(null);
   readonly carregando = signal(true);
@@ -73,7 +73,7 @@ export class RelatorioComponent implements OnInit {
 
   logout(): void {
     this.fecharMenuPerfil();
-    this.authService.encerrarSessao();
+    this.autenticacaoService.encerrarSessao();
     window.location.assign('/');
   }
 

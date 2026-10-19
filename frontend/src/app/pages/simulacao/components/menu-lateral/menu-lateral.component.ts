@@ -4,14 +4,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 // bloco do menu lateral
 @Component({
-  selector: 'app-simulacao-drawer',
+  selector: 'app-menu-lateral',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './drawer.component.html',
-  styleUrls: ['./drawer.component.css'],
+  templateUrl: './menu-lateral.component.html',
+  styleUrls: ['./menu-lateral.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DrawerComponent {
+export class MenuLateralComponent {
   @Input() aberto = false;
   @Input() usuarioNome = 'Usuário';
 

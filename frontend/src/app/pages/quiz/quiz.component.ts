@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../core/services/auth';
-import { DrawerComponent } from '../simulacao/components/drawer/drawer.component';
-import { TopbarComponent } from '../simulacao/components/topbar/topbar.component';
+import { AutenticacaoService } from '../../core/services/autenticacao';
+import { MenuLateralComponent } from '../simulacao/components/menu-lateral/menu-lateral.component';
+import { BarraSuperiorComponent } from '../simulacao/components/barra-superior/barra-superior.component';
 
 // bloco das perguntas
 interface AlternativaQuiz {
@@ -191,13 +191,13 @@ const PERGUNTAS_QUIZ: PerguntaQuiz[] = [
 @Component({
   selector: 'app-quiz',
   standalone: true,
-  imports: [CommonModule, DrawerComponent, TopbarComponent],
+  imports: [CommonModule, MenuLateralComponent, BarraSuperiorComponent],
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuizComponent {
-  private readonly authService = inject(AuthService);
+  private readonly autenticacaoService = inject(AutenticacaoService);
 
   readonly perguntas = PERGUNTAS_QUIZ;
   readonly menuPerfilAberto = signal(false);
@@ -230,7 +230,7 @@ export class QuizComponent {
 
   logout(): void {
     this.fecharMenuPerfil();
-    this.authService.encerrarSessao();
+    this.autenticacaoService.encerrarSessao();
     window.location.assign('/');
   }
 
