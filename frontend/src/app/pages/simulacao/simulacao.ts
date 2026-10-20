@@ -371,6 +371,12 @@ export class SimulacaoComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // relatorio abre a pagina com o progresso real, sem completar os grupos
+    if (etapa === 4) {
+      this.navegarRelatorioCompleto();
+      return;
+    }
+
     this.limparBancada();
     this.acaoEmAndamento.set('ir_para_etapa');
 
